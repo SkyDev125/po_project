@@ -1,0 +1,62 @@
+@startuml VetHotel
+
+' + -> public
+' - -> private
+' # -> protected
+' ~ -> package
+' {static} -> shared added as a prefix
+' {final} -> constant added as prefix
+' *-- -> composition full tilted square
+' o-- -> agregation empty tilter square
+' -- -> association line
+' ..> -> dependency dotted line
+
+class VetHotel{
+    - _habitats: Habitat[]
+    - _workers
+
+}
+
+class Habitat{
+    - _id: String
+    - _name: String
+    - _area: int
+    - _animals: Animal[]
+    - _trees: Tree[]
+    - _animalCount: int
+    + occupancy(): int
+}
+
+abstract class Animal{
+    - _id: String
+    - {final} _species: Specie
+    - {final} _name: String
+    - _health: int
+    + satisfaction(): int
+
+}
+
+abstract class Workers{
+    # {final} _workerType: String
+
+}
+
+class CareTaker extends Workers{
+    + feedAnimals(): void
+    + cleanHabitat(habitat: Habitat): void
+}
+
+class Vet extends Workers{
+    + vaccinate(animal: Animal): void
+}
+
+class Specie{
+    - {final} _id: int
+    - {final} _name: String
+    {static} - _counter: int
+    - _animals: Animal[]
+}
+
+VetHotel *-- Habitat
+VetHotel o-- Workers
+Habitat -- Animal
