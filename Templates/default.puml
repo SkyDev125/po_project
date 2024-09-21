@@ -4,12 +4,12 @@
 ' - -> private
 ' # -> protected
 ' ~ -> package
-' underlined -> static (represented by {static} as prefix )
-' final -> represented by a {final} as prefix
-' composição -> losangulo cheio
-' agregação -> losangulo vazio
-' associação -> linha
-' dependência -> linha traçada
+' {static} -> shared added as a prefix
+' {final} -> constant added as prefix
+' *-- -> composition full tilted square
+' o-- -> agregation empty tilter square
+' -- -> association line
+' ..> -> dependency dotted line
 
 ' Define classes
 class Name {
