@@ -13,9 +13,13 @@
 
 class VetHotel{
     - _habitats: Map<String, Habitat>
-    - _workers: Workers[]
+    - _workers: Map<String, Worker>
     - _vaccines: Map<String, Vaccine>
-    - _habitats: Map<String, Habitat>
+    - _errVaccineLog: String
+    + satisfaction(): int
+    + printVaccineErr(): String
+    + printVaccines(): String
+    + addHabitat(id: String, name: Name): Habitat
 }
 
 class Habitat{
@@ -35,11 +39,13 @@ class Habitat{
     + suitability(species: Species): int
     + animalCount(): int
     + careTakerCount(): int
-    
+    + changeArea(): void
+    + changeSuitability(species: Species, suitability: int): void
     + addAnimal(animal: Animal): void
     + removeAnimal(animal: Animal): void
     + addTree(tree: Tree): void
     + removeTree(tree: Tree): void
+    + print(): String
 
 }
 
@@ -80,8 +86,10 @@ class Animal{
     - {final} _id: String
     - {final} _species: Specie
     - {final} _name: String
-    - _healthLog: VaccineDamage[]
-    + satisfaction(Habitat: habitat): float
+    - _habitat: Habitat
+    - _healthLog: String
+    + satisfaction(): float
+    + print(): String
 
 }
 
@@ -106,6 +114,7 @@ Class Tree{
     + type(): boolean
     + updateAge(): void
     + cleanEffort(): int
+    + print(): String
 }
 
 Class Season <<singleton>>{
@@ -122,6 +131,8 @@ abstract class Workers{
     # {final} _id: String
     # {final} _name: String
     # {final} _workerType: String
+    + abstract satisfaction()
+    + abstract print(): String
 
 }
 
@@ -134,6 +145,7 @@ class CareTaker extends Workers{
 
 class Vet extends Workers{
     - _species: Species[]
+    - _vaccineLog: String
     + vaccinate(animal: Animal, vaccine: Vaccine): void
     + satisfaction(): float
 }
@@ -145,10 +157,35 @@ Class Vaccine {
     - _applyCount: int
     - _log: String
     + apply(animal: Animal, vet: Vet): void
+    + print(): String
 }
 
-VetHotel *-- Habitat
+VetHotel *--  Habitat
 VetHotel o-- Workers
+VetHotel o-- Vaccine
+
+Habitat *-- Tree
 Habitat -- Animal
-Specie -- Animal
-Animal o-- Specie
+Habitat -- CareTaker
+
+Species *-- Animal
+Species -- Vet
+
+SpeciesManager *-- Species
+
+Animal -- Species
+
+Tree -- Habitat
+
+Season -- Tree
+
+CareTaker -- Habitat
+
+Vet -- Species
+
+Vaccine -- Species
+Vaccine -- Vet
+
+' Vacinas podem existir sem existencia de um Vet? Devo guardar num singleton?
+' A estação do ano é sempre a mesma sobre todos os Veterinarios no mundo? ou podemos ter varias? se não fica como singleton.
+' Especies podem existir fora de um Vet? se sim devo guardar num singleton? para que possam ser utilizadas noutros vets sem ter de as registar denovo?
