@@ -12,51 +12,143 @@
 ' ..> -> dependency dotted line
 
 class VetHotel{
-    - _habitats: Habitat[]
-    - _workers
-
+    - _habitats: Map<String, Habitat>
+    - _workers: Workers[]
+    - _vaccines: Map<String, Vaccine>
+    - _habitats: Map<String, Habitat>
 }
 
 class Habitat{
-    - _id: String
-    - _name: String
+    - {final} _id: String
+    - {final} _name: String
     - _area: int
-    - _animals: Animal[]
-    - _trees: Tree[]
+    - _trees: Map<String, Tree>
+    - _animals: Map<Species, Map<String, Animal>>
+    - _suitability: Map<Species, Integer>
     - _animalCount: int
-    + occupancy(): int
+    - _careTakers: CareTaker[]
+
+    + id(): String
+    + name(): String
+    + area(): int
+    + animalExists(animal: Animal): boolean
+    + suitability(species: Species): int
+    + animalCount(): int
+    + careTakerCount(): int
+    
+    + addAnimal(animal: Animal): void
+    + removeAnimal(animal: Animal): void
+    + addTree(tree: Tree): void
+    + removeTree(tree: Tree): void
+
 }
 
-abstract class Animal{
-    - _id: String
+class Species{
+    - {final} _id: int
+    - {final} _name: String
+    - {static} _counter: int
+    - _animals: Map<String, Animal>
+    - _vets: Vet[]
+    + id(): int
+    + name(): String
+    + animal(id: String): Animal
+    + addAnimal(animal: Animal): void
+    + removeAnimal(animal: Animal): void
+    + animalExists(id: String): Animal
+    + equals(species: Species): boolean
+    + vetCounter(): int
+}
+
+class SpeciesManager <<singleton>>{
+    - _species: Map<String, Species>
+    - {static} {final} _instance: SpeciesManager
+    - SpeciesManager(): SpeciesManager
+    + createSpecies(name: String): Species
+    + speciesExists(name: String): boolean
+    + species(name: String): Species
+    + instance(): SpeciesManager
+}
+
+enum VaccineDamage {
+    NORMAL
+    CONFUSION
+    ACCIDENT
+    ERROR
+}
+
+class Animal{
+    - {final} _id: String
     - {final} _species: Specie
     - {final} _name: String
-    - _health: int
-    + satisfaction(): int
+    - _healthLog: VaccineDamage[]
+    + satisfaction(Habitat: habitat): float
 
+}
+
+enum SeasonType {
+    SPRING
+    SUMMER
+    FALL
+    WINTER
+}
+
+Class Tree{
+    - {final} _id: String
+    - {final} _name: String
+    - _age: int
+    - {final} _birthSeason: SeasonType
+    - {final} _type: boolean
+    - _cleanDifficulty: int
+    + id(): String
+    + name(): String
+    + age(): int
+    + birthSeason(): SeasonType
+    + type(): boolean
+    + updateAge(): void
+    + cleanEffort(): int
+}
+
+Class Season <<singleton>>{
+    - {static} {final} _instance: Season
+    - _currentSeason: SeasonType
+    - Season()
+    + instance(): Season
+    + currentSeason(): SeasonType
+    + progressSeason(): void
+    + notifyListeners(): void
 }
 
 abstract class Workers{
+    # {final} _id: String
+    # {final} _name: String
     # {final} _workerType: String
 
 }
 
 class CareTaker extends Workers{
+    - _habitats: Habitat[]
     + feedAnimals(): void
     + cleanHabitat(habitat: Habitat): void
+    + satisfaction(): float
 }
 
 class Vet extends Workers{
-    + vaccinate(animal: Animal): void
+    - _species: Species[]
+    + vaccinate(animal: Animal, vaccine: Vaccine): void
+    + satisfaction(): float
 }
 
-class Specie{
-    - {final} _id: int
-    - {final} _name: String
-    {static} - _counter: int
-    - _animals: Animal[]
+Class Vaccine {
+    - _id: String
+    - _name: String
+    - _species: Species[]
+    - _applyCount: int
+    - _log: String
+    + apply(animal: Animal, vet: Vet): void
 }
 
 VetHotel *-- Habitat
 VetHotel o-- Workers
 Habitat -- Animal
+Specie -- Animal
+Animal o-- Specie
