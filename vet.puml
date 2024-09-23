@@ -15,11 +15,24 @@ class VetHotel{
     - _habitats: Map<String, Habitat>
     - _workers: Map<String, Worker>
     - _vaccines: Map<String, Vaccine>
+    - _species: Map<String, Species>
+    ' Check how to notify tree listeners.
+    - _season: SeasonType
+    ' Decide if we should only use one log (for loop), or have the error log
     - _errVaccineLog: String
+    - _vaccineLog: String
     + satisfaction(): int
     + printVaccineErr(): String
     + printVaccines(): String
+    + printWorkers(): String
+    + printAnimals(): String
+    + printHabitats(): String
+    + printSpecies(): String
     + addHabitat(id: String, name: Name): Habitat
+    + addWorker(id: String, name: Name): Worker
+    + addVaccine(id: String, name: Name): Vaccine
+    + addSpecies(id: String, name: Name): Specie
+    + progressSeason(): void
 }
 
 class Habitat{
@@ -29,24 +42,18 @@ class Habitat{
     - _trees: Map<String, Tree>
     - _animals: Map<Species, Map<String, Animal>>
     - _suitability: Map<Species, Integer>
-    - _animalCount: int
-    - _careTakers: CareTaker[]
+    - _careTakers: Map<String, CareTaker>
 
-    + id(): String
-    + name(): String
-    + area(): int
     + animalExists(animal: Animal): boolean
     + suitability(species: Species): int
-    + animalCount(): int
     + careTakerCount(): int
-    + changeArea(): void
     + changeSuitability(species: Species, suitability: int): void
     + addAnimal(animal: Animal): void
     + removeAnimal(animal: Animal): void
     + addTree(tree: Tree): void
     + removeTree(tree: Tree): void
     + print(): String
-
+    + equals(habitat: Habitat): boolean
 }
 
 class Species{
@@ -54,25 +61,12 @@ class Species{
     - {final} _name: String
     - {static} _counter: int
     - _animals: Map<String, Animal>
-    - _vets: Vet[]
-    + id(): int
-    + name(): String
-    + animal(id: String): Animal
+    - _vets: Map<String, Vets>
     + addAnimal(animal: Animal): void
     + removeAnimal(animal: Animal): void
     + animalExists(id: String): Animal
     + equals(species: Species): boolean
     + vetCounter(): int
-}
-
-class SpeciesManager <<singleton>>{
-    - _species: Map<String, Species>
-    - {static} {final} _instance: SpeciesManager
-    - SpeciesManager(): SpeciesManager
-    + createSpecies(name: String): Species
-    + speciesExists(name: String): boolean
-    + species(name: String): Species
-    + instance(): SpeciesManager
 }
 
 enum VaccineDamage {
@@ -82,17 +76,6 @@ enum VaccineDamage {
     ERROR
 }
 
-class Animal{
-    - {final} _id: String
-    - {final} _species: Specie
-    - {final} _name: String
-    - _habitat: Habitat
-    - _healthLog: String
-    + satisfaction(): float
-    + print(): String
-
-}
-
 enum SeasonType {
     SPRING
     SUMMER
@@ -100,31 +83,36 @@ enum SeasonType {
     WINTER
 }
 
+enum LeafState {
+    WITHOUTLEAFS
+    WITHLEAFS
+    FALLINGLEAFS
+    GENERATELEAFS
+}
+
+
+class Animal{
+    - {final} _id: String
+    - {final} _species: Specie
+    - {final} _name: String
+    - _habitat: Habitat
+    - _healthLog: String
+    + satisfaction(): float
+    + vaccineEvent(): void
+    + print(): String
+    + equals(animal: Animal): boolean
+}
+
 Class Tree{
     - {final} _id: String
     - {final} _name: String
     - _age: int
     - {final} _birthSeason: SeasonType
-    - {final} _type: boolean
+    - {final} _isEvergreen: boolean
     - _cleanDifficulty: int
-    + id(): String
-    + name(): String
-    + age(): int
-    + birthSeason(): SeasonType
-    + type(): boolean
-    + updateAge(): void
-    + cleanEffort(): int
+    + leafState(season: SeasonType): LeafState
     + print(): String
-}
-
-Class Season <<singleton>>{
-    - {static} {final} _instance: Season
-    - _currentSeason: SeasonType
-    - Season()
-    + instance(): Season
-    + currentSeason(): SeasonType
-    + progressSeason(): void
-    + notifyListeners(): void
+    + equals(tree: Tree): boolenan
 }
 
 abstract class Workers{
@@ -133,21 +121,27 @@ abstract class Workers{
     # {final} _workerType: String
     + abstract satisfaction()
     + abstract print(): String
-
+    + abstract addResponsability(): Void
+    + abstract removeResponsability(): 
+    + equals(): boolean
 }
 
 class CareTaker extends Workers{
     - _habitats: Habitat[]
-    + feedAnimals(): void
     + cleanHabitat(habitat: Habitat): void
     + satisfaction(): float
+    + print(): String
+    + addResponsability(habitat: Habitat): void
+    + removeResponsability(id: String): Void
 }
 
 class Vet extends Workers{
     - _species: Species[]
-    - _vaccineLog: String
     + vaccinate(animal: Animal, vaccine: Vaccine): void
     + satisfaction(): float
+    + print(): String
+    + addResponsability(): void
+    + removeResponsability(): Void
 }
 
 Class Vaccine {
@@ -155,7 +149,7 @@ Class Vaccine {
     - _name: String
     - _species: Species[]
     - _applyCount: int
-    - _log: String
+    '- _log: String
     + apply(animal: Animal, vet: Vet): void
     + print(): String
 }
@@ -186,6 +180,7 @@ Vet -- Species
 Vaccine -- Species
 Vaccine -- Vet
 
-' Vacinas podem existir sem existencia de um Vet? Devo guardar num singleton?
-' A estação do ano é sempre a mesma sobre todos os Veterinarios no mundo? ou podemos ter varias? se não fica como singleton.
-' Especies podem existir fora de um Vet? se sim devo guardar num singleton? para que possam ser utilizadas noutros vets sem ter de as registar denovo?
+' Vacinas podem existir sem existencia de um Vet? Devo guardar num singleton? por hotel
+' A estação do ano é sempre a mesma sobre todos os Veterinarios no mundo? ou podemos ter varias? se não fica como singleton. por hotel
+' Especies podem existir fora de um Vet? se sim devo guardar num singleton? para que possam ser utilizadas noutros vets sem ter de as registar denovo? por hotel.
+@enduml
