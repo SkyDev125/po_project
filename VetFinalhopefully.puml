@@ -9,7 +9,7 @@ class HotelManager{
     + loadHotel(file: String): void
     + saveHotel(): void
 
-    ' Main Menu called from HotelManager._hotel.command()
+    ' Main Menu
     + progressSeason(): SeasonType
     + satisfaction(): int
 }
@@ -23,9 +23,6 @@ class Hotel{
     - _vaccineRegistry: VaccineRegistry[]
     - _trees: Map<String, Tree>
 
-    ' finds com exceções para responsabilidades, e sem.
-    '
-
     ' Check how to notify tree listeners.
     - _season: SeasonType
 
@@ -33,35 +30,52 @@ class Hotel{
     + progressSeason(): SeasonType
     + satisfaction(): int
 
-    ' Animals
+    ' Secondary Menus 4.2
     + animals(): Animal[]
-    + addAnimal(id: String, name: Name): Animal
-    + findAnimal(id: String): Animal
-    
-    ' Workers
-    + workers(): Worker[]
-    + addWorker(id: String, name: String, type: WorkerType): void
-    + findWorker(id: String): Worker
+    + addAnimal(id: String, name: Name, idSpecies: String, idHabitat: String): Animal
+    + transferAnimal(idAnimal: String, idHabitat: String): void
+    + animalSatisfaction(id: String): int
 
-    ' Habitats
+    ' Secondary Menus 4.3
+    + workers(): Worker[]
+    + addWorker(id: String, name: String, type: String): void
+    + addResponsibilityToWorker(idWorker: String, idResponsibility: String): void
+    + removeResponsibilityFromWorker(idWorker: String, idResponsibility: String): void
+    + workerSatisfaction(id: String): int
+
+    ' Secondary Menus 4.4
     + habitats(): Habitat[]
     + addHabitats(id: String, name: String, area: int): void
-    + findHabitat(id: String): Habitat
-
-    ' Trees
-    + addTree(tree: Tree): void
-    + findTree(id: String): Tree
-
-    ' Vaccines
+    + changeHabitatArea(id: String, area: int): void
+    + changeHabitatSuitability(id: String, idSpecies: String, influence: String): void
+    + addTreeToHabitat(idHabitat: String, idTree: String, name: String, age: int, cleanDiff: int, treeType: String): void
+    + habitatTrees(id: String): void
+    
+    ' Secondary Menus 4.5
     + vaccines(): Vaccine[]
-    + addVaccine(id: String, name: Name, species: Species[]): void
-    + findVaccine(id: String): Vaccine
-
-    ' Vaccine Registry
+    + addVaccine(id: String, name: Name, idSpecies: String): void
+    + vaccinateAnimal(idAnimal: String, idVaccine: String, idVet: String): void
     + vaccineRegistry(): VaccineRegistry[]
-    + addVaccineRegistry(vaccineReg: VaccineRegistry): void
+
+    ' Secondary Menus 4.6
+    + habitatAnimals(id: String): Animal[]
+    + animalVaccines(id: String): VaccineRegistry[]
+    + vetVaccines(id: String): VaccineRegistry[]
     + filterWrongVaccinations(): VaccineRegistry[]  
 
+    ' Searches
+    + animalExistsException(id: String): Exception
+    + animalExists(id: String): Animal
+    + speciesExistsException(id: String): Exception
+    + speciesExists(id: String): Species
+    + workerExistsException(id: String): Exception
+    + workerExists(id: String): Worker
+    + habitatExistsException(id: String): Exception
+    + habitatExists(id: String): Worker
+    + treeExistsException(id: String): Exception
+    + treeExists(id: String): Tree
+    + vaccineExistsException(id: String): Exception
+    + vaccineExists(id: String): Vaccine
 }
 
 class Animal{
@@ -70,6 +84,8 @@ class Animal{
     - {final} _species: Specie
     - _vaccineRegistry: VaccineRegistry[]
     - _habitat: Habitat
+
+    + Animal(id: String, name: String, species: Species, habitat: Habitat)
 
     + transferAnimal(idHabitat: String): void
     + satisfaction(): int
@@ -102,8 +118,6 @@ Class Tree{
     + hashCode(): int
 }
 
-' Make code to discern the type at the menu execute command
-' switch case.
 Class Evergreen extends Tree{
     - leaftState(season: SeasonType): LeafState
     - seasonalEffort(season: SeasonType): int
@@ -155,21 +169,16 @@ class Vet extends Worker{
     + toString(): String
 }
 
-' serves to use typeof only inside addresponsability in Workers, or remove.
-Class Responsibility{
+class Habitat{
     - {final} _id: String
     - {final} _name: String
-
-    + abstract toString(): String
-    + hashCode(): int
-}
-
-class Habitat extends Responsibility{
     - _area: int
     - _trees: Map<String, Tree>
     - _suitability: Map<Species, Integer>
     - _animals: Map<Species, Map<String, Animal>>
     - _careTakers: Map<String, CareTakers>
+
+    + id(): String
 
     + changeArea(area: int): void
     + changeSuitability(species: Species, suitability: int): void
@@ -184,11 +193,14 @@ class Habitat extends Responsibility{
 
 }
 
-class Species extends Responsibility{
-    - {final} _id: int
+class Species{
+    - {final} _id: String
     - {final} _name: String
     - _animals: Map<String, Animal>
     - _vets: Map<String, Vet>
+
+    + id(): String
+
     + addAnimal(animal: Animal): void
     + addVet(vet: Vet): void
     + removeVet(vet: Vet): void
@@ -212,6 +224,9 @@ Class VaccineRegistry{
     - _species: Species
     - _animal: Animal
     - _vaccineDamage: VaccineDamage
+
+    + VaccineRegistry(vaccine: Vaccine, vet: Vet, species: Species, animal: Animal, vaccineDamage: VaccineDamage)
+    + vaccineDamage(): VaccineDamage
     + toString(): String
 }
 
@@ -237,6 +252,12 @@ enum LeafState {
     WITHLEAFS
     FALLINGLEAFS
     GENERATELEAVES
+}
+
+enum Influence{
+    POS = 20
+    NEG = 0
+    NEU = -20
 }
 
 ' Relationships
