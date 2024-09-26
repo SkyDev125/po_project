@@ -1,0 +1,223 @@
+@startuml VetHotel
+
+' + -> public
+' - -> private
+' # -> protected
+' ~ -> package
+' {static} -> shared added as a prefix
+' {final} -> constant added as prefix
+' *-- -> composition full tilted square
+' o-- -> agregation empty tilter square
+' -- -> association line
+' ..> -> dependency dotted line
+
+class HotelManager{
+    - _hotel: Hotel
+    - _file: String
+
+    ' Hotel management
+    + createHotel(): void
+    + loadHotel(file: String): void
+    + saveHotel(): void
+
+    ' These commands are repeated here, due to belonging to main menu
+    + progressSeason(): SeasonType
+    + satisfaction(): int
+}
+
+class Hotel{
+    - _habitats: Map<String, Habitat>
+    - _workers: Map<String, Worker>
+    - _species: Map<String, Species>
+    - _animals: Map<String, Animal>
+    - _vaccines: VaccineRegistry[]
+
+    ' Check how to notify tree listeners.
+    - _season: SeasonType
+
+    - _vaccineLog: VaccineRegistry[]
+    + printVaccineErr(): String
+    + printVaccines(): String
+    + printWorkers(): String
+    + printAnimals(): String
+    + printHabitats(): String
+    + printSpecies(): String
+    + addHabitat(id: String, name: Name): Habitat
+    + findHabitat(id: String): Habitat
+    + addWorker(id: String, name: Name, type: WorkerType): void
+    + findWorker(id: String): Worker
+    + addVaccine(id: String, name: Name): Vaccine
+    + addSpecies(id: String, name: Name): Species
+    + findSpecies(id: String): Species
+    + addAnimal(id: String, name: Name): Animal
+    + findAnimal(id: String): Animal
+    + progressSeason(): void
+    + satisfaction(): int
+}
+
+class Habitat{
+    - {final} _id: String
+    - {final} _name: String
+    - _area: int
+    - _trees: Map<String, Tree>
+    - _animals: Map<Species, Map<String, Animal>>
+    - _suitability: Map<Species, Integer>
+    - _careTakers: Map<String, CareTaker>
+
+    + animalExists(animal: Animal): boolean
+    + suitability(species: Species): int
+    + careTakerCount(): int
+    + changeSuitability(species: Species, suitability: int): void
+    + addAnimal(animal: Animal): void
+    + removeAnimal(animal: Animal): void
+    + addTree(tree: Tree): void
+    + removeTree(tree: Tree): void
+    + print(): String
+    + equals(habitat: Habitat): boolean
+}
+
+class Species{
+    - {final} _id: int
+    - {final} _name: String
+    - {static} _counter: int
+    - _animals: Map<String, Animal>
+    - _vets: Map<String, Vets>
+    + addAnimal(animal: Animal): void
+    + removeAnimal(animal: Animal): void
+    + animalExists(id: String): Animal
+    + equals(species: Species): boolean
+    + vetCounter(): int
+}
+
+class Animal{
+    - {final} _id: String
+    - {final} _name: String
+    - {final} _species: Specie
+    - _healthLog: VaccineRegistry[]
+
+    - _habitat: Habitat 
+    + satisfaction(): int
+    + vaccineEvent(): void
+    + transferAnimal(idHabitat: String): void
+    + toString(): String
+    + equals(animal: Animal): boolean
+}
+
+Class Tree{
+    - {final} _id: String
+    - {final} _name: String
+    - _age: int
+    - {final} _birthSeason: SeasonType
+    - {final} _isEvergreen: boolean
+    - _cleanDifficulty: int
+    + leafState(season: SeasonType): LeafState
+    + toString(): String
+    + equals(tree: Tree): boolenan
+}
+
+abstract class Workers{
+    # {final} _workerType: WorkerType
+    # {final} _id: String
+    # {final} _name: String
+    + abstract satisfaction(): int
+    + abstract type(): WorkerType
+    + abstract addResponsability(): Void
+    + abstract removeResponsability(): 
+    + equals(): boolean
+}
+
+class CareTaker extends Workers{
+    - _habitats: Habitat[]
+    + cleanHabitat(habitat: Habitat): void
+    + satisfaction(): int
+    + toString(): String
+    + addResponsability(habitat: Habitat): void
+    + removeResponsability(id: String): Void
+}
+
+class Vet extends Workers{
+    - _species: Species[]
+    + vaccinate(animal: Animal, vaccine: Vaccine): void
+    + satisfaction(): int
+    + toString(): String
+    + addResponsability(): void
+    + removeResponsability(): Void
+}
+
+Class Vaccine {
+    - _id: String
+    - _name: String
+    - _species: Species[]
+    - _applyCount: int
+    + apply(animal: Animal, vet: Vet): void
+    + print(): String
+}
+
+Class VaccineRegistry{
+    - _vaccine: Vaccine
+    - _vet: Vet
+    - _species: Species
+    - _animal: Animal
+    - _vaccineDamage: VaccineDamage
+}
+
+
+' Enums
+enum VaccineDamage {
+    NORMAL
+    CONFUSION
+    ACCIDENT
+    ERROR
+}
+
+enum SeasonType {
+    SPRING = 1
+    SUMMER = 2
+    FALL = 3
+    WINTER = 4
+
+    +next(): SeasonType
+}
+
+enum LeafState {
+    WITHOUTLEAFS
+    WITHLEAFS
+    FALLINGLEAFS
+    GENERATELEAVES
+}
+
+enum WorkerType {
+    VET
+    TRT
+}
+
+
+' Relationships
+HotelManager *-- Hotel
+
+Hotel *--  Habitat
+Hotel o-- Workers
+Hotel o-- Vaccine
+Hotel o-- Species
+Hotel o-- Animal
+Hotel o-- VaccineRegistry
+
+Habitat *-- Tree
+Habitat -- Animal
+Habitat -- CareTaker
+
+Species *-- Animal
+Species -- Vet
+
+Animal -- Species
+
+Tree -- Habitat
+
+CareTaker -- Habitat
+
+Vet -- Species
+
+Vaccine -- Species
+Vaccine -- Vet
+
+@enduml

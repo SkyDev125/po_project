@@ -1,16 +1,5 @@
 @startuml VetHotel
 
-' + -> public
-' - -> private
-' # -> protected
-' ~ -> package
-' {static} -> shared added as a prefix
-' {final} -> constant added as prefix
-' *-- -> composition full tilted square
-' o-- -> agregation empty tilter square
-' -- -> association line
-' ..> -> dependency dotted line
-
 class HotelManager{
     - _hotel: Hotel
     - _file: String
@@ -20,7 +9,7 @@ class HotelManager{
     + loadHotel(file: String): void
     + saveHotel(): void
 
-    ' These commands are repeated here, due to belonging to main menu
+    ' Main Menu
     + progressSeason(): SeasonType
     + satisfaction(): int
 }
@@ -30,77 +19,185 @@ class Hotel{
     - _workers: Map<String, Worker>
     - _species: Map<String, Species>
     - _animals: Map<String, Animal>
-    - _vaccines: VaccineRegistry[]
+    - _vaccines: Map<String, Vaccine>
+    - _vaccineRegistry: VaccineRegistry[]
+    - _trees: Map<String, Tree>
 
     ' Check how to notify tree listeners.
     - _season: SeasonType
 
-    - _vaccineLog: VaccineRegistry[]
-    + printVaccineErr(): String
-    + printVaccines(): String
-    + printWorkers(): String
-    + printAnimals(): String
-    + printHabitats(): String
-    + printSpecies(): String
-    + addHabitat(id: String, name: Name): Habitat
-    + findHabitat(id: String): Habitat
-    + addWorker(id: String, name: Name, type: WorkerType): void
-    + findWorker(id: String): Worker
-    + addVaccine(id: String, name: Name): Vaccine
-    + addSpecies(id: String, name: Name): Species
-    + findSpecies(id: String): Species
-    + addAnimal(id: String, name: Name): Animal
-    + findAnimal(id: String): Animal
-    + progressSeason(): void
+    ' Main Menu called from HotelManager._hotel.command()
+    + progressSeason(): SeasonType
     + satisfaction(): int
-}
 
-class Habitat{
-    - {final} _id: String
-    - {final} _name: String
-    - _area: int
-    - _trees: Map<String, Tree>
-    - _animals: Map<Species, Map<String, Animal>>
-    - _suitability: Map<Species, Integer>
-    - _careTakers: Map<String, CareTaker>
+    ' Secondary Menus 4.2
+    + animals(): Animal[]
+    + addAnimal(id: String, name: Name, idSpecies: String, idHabitat: String): Animal
+    + transferAnimal(idAnimal: String, idHabitat: String): void
+    + animalSatisfaction(id: String): int
 
-    + animalExists(animal: Animal): boolean
-    + suitability(species: Species): int
-    + careTakerCount(): int
-    + changeSuitability(species: Species, suitability: int): void
-    + addAnimal(animal: Animal): void
-    + removeAnimal(animal: Animal): void
-    + addTree(tree: Tree): void
-    + removeTree(tree: Tree): void
-    + print(): String
-    + equals(habitat: Habitat): boolean
-}
+    ' Secondary Menus 4.3
+    + workers(): Worker[]
+    + addWorker(id: String, name: String, type: String): void
+    + addResponsibilityToWorker(idWorker: String, idResponsibility: String): void
+    + removeResponsibilityFromWorker(idWorker: String, idResponsibility: String): void
+    + workerSatisfaction(id: String): int
 
-class Species{
-    - {final} _id: int
-    - {final} _name: String
-    - {static} _counter: int
-    - _animals: Map<String, Animal>
-    - _vets: Map<String, Vets>
-    + addAnimal(animal: Animal): void
-    + removeAnimal(animal: Animal): void
+    ' Secondary Menus 4.4
+    + habitats(): Habitat[]
+    + addHabitat(id: String, name: String, area: int): void
+    + changeHabitatArea(id: String, area: int): void
+
+    ' Devo meter influencia como o meu enum? e ter um if
+    ' que decide qual enum significa a string na parte de execução
+    ' do comando? ou aqui dentro.
+    + changeHabitatSuitability(id: String, idSpecies: String, influence: String): void
+    + addTreeToHabitat(idHabitat: String, idTree: String, name: String, age: int, cleanDiff: int, treeType: String): void
+    + habitatTrees(id: String): Tree[]
+    
+    ' Secondary Menus 4.5
+    + vaccines(): Vaccine[]
+    + addVaccine(id: String, name: Name, idSpecies: String): void
+    + vaccinateAnimal(idAnimal: String, idVaccine: String, idVet: String): void
+    + vaccineRegistry(): VaccineRegistry[]
+
+    ' Secondary Menus 4.6
+    + habitatAnimals(id: String): Animal[]
+    + animalVaccines(id: String): VaccineRegistry[]
+    + vetVaccines(id: String): VaccineRegistry[]
+    + filterWrongVaccinations(): VaccineRegistry[]  
+
+    ' Searches
+    + animalExistsException(id: String): Exception
     + animalExists(id: String): Animal
-    + equals(species: Species): boolean
-    + vetCounter(): int
+    + speciesExistsException(id: String): Exception
+    + speciesExists(id: String): Species
+    + workerExistsException(id: String): Exception
+    + workerExists(id: String): Worker
+    + habitatExistsException(id: String): Exception
+    + habitatExists(id: String): Worker
+    + treeExistsException(id: String): Exception
+    + treeExists(id: String): Tree
+    + vaccineExistsException(id: String): Exception
+    + vaccineExists(id: String): Vaccine
 }
 
 class Animal{
     - {final} _id: String
     - {final} _name: String
     - {final} _species: Specie
-    - _healthLog: VaccineRegistry[]
+    - _vaccineRegistry: VaccineRegistry[]
+    - _habitat: Habitat
 
-    - _habitat: Habitat 
+    + Animal(id: String, name: String, species: Species, habitat: Habitat)
+    
+    + transferAnimal(habitat: Habitat): void
     + satisfaction(): int
-    + vaccineEvent(): void
-    + transferAnimal(idHabitat: String): void
+    + addVaccineRegistry(vaccineReg: VaccineRegistry): void
+    + vaccineRegistry(): VaccineRegistry[]
+
     + toString(): String
     + equals(animal: Animal): boolean
+    + hashCode(): int
+}
+
+class Species{
+    - {final} _id: String
+    - {final} _name: String
+    - _animals: Map<String, Animal>
+    - _vets: Map<String, Vet>
+
+    + Species(id: String, name: String)
+    
+    + id(): String
+    + addAnimal(animal: Animal): void
+    + addVet(vet: Vet): void
+    + removeVet(vet: Vet): void
+    + animalCount(): int
+    + vetCount(): int
+
+    + equals(species: Species): boolean
+    + hashCode(): int
+}
+
+class Habitat{
+    - {final} _id: String
+    - {final} _name: String
+    - _area: int
+    - _animals: Map<Species, Map<String, Animal>>
+    - _suitability: Map<Species, Influence>
+    - _careTakers: Map<String, CareTakers>
+    - _trees: Map<String, Tree>
+
+    + id(): String
+    + addAnimal(animal: Animal): void
+    + removeAnimal(animal: Animal): void
+    + animals(): animals[]
+    + sameSpeciesCount(species: Species): int
+    + speciesSuitability(species: Species): Influence
+    + area(): int
+    + addCareTaker(careTaker: CareTaker): void
+    + removeCareTaker(careTaker: CareTaker): void
+    + careTakerCount(): int
+    + calculateWork(): int
+    + trees(): Tree[]
+    + setArea(area: int): void
+    + changeSuitability(species: Species, suitability: Influence): void
+    + addTree(tree: Tree): void
+
+    + equals(habitat: Habitat): boolean
+    + hashCode(): int
+    + toString(): String
+}
+
+abstract class Worker{
+    - {final} _id: String
+    - {final} _name: String
+    - {final} _hotel: Hotel
+
+    + Worker(id: String, name: String, hotel: Hotel)
+
+    + id(): String
+    # name(): String
+    # hotel(): Hotel
+
+    
+    + abstract addResponsibility(id: String): void
+    + abstract removeResponsibility(id: String): void
+    + abstract satisfaction(): int
+
+    + equals(worker: Worker): boolean
+    + hashCode(): int
+    + abstract toString(): String
+}
+
+class CareTaker extends Worker{
+    - _responsibilities: Map<String, Habitat>
+
+    + CareTaker(id: String, name: String, hotel: Hotel)
+    
+    + addResponsibility(id: String): void
+    + removeResponsibility(id: String): void
+    + satisfaction(): int
+
+    + toString(): String
+}
+
+class Vet extends Worker{
+    - _responsibilities: Map<String, Species>
+    - _vaccineRegistry: VaccineRegistry[]
+
+    + Vet(id: String, name: String, hotel: Hotel)
+    
+    + addResponsibility(id: String): void
+    + removeResponsibility(id: String): void
+    + satisfaction(): int
+    + vaccinate(animal: Animal, vaccine: Vaccine): VaccineRegistry
+    - calculateVaccineDamage(animal: Animal, vaccine: Vaccine): VaccineDamage
+    - addVaccineRegistry(vaccineReg: VaccineRegistry): void
+    + vaccineRegistry(): VaccineRegistry[]
+
+    + toString(): String
 }
 
 Class Tree{
@@ -108,49 +205,57 @@ Class Tree{
     - {final} _name: String
     - _age: int
     - {final} _birthSeason: SeasonType
-    - {final} _isEvergreen: boolean
-    - _cleanDifficulty: int
-    + leafState(season: SeasonType): LeafState
-    + toString(): String
-    + equals(tree: Tree): boolenan
+    - {final} _cleanDifficulty: int
+    - {final} _hotel: Hotel
+
+    + Tree(id: String, name: String, age: int, birthSeason: SeasonType, cleanDiff: int, hotel: Hotel)
+    
+    + id(): String
+    # name(): String
+    # age(): int
+    # cleanDifficulty(): int
+    # hotel(): Hotel
+    + totalCleaningEffort(): int
+
+    - abstract seasonalEffort(): int 
+    - abstract leaftState(): LeafState
+    
+    + equals(tree: Tree): boolean
+    + hashCode(): int
+    + abstract toString(): String
 }
 
-abstract class Workers{
-    # {final} _workerType: WorkerType
-    # {final} _id: String
-    # {final} _name: String
-    + abstract satisfaction(): int
-    + abstract type(): WorkerType
-    + abstract addResponsability(): Void
-    + abstract removeResponsability(): 
-    + equals(): boolean
+Class Evergreen extends Tree{
+    + Evergreen(id: String, name: String, age: int, birthSeason: SeasonType, cleanDiff: int, hotel: Hotel)
+    
+    - seasonalEffort(): int
+    - leaftState(): LeafState
+
+    + toString(): String
 }
 
-class CareTaker extends Workers{
-    - _habitats: Habitat[]
-    + cleanHabitat(habitat: Habitat): void
-    + satisfaction(): int
-    + toString(): String
-    + addResponsability(habitat: Habitat): void
-    + removeResponsability(id: String): Void
-}
+Class Deciduous extends Tree{
+    + Deciduous(id: String, name: String, age: int, birthSeason: SeasonType, cleanDiff: int, hotel: Hotel)
+    
+    - seasonalEffort(): int
+    - leaftState(): LeafState
 
-class Vet extends Workers{
-    - _species: Species[]
-    + vaccinate(animal: Animal, vaccine: Vaccine): void
-    + satisfaction(): int
     + toString(): String
-    + addResponsability(): void
-    + removeResponsability(): Void
 }
 
 Class Vaccine {
-    - _id: String
-    - _name: String
-    - _species: Species[]
+    - {final} _id: String
+    - {final} _name: String
     - _applyCount: int
-    + apply(animal: Animal, vet: Vet): void
-    + print(): String
+    - _species: Map<String, Species>
+ 
+    + Vaccine(id: String, name: String, species: Species[])
+    
+    + apply(): void
+
+    + toString(): String
+    + equals(vaccine: Vaccine): boolean
+    + hashCode(): int
 }
 
 Class VaccineRegistry{
@@ -159,8 +264,13 @@ Class VaccineRegistry{
     - _species: Species
     - _animal: Animal
     - _vaccineDamage: VaccineDamage
-}
 
+    + VaccineRegistry(vaccine: Vaccine, vet: Vet, species: Species, animal: Animal, vaccineDamage: VaccineDamage)
+    
+    + vaccineDamage(): VaccineDamage
+    
+    + toString(): String
+}
 
 ' Enums
 enum VaccineDamage {
@@ -186,38 +296,10 @@ enum LeafState {
     GENERATELEAVES
 }
 
-enum WorkerType {
-    VET
-    TRT
+enum Influence{
+    POS = 20
+    NEG = 0
+    NEU = -20
 }
-
-
-' Relationships
-HotelManager *-- Hotel
-
-Hotel *--  Habitat
-Hotel o-- Workers
-Hotel o-- Vaccine
-Hotel o-- Species
-Hotel o-- Animal
-Hotel o-- VaccineRegistry
-
-Habitat *-- Tree
-Habitat -- Animal
-Habitat -- CareTaker
-
-Species *-- Animal
-Species -- Vet
-
-Animal -- Species
-
-Tree -- Habitat
-
-CareTaker -- Habitat
-
-Vet -- Species
-
-Vaccine -- Species
-Vaccine -- Vet
 
 @enduml
