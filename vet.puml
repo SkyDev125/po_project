@@ -28,8 +28,9 @@ class HotelManager{
 class Hotel{
     - _habitats: Map<String, Habitat>
     - _workers: Map<String, Worker>
-    - _vaccines: Map<String, Vaccine>
     - _species: Map<String, Species>
+    - _animals: Map<String, Animal>
+    - _vaccines: VaccineRegistry[]
 
     ' Check how to notify tree listeners.
     - _season: SeasonType
@@ -46,11 +47,10 @@ class Hotel{
     + addWorker(id: String, name: Name, type: WorkerType): void
     + findWorker(id: String): Worker
     + addVaccine(id: String, name: Name): Vaccine
-    + addSpecies(id: String, name: Name): Specie
-    + findSpecies(id: String)
-
-    ' Species have animals... should species have addAnimal() or here?
-    
+    + addSpecies(id: String, name: Name): Species
+    + findSpecies(id: String): Species
+    + addAnimal(id: String, name: Name): Animal
+    + findAnimal(id: String): Animal
     + progressSeason(): void
     + satisfaction(): int
 }
@@ -93,14 +93,10 @@ class Animal{
     - {final} _id: String
     - {final} _name: String
     - {final} _species: Specie
+    - _healthLog: VaccineRegistry[]
 
-    ' Should we have a healthlog here that saves the VaccineDamage?
-    ' Or should we just use the VaccineRegistry in Hotel and
-    ' filter for the specific animal?
-    - _healthLog: String[]
-
-    - _habitat: Habitat
-    + satisfaction(): float
+    - _habitat: Habitat 
+    + satisfaction(): int
     + vaccineEvent(): void
     + transferAnimal(idHabitat: String): void
     + toString(): String
@@ -123,8 +119,8 @@ abstract class Workers{
     # {final} _workerType: WorkerType
     # {final} _id: String
     # {final} _name: String
-    + abstract satisfaction()
-    + abstract toString(): String
+    + abstract satisfaction(): int
+    + abstract type(): WorkerType
     + abstract addResponsability(): Void
     + abstract removeResponsability(): 
     + equals(): boolean
@@ -133,7 +129,7 @@ abstract class Workers{
 class CareTaker extends Workers{
     - _habitats: Habitat[]
     + cleanHabitat(habitat: Habitat): void
-    + satisfaction(): float
+    + satisfaction(): int
     + toString(): String
     + addResponsability(habitat: Habitat): void
     + removeResponsability(id: String): Void
@@ -142,7 +138,7 @@ class CareTaker extends Workers{
 class Vet extends Workers{
     - _species: Species[]
     + vaccinate(animal: Animal, vaccine: Vaccine): void
-    + satisfaction(): float
+    + satisfaction(): int
     + toString(): String
     + addResponsability(): void
     + removeResponsability(): Void
@@ -166,6 +162,7 @@ Class VaccineRegistry{
 }
 
 
+' Enums
 enum VaccineDamage {
     NORMAL
     CONFUSION
@@ -174,23 +171,26 @@ enum VaccineDamage {
 }
 
 enum SeasonType {
-    SPRING
-    SUMMER
-    FALL
-    WINTER
+    SPRING = 1
+    SUMMER = 2
+    FALL = 3
+    WINTER = 4
+
+    +next(): SeasonType
 }
 
 enum LeafState {
     WITHOUTLEAFS
     WITHLEAFS
     FALLINGLEAFS
-    GENERATELEAFS
+    GENERATELEAVES
 }
 
 enum WorkerType {
     VET
     TRT
 }
+
 
 ' Relationships
 HotelManager *-- Hotel
@@ -199,6 +199,8 @@ Hotel *--  Habitat
 Hotel o-- Workers
 Hotel o-- Vaccine
 Hotel o-- Species
+Hotel o-- Animal
+Hotel o-- VaccineRegistry
 
 Habitat *-- Tree
 Habitat -- Animal
@@ -218,7 +220,4 @@ Vet -- Species
 Vaccine -- Species
 Vaccine -- Vet
 
-' Vacinas podem existir sem existencia de um Vet? Devo guardar num singleton? por hotel
-' A estação do ano é sempre a mesma sobre todos os Veterinarios no mundo? ou podemos ter varias? se não fica como singleton. por hotel
-' Especies podem existir fora de um Vet? se sim devo guardar num singleton? para que possam ser utilizadas noutros vets sem ter de as registar denovo? por hotel.
 @enduml

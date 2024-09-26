@@ -1,0 +1,226 @@
+@startuml VetHotel
+
+class HotelManager{
+    - {static} _hotel: Hotel
+    - _file: String
+
+    ' Hotel management
+    + createHotel(): void
+    + loadHotel(file: String): void
+    + saveHotel(): void
+}
+
+class Hotel{
+    - _habitats: Map<String, Habitat>
+    - _Worker: Map<String, Worker>
+    - _species: Map<String, Species>
+    - _animals: Map<String, Animal>
+    - _vaccines: Map<String, Vaccine>
+    - _vaccineRegistry: VaccineRegistry[]
+    - _trees: Map<String, Tree>
+
+    ' Check how to notify tree listeners.
+    - _season: SeasonType
+
+    ' Main Menu
+    + progressSeason(): SeasonType
+    + satisfaction(): int
+
+    ' Animals
+    + animals(): Animal[]
+    + addAnimal(id: String, name: Name): Animal
+    + findAnimal(id: String): Animal
+    
+    ' Workers
+    + workers(): Worker[]
+    + addWorker(id: String, name: String, type: WorkerType): void
+    + findWorker(id: String): Worker
+
+    ' Habitats
+    + habitats(): Habitat[]
+    + addHabitats(id: String, name: String, area: int): void
+    + findHabitat(id: String): Habitat
+
+    ' Trees
+    + trees(): Tree[]
+    + addTree(tree: Tree): void
+    + findTree(id: String): Tree
+
+    ' Vaccines
+    + vaccines(): Vaccine[]
+    + addVaccine(id: String, name: Name, species: Species[]): void
+    + findVaccine(id: String): Vaccine
+
+    ' Vaccine Registry
+    + vaccineRegistry(): VaccineRegistry[]
+    + addVaccineRegistry(vaccineReg: VaccineRegistry): void
+    + filterWrongVaccinations(): VaccineRegistry[]
+
+}
+
+' Animal returns damage
+class Animal{
+    - {final} _id: String
+    - {final} _name: String
+    - {final} _species: Specie
+    - _vaccineRegistry: VaccineRegistry[]
+    - _habitat: Habitat
+
+    + transferAnimal(idHabitat: String): void
+    + satisfaction(): int
+    + addVaccineRegistry(vaccineReg: VaccineRegistry): void
+
+    + toString(): String
+    + equals(animal: Animal): boolean
+}
+
+Class Tree{
+    - {final} _id: String
+    - {final} _name: String
+    - _age: int
+    - _cleanDifficulty: int
+    
+    + Tree(id: String, name: String, age: int, cleanDiff: int)
+    + abstract leaftState(season: SeasonType): LeafState
+    + abstract toString(): String
+}
+
+' Make code to discern the type at the menu execute command
+' switch case.
+Class Evergreen extends Tree{
+
+}
+
+Class Deciduous extends Tree{
+
+}
+
+abstract class Worker{
+    - {final} _id: String
+    - {final} _name: String
+
+    + abstract addResponsibility(responsibility: Responsibility): Void
+    + abstract removeResponsibility(responsibility: Responsibility): void
+    + abstract satisfaction(): int
+
+    + abstract toString(): String
+    + equals(worker: Worker): boolean
+}
+
+class CareTaker extends Worker{
+    - _responsibilities: Map<String, Habitat>
+
+    + addResponsibility(responsibility: Responsibility): Void
+    + removeResponsibility(responsibility: Responsibility): void
+    + satisfaction(): int
+
+    + toString(): String
+}
+
+' Makes a vaccineRegistry and adds it to hotel and animal on vaccinate.
+class Vet extends Worker{
+    - _responsibilities: Map<String, Vaccine>
+
+    + addResponsibility(responsibility: Responsibility): Void
+    + removeResponsibility(responsibility: Responsibility): void
+    + satisfaction(): int
+
+    + calculateVaccineDamage(animal: Animal, vaccine: Vaccine): VaccineDamage
+    + vaccinate(animal: Animal, vaccine: Vaccine, hotel: Hotel): VaccineRegistry
+    + addVaccineRegistry(vaccineReg: VaccineRegistry): void
+
+    + toString(): String
+}
+
+Class Responsibility{
+    - {final} _id: String
+    - {final} _name: String
+
+    + abstract toString(): String
+}
+
+' I added the hotel in addTree, to be able
+' to add the tree to the HotelMap to save time
+' when checking if tree with same id exists
+' we could avoid this by just doing in the
+' command execute hotel.addTree(tree) after habitat.addTree
+' or by adding an atribute called Hotel here
+' this also applies to vaccines.
+class Habitat extends Responsibility{
+    - _area: int
+    - _trees: Map<String, Tree>
+    - _suitability: Map<Species, Integer>
+    - _animals: Map<Species, Map<String, Animal>>
+
+    + changeArea(area: int): void
+    + changeSuitability(species: Species, suitability: int): void
+    + addTree(tree: Tree, hotel: Hotel): void
+    + trees(): Tree[]
+    + animals(): Animal[]
+
+    + toString(): String
+
+}
+
+class Species extends Responsibility{
+
+}
+
+' O que verifica se a vacina pode ser administrada?
+' se o tratador pode tratar o animal da especie espefica? (animal.especie is in tratador.findspecies)
+' ou que o tratador tenha pelo menos uma especie ao qual sabe vacinar em que a vacina corresponde?
+Class Vaccine {
+    - {final} _id: String
+    - {final} _name: String
+    - _applyCount: int
+    - _species: Map<String, Species>
+    + apply(): void
+    + toString(): String
+}
+
+Class VaccineRegistry{
+    - _vaccine: Vaccine
+    - _vet: Vet
+    - _species: Species
+    - _animal: Animal
+    - _vaccineDamage: VaccineDamage
+}
+
+' Enums
+enum VaccineDamage {
+    NORMAL
+    CONFUSION
+    ACCIDENT
+    ERROR
+}
+
+enum SeasonType {
+    SPRING = 1
+    SUMMER = 2
+    FALL = 3
+    WINTER = 4
+
+    +next(): SeasonType
+}
+
+enum LeafState {
+    WITHOUTLEAFS
+    WITHLEAFS
+    FALLINGLEAFS
+    GENERATELEAVES
+}
+
+enum WorkerType {
+    VET
+    TRT
+}
+
+enum TreeType {
+    CAD
+    PER
+}
+
+' Relationships
+
+
+@enduml
