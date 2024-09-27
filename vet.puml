@@ -109,7 +109,6 @@ class Species{
 
     + Species(id: String, name: String)
     
-    + id(): String
     + addAnimal(animal: Animal): void
     + addVet(vet: Vet): void
     + removeVet(vet: Vet): void
@@ -129,13 +128,13 @@ class Habitat{
     - _careTakers: Map<String, CareTakers>
     - _trees: Map<String, Tree>
 
-    + id(): String
+    + Habitat(id: String, name: String, area: int)
+
     + addAnimal(animal: Animal): void
     + removeAnimal(animal: Animal): void
     + animals(): animals[]
     + sameSpeciesCount(species: Species): int
     + speciesSuitability(species: Species): Influence
-    + area(): int
     + addCareTaker(careTaker: CareTaker): void
     + removeCareTaker(careTaker: CareTaker): void
     + careTakerCount(): int
@@ -157,10 +156,8 @@ abstract class Worker{
 
     + Worker(id: String, name: String, hotel: Hotel)
 
-    + id(): String
     # name(): String
     # hotel(): Hotel
-
     
     + abstract addResponsibility(id: String): void
     + abstract removeResponsibility(id: String): void
@@ -210,7 +207,6 @@ Class Tree{
 
     + Tree(id: String, name: String, age: int, birthSeason: SeasonType, cleanDiff: int, hotel: Hotel)
     
-    + id(): String
     # name(): String
     # age(): int
     # cleanDifficulty(): int
@@ -248,7 +244,7 @@ Class Vaccine {
     - {final} _name: String
     - _applyCount: int
     - _species: Map<String, Species>
- 
+
     + Vaccine(id: String, name: String, species: Species[])
     
     + apply(): void
