@@ -23,7 +23,7 @@ class Hotel{
     - _vaccineRegistry: VaccineRegistry[]
     - _trees: Map<String, Tree>
 
-    ' Check how to notify tree listeners.
+    ' Check how to notify tree listeners. 
     - _season: SeasonType
 
     ' Main Menu called from HotelManager._hotel.command()

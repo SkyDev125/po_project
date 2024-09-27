@@ -11,11 +11,13 @@ class HotelManager{
     ' Main Menu
     + progressSeason(): SeasonType
     + satisfaction(): int
+    + isModified(): boolean
 }
 
 class Hotel{
     ' Check how to notify tree listeners.
     - _season: SeasonType
+    - _modified: boolean
 
     ' Main Menu called from HotelManager._hotel.command()
     + progressSeason(): SeasonType
@@ -59,41 +61,41 @@ class Hotel{
     + filterWrongVaccinations(): VaccineRegistry[]  
 
     ' Searches
-    + animalExists(id: String): Animal
-    + speciesExists(id: String): Species
-    + workerExists(id: String): Worker
-    + habitatExists(id: String): Habitat
-    + treeExists(id: String): Tree
-    + vaccineExists(id: String): Vaccine
+    ~ animalExistsException(id: String): Animal
+    ~ animalExists(id: String): Animal
+    ~ speciesExistsException(id: String): Species
+    ~ speciesExists(id: String): Species
+    ~ workerExistsException(id: String): Worker
+    ~ workerExists(id: String): Worker
+    ~ habitatExistsException(id: String): Habitat
+    ~ habitatExists(id: String): Habitat
+    ~ treeExistsException(id: String): Tree
+    ~ treeExists(id: String): Tree
+    ~ vaccineExistsException(id: String): Vaccine
+    ~ vaccineExists(id: String): Vaccine
 }
 
 class Animal{
     - {final} _id: String
     - {final} _name: String
-
-    + Animal(id: String, name: String, species: Species, habitat: Habitat)
     
-    + transferAnimal(habitat: Habitat): void
-    + satisfaction(): int
-    + addVaccineRegistry(vaccineReg: VaccineRegistry): void
-    + vaccineRegistry(): VaccineRegistry[]
+    ~ transferAnimal(habitat: Habitat): void
+    ~ satisfaction(): int
+    ~ addVaccineRegistry(vaccineReg: VaccineRegistry): void
+    ~ vaccineRegistry(): VaccineRegistry[]
 
     + toString(): String
-    + equals(animal: Animal): boolean
-    + hashCode(): int
 }
 
 class Species{
     - {final} _id: String
     - {final} _name: String
-
-    + Species(id: String, name: String)
     
-    + addAnimal(animal: Animal): void
-    + addVet(vet: Vet): void
-    + removeVet(vet: Vet): void
-    + animalCount(): int
-    + vetCount(): int
+    ~ addAnimal(animal: Animal): void
+    ~ addVet(vet: Vet): void
+    ~ removeVet(vet: Vet): void
+    ~ animalCount(): int
+    ~ vetCount(): int
 
     + equals(species: Species): boolean
     + hashCode(): int
@@ -105,24 +107,20 @@ class Habitat{
     - _area: int
     - _suitability: Map<Species, Influence>
 
-    + Habitat(id: String, name: String, area: int)
+    ~ addAnimal(animal: Animal): void
+    ~ removeAnimal(animal: Animal): void
+    ~ animals(): animals[]
+    ~ sameSpeciesCount(species: Species): int
+    ~ speciesSuitability(species: Species): Influence
+    ~ addCareTaker(careTaker: CareTaker): void
+    ~ removeCareTaker(careTaker: CareTaker): void
+    ~ careTakerCount(): int
+    ~ calculateWork(): int
+    ~ trees(): Tree[]
+    ~ setArea(area: int): void
+    ~ changeSuitability(species: Species, suitability: Influence): void
+    ~ addTree(tree: Tree): void
 
-    + addAnimal(animal: Animal): void
-    + removeAnimal(animal: Animal): void
-    + animals(): animals[]
-    + sameSpeciesCount(species: Species): int
-    + speciesSuitability(species: Species): Influence
-    + addCareTaker(careTaker: CareTaker): void
-    + removeCareTaker(careTaker: CareTaker): void
-    + careTakerCount(): int
-    + calculateWork(): int
-    + trees(): Tree[]
-    + setArea(area: int): void
-    + changeSuitability(species: Species, suitability: Influence): void
-    + addTree(tree: Tree): void
-
-    + equals(habitat: Habitat): boolean
-    + hashCode(): int
     + toString(): String
 }
 
@@ -130,39 +128,31 @@ abstract class Worker{
     - {final} _id: String
     - {final} _name: String
 
-    + Worker(id: String, name: String)
-
     # name(): String
     
-    + abstract addResponsibility(id: String): void
-    + abstract removeResponsibility(id: String): void
-    + abstract satisfaction(): int
+    ~ abstract addResponsibility(id: String): void
+    ~ abstract removeResponsibility(id: String): void
+    ~ abstract satisfaction(): int
 
-    + equals(worker: Worker): boolean
-    + hashCode(): int
     + abstract toString(): String
 }
 
 class CareTaker extends Worker{
-    + CareTaker(id: String, name: String)
-    
-    + addResponsibility(id: String): void
-    + removeResponsibility(id: String): void
-    + satisfaction(): int
+    ~ addResponsibility(id: String): void
+    ~ removeResponsibility(id: String): void
+    ~ satisfaction(): int
 
     + toString(): String
 }
 
 class Vet extends Worker{
-    + Vet(id: String, name: String)
-    
-    + addResponsibility(id: String): void
-    + removeResponsibility(id: String): void
-    + satisfaction(): int
-    + vaccinate(animal: Animal, vaccine: Vaccine): VaccineRegistry
+    ~ addResponsibility(id: String): void
+    ~ removeResponsibility(id: String): void
+    ~ satisfaction(): int
+    ~ vaccinate(animal: Animal, vaccine: Vaccine): VaccineRegistry
     - calculateVaccineDamage(animal: Animal, vaccine: Vaccine): VaccineDamage
     - addVaccineRegistry(vaccineReg: VaccineRegistry): void
-    + vaccineRegistry(): VaccineRegistry[]
+    ~ vaccineRegistry(): VaccineRegistry[]
 
     + toString(): String
 }
@@ -174,25 +164,19 @@ Class Tree{
     - {final} _birthSeason: SeasonType
     - {final} _cleanDifficulty: int
 
-    + Tree(id: String, name: String, age: int, birthSeason: SeasonType, cleanDiff: int, hotel: Hotel)
-    
     # name(): String
     # age(): int
     # cleanDifficulty(): int
     # hotel(): Hotel
-    + totalCleaningEffort(): int
+    ~ totalCleaningEffort(): int
 
     - abstract seasonalEffort(): int 
     - abstract leaftState(): LeafState
     
-    + equals(tree: Tree): boolean
-    + hashCode(): int
     + abstract toString(): String
 }
 
 Class Evergreen extends Tree{
-    + Evergreen(id: String, name: String, age: int, birthSeason: SeasonType, cleanDiff: int, hotel: Hotel)
-    
     - seasonalEffort(): int
     - leaftState(): LeafState
 
@@ -200,8 +184,6 @@ Class Evergreen extends Tree{
 }
 
 Class Deciduous extends Tree{
-    + Deciduous(id: String, name: String, age: int, birthSeason: SeasonType, cleanDiff: int, hotel: Hotel)
-    
     - seasonalEffort(): int
     - leaftState(): LeafState
 
@@ -213,21 +195,13 @@ Class Vaccine {
     - {final} _name: String
     - _applyCount: int
 
-    + Vaccine(id: String, name: String, species: Species[])
-    
-    + apply(): void
-
-    + toString(): String
-    + equals(vaccine: Vaccine): boolean
-    + hashCode(): int
+    ~ apply(): void
 }
 
 Class VaccineRegistry{
     - _vaccineDamage: VaccineDamage
 
-    + VaccineRegistry(vaccine: Vaccine, vet: Vet, species: Species, animal: Animal, vaccineDamage: VaccineDamage)
-    
-    + vaccineDamage(): VaccineDamage
+    ~ vaccineDamage(): VaccineDamage
     
     + toString(): String
 }
@@ -263,7 +237,7 @@ enum Influence{
 }
 
 ' Relationships
-HotelManager "1" --> "1..*" Hotel: _hotel
+HotelManager "1" --> "*" Hotel: _hotel
 Hotel "1" --> "*" Habitat: _habitats
 Hotel "1" --> "*" Worker: _workers
 Hotel "1" --> "*" Species: _species
