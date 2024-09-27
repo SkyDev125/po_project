@@ -1,7 +1,6 @@
 @startuml VetHotel
 
 class HotelManager{
-    - _hotel: Hotel
     - _file: String
 
     ' Hotel management
@@ -15,14 +14,6 @@ class HotelManager{
 }
 
 class Hotel{
-    - _habitats: Map<String, Habitat>
-    - _workers: Map<String, Worker>
-    - _species: Map<String, Species>
-    - _animals: Map<String, Animal>
-    - _vaccines: Map<String, Vaccine>
-    - _vaccineRegistry: VaccineRegistry[]
-    - _trees: Map<String, Tree>
-
     ' Check how to notify tree listeners.
     - _season: SeasonType
 
@@ -68,26 +59,17 @@ class Hotel{
     + filterWrongVaccinations(): VaccineRegistry[]  
 
     ' Searches
-    + animalExistsException(id: String): Exception
     + animalExists(id: String): Animal
-    + speciesExistsException(id: String): Exception
     + speciesExists(id: String): Species
-    + workerExistsException(id: String): Exception
     + workerExists(id: String): Worker
-    + habitatExistsException(id: String): Exception
-    + habitatExists(id: String): Worker
-    + treeExistsException(id: String): Exception
+    + habitatExists(id: String): Habitat
     + treeExists(id: String): Tree
-    + vaccineExistsException(id: String): Exception
     + vaccineExists(id: String): Vaccine
 }
 
 class Animal{
     - {final} _id: String
     - {final} _name: String
-    - {final} _species: Specie
-    - _vaccineRegistry: VaccineRegistry[]
-    - _habitat: Habitat
 
     + Animal(id: String, name: String, species: Species, habitat: Habitat)
     
@@ -104,8 +86,6 @@ class Animal{
 class Species{
     - {final} _id: String
     - {final} _name: String
-    - _animals: Map<String, Animal>
-    - _vets: Map<String, Vet>
 
     + Species(id: String, name: String)
     
@@ -123,10 +103,7 @@ class Habitat{
     - {final} _id: String
     - {final} _name: String
     - _area: int
-    - _animals: Map<Species, Map<String, Animal>>
     - _suitability: Map<Species, Influence>
-    - _careTakers: Map<String, CareTakers>
-    - _trees: Map<String, Tree>
 
     + Habitat(id: String, name: String, area: int)
 
@@ -152,12 +129,10 @@ class Habitat{
 abstract class Worker{
     - {final} _id: String
     - {final} _name: String
-    - {final} _hotel: Hotel
 
-    + Worker(id: String, name: String, hotel: Hotel)
+    + Worker(id: String, name: String)
 
     # name(): String
-    # hotel(): Hotel
     
     + abstract addResponsibility(id: String): void
     + abstract removeResponsibility(id: String): void
@@ -169,9 +144,7 @@ abstract class Worker{
 }
 
 class CareTaker extends Worker{
-    - _responsibilities: Map<String, Habitat>
-
-    + CareTaker(id: String, name: String, hotel: Hotel)
+    + CareTaker(id: String, name: String)
     
     + addResponsibility(id: String): void
     + removeResponsibility(id: String): void
@@ -181,10 +154,7 @@ class CareTaker extends Worker{
 }
 
 class Vet extends Worker{
-    - _responsibilities: Map<String, Species>
-    - _vaccineRegistry: VaccineRegistry[]
-
-    + Vet(id: String, name: String, hotel: Hotel)
+    + Vet(id: String, name: String)
     
     + addResponsibility(id: String): void
     + removeResponsibility(id: String): void
@@ -203,7 +173,6 @@ Class Tree{
     - _age: int
     - {final} _birthSeason: SeasonType
     - {final} _cleanDifficulty: int
-    - {final} _hotel: Hotel
 
     + Tree(id: String, name: String, age: int, birthSeason: SeasonType, cleanDiff: int, hotel: Hotel)
     
@@ -243,7 +212,6 @@ Class Vaccine {
     - {final} _id: String
     - {final} _name: String
     - _applyCount: int
-    - _species: Map<String, Species>
 
     + Vaccine(id: String, name: String, species: Species[])
     
@@ -255,10 +223,6 @@ Class Vaccine {
 }
 
 Class VaccineRegistry{
-    - _vaccine: Vaccine
-    - _vet: Vet
-    - _species: Species
-    - _animal: Animal
     - _vaccineDamage: VaccineDamage
 
     + VaccineRegistry(vaccine: Vaccine, vet: Vet, species: Species, animal: Animal, vaccineDamage: VaccineDamage)
@@ -297,5 +261,24 @@ enum Influence{
     NEG = 0
     NEU = -20
 }
+
+' Relationships
+HotelManager "1" --> "1..*" Hotel: _hotel
+Hotel "1" --> "*" Habitat: _habitats
+Hotel "1" --> "*" Worker: _workers
+Hotel "1" --> "*" Species: _species
+Hotel "1" --> "*" Animal: _animals
+Hotel "1" --> "*" Vaccine: _vaccines
+Hotel "1" --> "*" VaccineRegistry: _vaccineRegistry
+Hotel "1" -- "*" Tree: _trees
+Animal "1" -- "*" VaccineRegistry: _vaccineRegistry
+Species "1" -- "*" Animal: _animals
+Species "*" -- "*" Vet: _vets
+Habitat "1"-- "*" Animal: _animals
+Habitat "*" -- "*" CareTaker: _careTakers
+Habitat "1" --> "*" Tree: _trees
+Vet "1" -- "*" VaccineRegistry: _vaccineRegistry
+Vaccine "1" --> "*" Species: _species
+VaccineRegistry "1" --> "1" Vaccine: _vaccine
 
 @enduml
