@@ -40,11 +40,7 @@ class Hotel{
     + habitats(): Habitat[]
     + addHabitat(id: String, name: String, area: int): void
     + changeHabitatArea(id: String, area: int): void
-
-    ' Devo meter influencia como o meu enum? e ter um if
-    ' que decide qual enum significa a string na parte de execução
-    ' do comando? ou aqui dentro.
-    + changeHabitatSuitability(id: String, idSpecies: String, influence: String): void
+    + changeHabitatSuitability(id: String, idSpecies: String, influence: Influence): void
     + addTreeToHabitat(idHabitat: String, idTree: String, name: String, age: int, cleanDiff: int, treeType: String): void
     + habitatTrees(id: String): Tree[]
     
@@ -228,6 +224,12 @@ enum LeafState {
     WITHLEAFS
     FALLINGLEAFS
     GENERATELEAVES
+}
+
+enum Influence{
+    POS = 20
+    NEG = 0
+    NEU = -20
 }
 
 enum Influence{
