@@ -239,22 +239,22 @@ enum Influence{
 }
 
 ' Relationships
-HotelManager "1" --> "*" Hotel: _hotel
-Hotel "1" --> "*" Habitat: _habitats
-Hotel "1" --> "*" Worker: _workers
-Hotel "1" --> "*" Species: _species
-Hotel "1" --> "*" Animal: _animals
-Hotel "1" --> "*" Vaccine: _vaccines
-Hotel "1" --> "*" VaccineRegistry: _vaccineRegistry
-Hotel "1" -- "*" Tree: _trees
-Animal "1" -- "*" VaccineRegistry: _vaccineRegistry
-Species "1" -- "*" Animal: _animals
-Species "*" -- "*" Vet: _vets
-Habitat "1"-- "*" Animal: _animals
-Habitat "*" -- "*" CareTaker: _careTakers
-Habitat "1" --> "*" Tree: _trees
-Vet "1" -- "*" VaccineRegistry: _vaccineRegistry
-Vaccine "1" --> "*" Species: _species
-VaccineRegistry "1" --> "1" Vaccine: _vaccine
+HotelManager "1" --> "*" Hotel: _hotel V
+Hotel "1" --> "*" Habitat: _habitats V
+Hotel "1" --> "*" Worker: _workers V
+Hotel "1" --> "*" Species: _species v
+Hotel "1" --> "*" Animal: _animals v
+Hotel "1" --> "*" Vaccine: _vaccines v
+Hotel "1" --> "*" VaccineRegistry: _vaccineRegistry v
+Hotel "1" -- "*" Tree: _trees v
+Animal "1" -- "*" VaccineRegistry: _vaccineRegistry V
+Species "1" -- "*" Animal: _animals v
+Species "*" -- "*" Vet: _vets v
+Habitat "1"-- "*" Animal: _animals V
+Habitat "*" -- "*" CareTaker: _careTakers V
+Habitat "1" --> "*" Tree: _trees V
+Vet "1" -- "*" VaccineRegistry: _vaccineRegistry V
+Vaccine "1" --> "*" Species: _species V
+VaccineRegistry "1" --> "1" Vaccine: _vaccine V
 
 @enduml
