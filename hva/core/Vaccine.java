@@ -9,6 +9,7 @@ public class Vaccine {
     private int _applyCount;
     private HashMap<String, Species> _species;
 
+    // constructor
     public Vaccine(String id, String name, List<Species> species) {
         _id = id;
         _name = name;
@@ -19,6 +20,7 @@ public class Vaccine {
         }
     }
 
+    // others
     public void apply() {
         _applyCount++;
     }

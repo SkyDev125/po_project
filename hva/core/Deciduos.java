@@ -2,7 +2,11 @@ package hva.core;
 
 import hva.core.enumf.LeafState;
 
-public class Deciduos {
+public class Deciduos extends Tree {
+    public Deciduos(String id, String name, int age, int cleaningDifficulty) {
+        super(id, name, age, cleaningDifficulty);
+    }
+
     private int seasonalEffort() {
         
         // TODO 
@@ -16,5 +20,12 @@ public class Deciduos {
         // TODO 
 
         return LeafState.FALLINGLEAVES;
+    }
+
+    public String toString() {
+
+        // TODO 
+
+        return "ola";
     }
 }

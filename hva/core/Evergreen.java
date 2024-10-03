@@ -2,7 +2,14 @@ package hva.core;
 
 import hva.core.enumf.LeafState;
 
-public class Evergreen {
+public class Evergreen extends Tree {
+
+    // constructor
+    public Evergreen(String id, String name, int age, int cleaningDifficulty) {
+        super(id, name, age, cleaningDifficulty);
+    }
+
+    // others 
     private int seasonalEffort() {
         
         // TODO 
@@ -16,5 +23,12 @@ public class Evergreen {
         // TODO 
 
         return LeafState.FALLINGLEAVES;
+    }
+
+    public String toString() {
+
+        // TODO 
+
+        return "ola";
     }
 }
