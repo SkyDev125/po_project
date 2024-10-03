@@ -16,6 +16,7 @@ public class Animal {
         _name = name;
         _species = species;
         _habitat = habitat;
+        _vaccineRegistry = new ArrayList<VaccineRegistry>();
     }
 
     // gets

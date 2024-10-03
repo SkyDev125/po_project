@@ -9,11 +9,12 @@ public class Vet extends Worker {
     // constructor
     public Vet(String id, String name) {
         super(id, name);
+        _responsibilities = new HashMap<String, Species>();
     }
 
     // methods
     protected void addResponsibility(String id) {
-        _responsibilities = new HashMap<>();
+        _responsibilities.put(id, speciesExists(id));
     }
 
     protected void removeResponsibility(String id) {

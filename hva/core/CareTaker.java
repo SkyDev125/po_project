@@ -8,11 +8,12 @@ public class CareTaker extends Worker {
     // constructor
     public CareTaker(String id, String name) {
         super(id, name);
+        _responsibilities = new HashMap<String, Habitat>();
     }
 
     // methods
     protected void addResponsibility(String id) {
-        _responsibilities = new HashMap<>();
+        _responsibilities.put(id, habitatExists(id));
     }
 
     protected void removeResponsibility(String id) {

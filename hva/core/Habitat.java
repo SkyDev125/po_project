@@ -1,5 +1,7 @@
 package hva.core;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -21,17 +23,20 @@ public class Habitat {
     public String id() {
         return _id;
     }
+    
+    public Collection<Animal> animals() {
+        return Collections.unmodifiableCollection(_animals.values());
+    }
 
-    // method 
+    // sets
+
+
+    // others
     protected void addAnimal(Animal animal) {
         _animals.put(animal.id(), animal);          // ordenar e tudo mais, nao sei
     }
 
     protected void removeAnimal(Animal animal) {
         _animals.remove(animal.id());
-    }
-
-    protected Collections animals() {
-        
     }
 }
