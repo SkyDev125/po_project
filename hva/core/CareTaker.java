@@ -6,14 +6,14 @@ public class CareTaker extends Worker {
     private HashMap<String, Habitat> _responsibilities;
 
     // constructor
-    public CareTaker(String id, String name) {
-        super(id, name);
+    public CareTaker(String id, String name, Hotel hotel) {
+        super(id, name, hotel);
         _responsibilities = new HashMap<String, Habitat>();
     }
 
     // methods
     protected void addResponsibility(String id) {
-        _responsibilities.put(id, habitatExists(id));
+        _responsibilities.put(id, hotel().habitatExists(id));
     }
 
     protected void removeResponsibility(String id) {
@@ -24,7 +24,7 @@ public class CareTaker extends Worker {
         int satisfactionPerSpecies = 0;
 
         // calcular satisfacao
-        
+
         return (20 - satisfactionPerSpecies);
     }
 

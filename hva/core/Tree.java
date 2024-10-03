@@ -13,11 +13,12 @@ public abstract class Tree {
     private final Hotel _hotel;
 
     // constructor
-    public Tree(String id, String name, int age, int cleaningDifficulty) {
+    public Tree(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
         _id = id;
         _name = name;
         _age = age;
         _cleaningDifficulty = cleaningDifficulty;
+        _hotel = hotel;
         _birthSeason = _hotel.season();
     }
 
@@ -40,12 +41,11 @@ public abstract class Tree {
 
     // sets
 
-
     // methods
     int totalCleaningEffort() {
         return (_cleaningDifficulty * seasonalEffort() * Math.log(_age * 1));
     }
-    
+
     private abstract int seasonalEffort();
 
     private abstract LeafState leafState();

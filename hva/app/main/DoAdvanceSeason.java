@@ -12,6 +12,7 @@ class DoAdvanceSeason extends Command<HotelManager> {
   DoAdvanceSeason(HotelManager receiver) {
     super(Label.ADVANCE_SEASON, receiver);
     //FIXME add command fields
+    
   }
 
   @Override

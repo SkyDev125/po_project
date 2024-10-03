@@ -15,11 +15,14 @@ class DoRegisterAnimal extends Command<Hotel> {
 
   DoRegisterAnimal(Hotel receiver) {
     super(Label.REGISTER_ANIMAL, receiver);
-    //FIXME add command fields
+    addStringField("animalKey", Prompt.animalKey());
+    addStringField("animalName", Prompt.animalName());
+    addStringField("speciesKey", Prompt.speciesKey());
+    addStringField("habitatKey", hva.app.habitat.Prompt.habitatKey());
   }
   
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
+
   }
 }

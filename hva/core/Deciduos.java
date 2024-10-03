@@ -3,28 +3,27 @@ package hva.core;
 import hva.core.enumf.LeafState;
 
 public class Deciduos extends Tree {
-    public Deciduos(String id, String name, int age, int cleaningDifficulty) {
-        super(id, name, age, cleaningDifficulty);
+    public Deciduos(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
+        super(id, name, age, cleaningDifficulty, hotel);
     }
 
     private int seasonalEffort() {
-        
-        // TODO 
-        
+
+        // TODO
+
         return 20;
     }
 
     private LeafState leafState() {
 
-
-        // TODO 
+        // TODO
 
         return LeafState.FALLINGLEAVES;
     }
 
     public String toString() {
 
-        // TODO 
+        // TODO
 
         return "ola";
     }

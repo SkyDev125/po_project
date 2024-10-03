@@ -5,8 +5,8 @@ import hva.core.enumf.LeafState;
 public class Evergreen extends Tree {
 
     // constructor
-    public Evergreen(String id, String name, int age, int cleaningDifficulty) {
-        super(id, name, age, cleaningDifficulty);
+    public Evergreen(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
+        super(id, name, age, cleaningDifficulty, hotel);
     }
 
     // others 
