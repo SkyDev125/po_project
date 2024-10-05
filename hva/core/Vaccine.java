@@ -1,5 +1,7 @@
 package hva.core;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.io.*;
@@ -23,6 +25,11 @@ public class Vaccine implements Serializable {
         for (Species currentSpecies : species) {
             _species.put(currentSpecies.id(), currentSpecies);
         }
+    }
+
+    // gets
+    public Collection<Species> species() {
+        return Collections.unmodifiableCollection(_species.values());
     }
 
     // others

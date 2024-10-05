@@ -48,7 +48,8 @@ public abstract class Tree implements Serializable {
 
     // methods
     int totalCleaningEffort() {
-        return -1;//(_cleaningDifficulty * seasonalEffort() * Math.log(_age * 1));
+
+        return (int) (_cleaningDifficulty * seasonalEffort() * Math.log(_age * 1));
     }
 
     protected abstract int seasonalEffort();

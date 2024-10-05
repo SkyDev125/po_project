@@ -19,6 +19,10 @@ public class Species {
         return _id;
     }
 
+    public String name() {
+        return _name;
+    }
+
     // methods
     protected void addAnimal(Animal animal) {
         _animals.put(animal.id(), animal);

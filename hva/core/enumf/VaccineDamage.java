@@ -4,5 +4,5 @@ public enum VaccineDamage {
     NORMAL,
     CONFUSION,
     ACCIDENT,
-    ERRO
+    ERROR
 }
