@@ -9,25 +9,24 @@ public class Evergreen extends Tree {
         super(id, name, age, cleaningDifficulty, hotel);
     }
 
-    // others 
+    // others
     private int seasonalEffort() {
-        
-        // TODO 
-        
+
+        // TODO
+
         return 20;
     }
 
     private LeafState leafState() {
 
-
-        // TODO 
+        // TODO
 
         return LeafState.FALLINGLEAVES;
     }
 
     public String toString() {
 
-        // TODO 
+        // TODO
 
         return "ola";
     }

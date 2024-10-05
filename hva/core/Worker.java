@@ -1,6 +1,12 @@
 package hva.core;
 
-abstract public class Worker {
+import java.io.*;
+
+abstract public class Worker implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 202407081733L;
+
     private final String _id;
     private final String _name;
     private final Hotel _hotel;

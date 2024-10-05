@@ -3,8 +3,13 @@ package hva.core;
 import hva.core.enumf.LeafState;
 import hva.core.enumf.SeasonType;
 import java.math.*;
+import java.io.*;
 
-public abstract class Tree {
+public abstract class Tree implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 202407081733L;
+
     private final String _id;
     private final String _name;
     private int _age;
