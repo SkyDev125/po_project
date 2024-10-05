@@ -16,34 +16,69 @@ public class Vet extends Worker {
     private HashMap<String, Species> _responsibilities;
     private ArrayList<VaccineRegistry> _vaccineRegistry;
 
-    // constructor
+    /*
+     * <------------------------ Constructor ------------------------>
+     */
+
     public Vet(String id, String name, Hotel hotel) {
         super(id, name, hotel);
         _responsibilities = new HashMap<String, Species>();
     }
 
-    // gets
+    /*
+     * <------------------------ Gets ------------------------>
+     */
+
+    /**
+     * Returns the collection of vaccine registries that the vet in this instance has apllied.
+     * @return the collection of vaccine registries
+     */
     public Collection<VaccineRegistry> vaccineRegistry() {
         return Collections.unmodifiableList(_vaccineRegistry);
     }
 
-    // methods
+    /*
+     * <------------------------ Others ------------------------>
+     */
+
+    /**
+     * Adds a species as a responsability for the vet in this instance to care.
+     * @param id of the species
+     */
     protected void addResponsibility(String id) {
         _responsibilities.put(id, hotel().speciesExists(id));
     }
 
+    /**
+     * Removes a species as a responsability for the vet in this instance to care.
+     * @param id of the species
+     */
     protected void removeResponsibility(String id) {
         _responsibilities.remove(id);
     }
 
+    /**
+     * Calculates the satisfaction of the vet in this instance.
+     * @return the satisfaction
+     */
     protected int satisfaction() {
         int satisfactionPerSpecies = 0;
 
-        // calcular satisfacao
+        for (HashMap.Entry<String, Species> entry : _responsibilities.entrySet()) {
+            Species currentSpecies = entry.getValue();
+
+            satisfactionPerSpecies += (currentSpecies.animalCount() / currentSpecies.vetCount());
+        }
 
         return (20 - satisfactionPerSpecies);
     }
 
+    /**
+     * Registers the vaccination of an animal with a vaccine by the vet in this instance.
+     * @param animal that was vaccinated
+     * @param vaccine that was applied
+     * @return the vaccine registry
+     */
     protected VaccineRegistry vaccinate(Animal animal, Vaccine vaccine) {
         VaccineDamage vaccineDamage = calculateVaccineDamage(animal, vaccine);
 
@@ -54,6 +89,12 @@ public class Vet extends Worker {
         return vaccineRegistry;
     }
 
+    /**
+     * Returns the vaccine damage dealt by the vet in this instance to an animal by a vaccine application.
+     * @param animal that was vaccinated
+     * @param vaccine that was applied
+     * @return the vaccine damage dealt
+     */
     private VaccineDamage calculateVaccineDamage(Animal animal, Vaccine vaccine) {
         int damage = 0;
 
@@ -107,12 +148,23 @@ public class Vet extends Worker {
         return VaccineDamage.ERROR;
     }
 
+    /**
+     * Adds the vaccine registry to the lists and maps of the vet in the instance, the animal and the hotel.
+     * @param vaccineRegistry to be added
+     */
     private void addVaccineRegistry(VaccineRegistry vaccineRegistry) {
         _vaccineRegistry.add(vaccineRegistry);
         vaccineRegistry.animal().addVaccineRegistration(vaccineRegistry);
         // TODO: criar metodo para adicionar vaccineRegistry ao hotel
     }
 
+    /**
+     * Returns the vet in the format:
+     * tipo|id|nome|idResponsabilidades
+     * If the vet doesn't have responsibilities, it's in this format:
+     * tipo|id|nome
+     * @return the vaccine registry in format // TODO: should it be the format itself?
+     */
     public String toString() {
         String responsibilities = "";
 

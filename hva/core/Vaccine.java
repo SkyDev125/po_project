@@ -63,9 +63,9 @@ public class Vaccine implements Serializable {
     }
 
     /**
-     * Returns the vaccine registry in the format:
-     * REGISTO-VACINA|idVacina|idVeterinario|idEspecie
-     * @return the vaccine registry in format // TODO: should it be the format itself?
+     * Returns the vaccine in the format:
+     * VACINA|idVacina|nomeVacina|numeroAplicacoes|especies
+     * @return the vaccines in format // TODO: should it be the format itself?
      */
     public String toString() {
         String speciesString = "";
@@ -81,6 +81,7 @@ public class Vaccine implements Serializable {
 
     /**
      * Returns true if the vaccine in this instance is equal to the given vaccine.
+     * @param vaccine to be compared
      * @return true or false // TODO: what do I put here?
      */
     public boolean equals(Vaccine vaccine) {

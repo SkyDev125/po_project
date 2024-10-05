@@ -93,11 +93,21 @@ public abstract class Tree implements Serializable {
 
     public abstract String toString();
 
+    /**
+     * Returns true if the tree in this instance and the given tree are equal.
+     * @param tree to be compared
+     * @return true or false // TODO: what do I put here?
+     */
     public boolean equals(Tree tree) {
         // TODO: define equals method
         return _id.equals(tree.id());
     }
 
+    /**
+     * INCOMPLETO
+     * Returns the hashcode of the vaccine in this instance.
+     * @return the hashcode of the vaccine
+     */
     public int hashCode() {
         // TODO: implement hashCode 
         return 20;

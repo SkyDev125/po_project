@@ -52,7 +52,8 @@ public class Animal implements Serializable {
     }
 
     protected int satisfaction() {
-        return 20; // calcular
+        // TODO: calculate satisfaction
+        return 20;
     }
 
     public String toString() {

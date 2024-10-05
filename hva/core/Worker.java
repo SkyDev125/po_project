@@ -12,27 +12,48 @@ abstract public class Worker implements Serializable {
     private final String _name;
     private final Hotel _hotel;
 
-    // constructor
+    /*
+     * <------------------------ Constructor ------------------------>
+     */
+
     public Worker(String id, String name, Hotel hotel) {
         _id = id;
         _name = name;
         _hotel = hotel;
     }
 
-    // gets
+    /*
+     * <------------------------ Gets ------------------------>
+     */
+
+    /**
+     * Returns the id of the worker in this instance.
+     * @return the id of the worker
+     */
     public String id() {
         return _id;
     }
 
+    /**
+     * Returns the name of the worker in this instance.
+     * @return the name of the worker
+     */
     String name() {
         return _name;
     }
 
+    /**
+     * Returns the hotel of the worker in this instance.
+     * @return the hotel of the worker
+     */
     protected Hotel hotel() {
         return _hotel;
     }
 
-    // methods
+    /*
+     * <------------------------ Others ------------------------>
+     */
+
     abstract protected void addResponsibility(String id);
 
     abstract protected void removeResponsibility(String id);
@@ -40,4 +61,23 @@ abstract public class Worker implements Serializable {
     abstract protected int satisfaction();
 
     abstract public String toString();
+
+    /**
+     * Returns true if the worker in this instance is equal to the given worker.
+     * @param worker to be compared
+     * @return true or false // TODO: what do I put here?
+     */
+    public boolean equals(Worker worker) {
+        return (_id == worker.id());
+    }
+
+    /**
+     * INCOMPLETO
+     * Returns the hashcode of the worker in this instance.
+     * @return the hashcode of the worker
+     */
+    public int hashCode() {
+        // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares avisa
+        return 20;
+    }
 }

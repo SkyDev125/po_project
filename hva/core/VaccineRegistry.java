@@ -55,7 +55,7 @@ public class VaccineRegistry implements Serializable {
     /**
      * Returns the vaccine registry in the format:
      * REGISTO-VACINA|idVacina|idVeterinario|idEspecie
-     * @return the vaccine registry in format
+     * @return the vaccine registry in format // TODO: should it be the format itself?
      */
     public String toString() {
         return "REGISTO-VACINA|" + _vaccine.id() + "|" + _vet.id() + "|" + _species.id();

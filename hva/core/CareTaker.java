@@ -10,29 +10,65 @@ public class CareTaker extends Worker {
 
     private HashMap<String, Habitat> _responsibilities;
 
-    // constructor
+    /*
+     * <------------------------ Constructor ------------------------>
+     */
+    
     public CareTaker(String id, String name, Hotel hotel) {
         super(id, name, hotel);
         _responsibilities = new HashMap<String, Habitat>();
     }
 
-    // methods
+    /*
+     * <------------------------ Others ------------------------>
+     */
+
+    /**
+     * Adds an habitat as a responsability for the care taker in this instance to care.
+     * @param id of the habitat
+     */
     protected void addResponsibility(String id) {
         _responsibilities.put(id, hotel().habitatExists(id));
     }
 
+    /**
+     * Removes an habitat as a responsability for the care taker in this instance to care.
+     * @param id of the habitat
+     */
     protected void removeResponsibility(String id) {
         _responsibilities.remove(id);
     }
 
+    /**
+     * Calculates the satisfaction of the vet in this instance.
+     * @return the satisfaction
+     */
     protected int satisfaction() {
-        int satisfactionPerSpecies = 0;
+        int satisfactionPerHabitat = 0;
+        int workInHabitat;
 
-        // calcular satisfacao
+        for (HashMap.Entry<String, Habitat> entry : _responsibilities.entrySet()) {
+            Habitat currentHabitat = entry.getValue();
 
-        return (20 - satisfactionPerSpecies);
+            workInHabitat = currentHabitat.area() + 3 * currentHabitat.animals().size();
+
+            for (Tree currentTree : currentHabitat.trees()) {
+                workInHabitat += currentTree.totalCleaningEffort();
+            }
+
+            satisfactionPerHabitat += (workInHabitat / currentHabitat.careTakers().size());
+        }
+
+        return (300 - satisfactionPerHabitat);
     }
 
+    /**
+     * Returns the vet in the format:
+     * tipo|id|nome|idResponsabilidades
+     * If the vet doesn't have responsibilities, it's in this format:
+     * tipo|id|nome
+     * @return the vaccine registry in format // TODO: should it be the format itself?
+     */
     public String toString() {
         String responsibilities = "";
 
