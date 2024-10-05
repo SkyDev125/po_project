@@ -1,20 +1,26 @@
 package hva.core;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Species {
+public class Species implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final String _id;
     private final String _name;
-    private HashMap<String,Animal> _animals;
-    private HashMap<String,Vet> _vets;
+    private HashMap<String, Animal> _animals;
+    private HashMap<String, Vet> _vets;
 
-    // constructor 
+    // constructor
     public Species(String id, String name) {
         _id = id;
         _name = name;
     }
 
-    // gets 
+    // gets
     public String id() {
         return _id;
     }

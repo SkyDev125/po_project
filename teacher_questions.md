@@ -1,0 +1,1 @@
+In Hotel.addAnimal, what do we do if the habitat doesnt exist? do we create it? do we ask if the usar wants to create it? do we cancel the process like we do if the id of the animal is duplicate?

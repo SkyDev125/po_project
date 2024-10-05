@@ -3,9 +3,14 @@ package hva.core;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.io.Serial;
+import java.io.Serializable;
 
+public class Habitat implements Serializable {
+    
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-public class Habitat {
     private final String _id;
     private final String _name;
     private int _area;
@@ -23,17 +28,16 @@ public class Habitat {
     public String id() {
         return _id;
     }
-    
+
     public Collection<Animal> animals() {
         return Collections.unmodifiableCollection(_animals.values());
     }
 
     // sets
 
-
     // others
     protected void addAnimal(Animal animal) {
-        _animals.put(animal.id(), animal);          // ordenar e tudo mais, nao sei
+        _animals.put(animal.id(), animal); // ordenar e tudo mais, nao sei
     }
 
     protected void removeAnimal(Animal animal) {

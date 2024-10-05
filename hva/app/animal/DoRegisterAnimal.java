@@ -22,6 +22,15 @@ class DoRegisterAnimal extends Command<Hotel> {
   
   @Override
   protected final void execute() throws CommandException {
+    Form form = new Form(title());
+    try{
+      _receiver.addAnimal(
+        form.field("animalKey").toString(),
+        form.field("animalName").toString(),
+        form.field("speciesKey").toString(),
+        form.field("habitatKey").toString()
+      );
+    } catch ()
 
   }
 }

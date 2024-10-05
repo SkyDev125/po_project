@@ -2,15 +2,16 @@ package hva.core.exception;
 
 import java.io.Serial;
 
-public class AnimalNotFoundException extends Exception {
+public class DuplicateWorkerException extends Exception {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     private final String _id;
 
-    public AnimalNotFoundException(String id) {
-        super("Animal with id " + id + " not found");
+    public DuplicateWorkerException(String id) {
+
+        super("Worker with id " + id + " already exists");
         _id = id;
     }
 

@@ -4,16 +4,22 @@ import hva.core.enumf.Influence;
 import hva.core.enumf.SeasonType;
 import hva.core.exception.*;
 
-import java.io.*;
-import java.util.*;
-// FIXME import classes
+import java.io.IOException;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Hotel implements Serializable {
 
   @Serial
-  private static final long serialVersionUID = 202407081733L;
+  private static final long serialVersionUID = 1L;
+  
   // TODO: how to use this later - private boolean _isModified = false;
-
   private SeasonType _season = SeasonType.SPRING;
   private Map<String, Species> _species = new HashMap<String, Species>();
   private Map<String, Vaccine> _vaccines = new HashMap<String, Vaccine>();
@@ -53,7 +59,8 @@ public class Hotel implements Serializable {
   /*
    * <------------------------ Sets ------------------------>
    */
-  public void addAnimal(String idAnimal, String name, String idSpecies, String idHabitat) {
+  public void addAnimal(String idAnimal, String name, String idSpecies, String idHabitat)
+      throws AnimalNotFoundException, SpeciesNotFoundException, HabitatNotFoundException {
     // TODO: define the function
     return;
   }

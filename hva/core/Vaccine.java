@@ -1,15 +1,16 @@
 package hva.core;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.io.*;
 
 public class Vaccine implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 202407081733L;
+    private static final long serialVersionUID = 1L;
 
     private final String _id;
     private final String _name;

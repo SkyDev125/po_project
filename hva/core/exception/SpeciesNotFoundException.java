@@ -1,11 +1,20 @@
 package hva.core.exception;
 
+import java.io.Serial;
+
 public class SpeciesNotFoundException extends Exception {
 
-    private static final long serialVersionUID = 202407081733L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    public SpeciesNotFoundException(String species) {
-        super("Species with id " + species + " not found");
+    private final String _id;
+
+    public SpeciesNotFoundException(String id) {
+        super("Species with id " + id + " not found");
+        _id = id;
     }
-    
+
+    public String species() {
+        return _id;
+    }
 }

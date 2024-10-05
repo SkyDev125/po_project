@@ -1,6 +1,7 @@
 package hva.core;
 
 import java.util.HashMap;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Collection;
@@ -8,6 +9,10 @@ import java.util.Collection;
 import hva.core.enumf.VaccineDamage;
 
 public class Vet extends Worker {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private HashMap<String, Species> _responsibilities;
     private ArrayList<VaccineRegistry> _vaccineRegistry;
 
@@ -56,11 +61,11 @@ public class Vet extends Worker {
         int length = animal.species().name().length();
 
         HashMap<Character, Integer> speciesCharCount = new HashMap<Character, Integer>();
-        
+
         for (char speciesChar : animal.species().name().toCharArray()) {
             speciesCharCount.put(speciesChar, speciesCharCount.getOrDefault(speciesChar, 0) + 1);
         }
-        
+
         // comparison of the species to each species of the vaccine
         for (Species vaccineSpecies : vaccine.species()) {
             // checking if the vaccine is for this species
@@ -70,7 +75,7 @@ public class Vet extends Worker {
 
             // calculation of the largest name
             int nameLength = Math.max(vaccineSpecies.name().length(), length);
-            
+
             // calculation of the characters in common
             int nameSameChar = 0;
             HashMap<Character, Integer> vaccineCharCount = new HashMap<Character, Integer>();
@@ -79,9 +84,9 @@ public class Vet extends Worker {
                 vaccineCharCount.put(vaccineChar, vaccineCharCount.getOrDefault(vaccineChar, 0) + 1);
             }
 
-            for (HashMap.Entry<Character, Integer> entry :speciesCharCount.entrySet()) {
+            for (HashMap.Entry<Character, Integer> entry : speciesCharCount.entrySet()) {
                 char speciesChar = entry.getKey();
-                
+
                 if (vaccineCharCount.containsKey(speciesChar)) {
                     nameSameChar += Math.min(entry.getValue(), vaccineCharCount.get(speciesChar));
                 }
@@ -90,8 +95,8 @@ public class Vet extends Worker {
             // calculation of the damage
             damage = Math.max(damage, (nameLength - nameSameChar));
         }
-        
-        if (damage  == 0) {
+
+        if (damage == 0) {
             return VaccineDamage.CONFUSION;
         }
 

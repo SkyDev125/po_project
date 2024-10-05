@@ -1,8 +1,15 @@
 package hva.core;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 import hva.core.enumf.VaccineDamage;
 
-public class VaccineRegistry {
+public class VaccineRegistry implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final Vaccine _vaccine;
     private final Vet _vet;
     private final Species _species;
@@ -17,7 +24,7 @@ public class VaccineRegistry {
         _animal = animal;
         _vaccineDamage = vaccineDamage;
     }
-    
+
     // gets
     public Animal animal() {
         return _animal;

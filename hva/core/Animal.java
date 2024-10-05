@@ -6,7 +6,7 @@ import java.io.*;
 public class Animal implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 202407081733L;
+    private static final long serialVersionUID = 1L;
 
     private final String _id;
     private final String _name;

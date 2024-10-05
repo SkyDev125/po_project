@@ -1,8 +1,13 @@
 package hva.core;
 
+import java.io.Serial;
+
 import hva.core.enumf.LeafState;
 
 public class Evergreen extends Tree {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     // constructor
     public Evergreen(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
