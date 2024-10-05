@@ -1,5 +1,7 @@
 package hva.core;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +20,11 @@ public class Vaccine {
         for (Species currentSpecies : species) {
             _species.put(currentSpecies.id(), currentSpecies);
         }
+    }
+
+    // gets
+    public Collection<Species> species() {
+        return Collections.unmodifiableCollection(_species.values());
     }
 
     // others

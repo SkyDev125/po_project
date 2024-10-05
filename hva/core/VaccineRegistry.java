@@ -1,24 +1,29 @@
 package hva.core;
 
+import java.util.HashMap;
+
 import hva.core.enumf.VaccineDamage;
 
 
 public class VaccineRegistry {
-    private final String _id;
-    private final String _name;
-    private final Animal _animal;
     private final Vaccine _vaccine;
     private final Vet _vet;
+    private final Species _species;
+    private final Animal _animal;
     private final VaccineDamage _vaccineDamage;
 
-
-    public VaccineRegistry(String id, String name, Animal animal, Vaccine vaccine, Vet vet) {
-        _id = id;
-        _name = name;
+    // constructor
+    public VaccineRegistry(Vaccine vaccine, Vet vet, Animal animal, VaccineDamage vaccineDamage) {
         _vaccine = vaccine;
         _vet = vet;
-
-        // comparar animal.name() com nomes na vaccine
+        _species = animal.species();
+        _animal = animal;
+        _vaccineDamage = vaccineDamage;
+    }
+    
+    // gets
+    public Animal animal() {
+        return _animal;
     }
     
     public VaccineDamage vaccineDamage() {

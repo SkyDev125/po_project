@@ -28,6 +28,10 @@ public class Animal {
         return _name;
     }
 
+    public Species species() {
+        return _species;
+    }
+
     public Collection<VaccineRegistry> vaccineRegistry() {
         return Collections.unmodifiableCollection(_vaccineRegistry);
     }

@@ -2,7 +2,6 @@ package hva.core;
 
 import hva.core.enumf.LeafState;
 import hva.core.enumf.SeasonType;
-import java.math.*;
 
 public abstract class Tree {
     private final String _id;
@@ -43,12 +42,12 @@ public abstract class Tree {
 
     // methods
     int totalCleaningEffort() {
-        return (_cleaningDifficulty * seasonalEffort() * Math.log(_age * 1));
+        return (int)(_cleaningDifficulty * seasonalEffort() * Math.log(_age * 1));
     }
 
-    private abstract int seasonalEffort();
+    protected abstract int seasonalEffort();
 
-    private abstract LeafState leafState();
+    protected abstract LeafState leafState();
 
     public abstract String toString();
 }
