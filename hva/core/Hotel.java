@@ -18,7 +18,7 @@ public class Hotel implements Serializable {
 
   @Serial
   private static final long serialVersionUID = 1L;
-  
+
   // TODO: how to use this later - private boolean _isModified = false;
   private SeasonType _season = SeasonType.SPRING;
   private Map<String, Species> _species = new HashMap<String, Species>();
@@ -60,32 +60,92 @@ public class Hotel implements Serializable {
    * <------------------------ Sets ------------------------>
    */
   public void addAnimal(String idAnimal, String name, String idSpecies, String idHabitat)
-      throws AnimalNotFoundException, SpeciesNotFoundException, HabitatNotFoundException {
-    // TODO: define the function
+      throws DuplicateAnimalException, SpeciesNotFoundException, HabitatNotFoundException {
+
+    // Exception Checks
+    if (animalExists(idAnimal) != null)
+      throw new DuplicateAnimalException(idAnimal);
+    Species species = speciesExistsWithException(idSpecies);
+    Habitat habitat = habitatExistsWithException(idHabitat);
+
+    // Create and Add Animal
+    Animal animal = new Animal(idAnimal, name, species, habitat);
+    _animals.put(idHabitat, animal);
+    species.addAnimal(animal);
+    habitat.addAnimal(animal);
+  }
+
+  public void addSpecies(String idSpecies, String name) throws DuplicateSpeciesException {
+
+    // Exception Checks
+    if (speciesExists(idSpecies) != null)
+      throw new DuplicateSpeciesException(idSpecies);
+
+    // Create and Add Species
+    Species species = new Species(idSpecies, name);
+    _species.put(idSpecies, species);
     return;
   }
 
-  public void addWorker(String idWorker, String name, String type) {
-    // TODO: define the function
-    return;
+  public void addWorker(String idWorker, String name, String type)
+      throws DuplicateWorkerException, UnrecognizedWorkerTypeException {
+
+    // Exception Checks
+    if (workerExists(idWorker) != null)
+      throw new DuplicateWorkerException(idWorker);
+
+    // Create and Add Worker
+    Worker worker;
+    switch (type) {
+      case "VET":
+        worker = new Vet(idWorker, name, this);
+        break;
+      case "TRT":
+        worker = new CareTaker(idWorker, name, this);
+        break;
+      default:
+        throw new UnrecognizedWorkerTypeException(type);
+    }
+    _workers.put(idWorker, worker);
   }
 
-  public void addHabitat(String idHabitat, String name, int area) {
-    // TODO: define the function
-    return;
+  public void addHabitat(String idHabitat, String name, int area) throws DuplicateHabitatException {
+
+    // Exception Checks
+    if (habitatExists(idHabitat) != null)
+      throw new DuplicateHabitatException(idHabitat);
+
+    // Create and Add Habitat
+    Habitat habitat = new Habitat(idHabitat, name, area);
+    _habitats.put(idHabitat, habitat);
   }
 
-  public void addVaccine(String idVaccine, String name, String idSpecies) {
-    // TODO: define the function
-    return;
+  public void addVaccine(String idVaccine, String name, String idSpecies)
+      throws DuplicateVaccineException, SpeciesNotFoundException {
+
+    // Exception Checks
+    if (vaccineExists(idVaccine) != null)
+      throw new DuplicateVaccineException(idVaccine);
+
+    String[] idsSpecies = idSpecies.split(",");
+    ArrayList<Species> allSpecies = new ArrayList<Species>();
+
+    for (String id : idsSpecies) {
+      Species species = speciesExistsWithException(id);
+      allSpecies.add(species);
+    }
+
+    // Create and Add Vaccine
+    Vaccine vaccine = new Vaccine(idVaccine, name, allSpecies);
+    _vaccines.put(idVaccine, vaccine);
   }
 
   /*
    * <------------------------ Others ------------------------>
    */
   public SeasonType progressSeason() {
-    // TODO: define the function
-    return SeasonType.SPRING;
+    _season = _season.next();
+    return _season;
   }
 
   public int satisfaction() {

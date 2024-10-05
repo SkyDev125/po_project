@@ -1,1 +1,3 @@
 In Hotel.addAnimal, what do we do if the habitat doesnt exist? do we create it? do we ask if the usar wants to create it? do we cancel the process like we do if the id of the animal is duplicate?
+
+In Hotel.addVaccine, do we return instantly after we find the first species id that doesnt exist and just return that one? or do we keep going and test the others and then return all of the ids that dont exist together?

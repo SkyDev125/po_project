@@ -1,10 +1,27 @@
 package hva.core.enumf;
 
 public enum SeasonType {
-    SPRING,
-    SUMMER,
-    FALL,
-    WINTER,
+    SPRING(0),
+    SUMMER(1),
+    FALL(2),
+    WINTER(3);
 
-    // TODO
+    private final int value;
+
+    SeasonType(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public SeasonType next() {
+        return switch (this) {
+            case SPRING -> SUMMER;
+            case SUMMER -> FALL;
+            case FALL -> WINTER;
+            case WINTER -> SPRING;
+        };
+    }
 }
