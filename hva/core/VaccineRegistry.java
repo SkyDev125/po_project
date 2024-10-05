@@ -16,7 +16,10 @@ public class VaccineRegistry implements Serializable {
     private final Animal _animal;
     private final VaccineDamage _vaccineDamage;
 
-    // constructor
+    /*
+     * <------------------------ Constructor ------------------------>
+     */
+    
     public VaccineRegistry(Vaccine vaccine, Vet vet, Animal animal, VaccineDamage vaccineDamage) {
         _vaccine = vaccine;
         _vet = vet;
@@ -25,12 +28,36 @@ public class VaccineRegistry implements Serializable {
         _vaccineDamage = vaccineDamage;
     }
 
-    // gets
+    /*
+     * <------------------------ Gets ------------------------>
+     */
+
+    /**
+     * Returns the animal whose vaccination is registered in this instance.
+     * @return the vaccinated animal 
+     */
     public Animal animal() {
         return _animal;
     }
 
+    /**
+     * Returns the damage dealt by the vaccine that is registered in this instance
+     * @return the vaccine damage dealt
+     */
     public VaccineDamage vaccineDamage() {
         return _vaccineDamage;
+    }
+
+    /*
+     * <------------------------ Others ------------------------>
+     */
+
+    /**
+     * Returns the vaccine registry in the format:
+     * REGISTO-VACINA|idVacina|idVeterinario|idEspecie
+     * @return the vaccine registry in format
+     */
+    public String toString() {
+        return "REGISTO-VACINA|" + _vaccine.id() + "|" + _vet.id() + "|" + _species.id();
     }
 }

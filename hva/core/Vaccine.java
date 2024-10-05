@@ -17,7 +17,10 @@ public class Vaccine implements Serializable {
     private int _applyCount;
     private HashMap<String, Species> _species;
 
-    // constructor
+    /*
+     * <------------------------ Constructor ------------------------>
+     */
+    
     public Vaccine(String id, String name, List<Species> species) {
         _id = id;
         _name = name;
@@ -28,28 +31,71 @@ public class Vaccine implements Serializable {
         }
     }
 
-    // gets
+    /*
+     * <------------------------ Gets ------------------------>
+     */
+
+    /**
+     * Returns the id of the vaccine in this instance.
+     * @return the id of the vaccine
+     */
+    public String id() {
+        return _id;
+    }
+
+    /**
+     * Returns the collection of species to which the vaccine in this instance works.
+     * @return the collection of species
+     */
     public Collection<Species> species() {
         return Collections.unmodifiableCollection(_species.values());
     }
 
-    // others
+    /*
+     * <------------------------ Others ------------------------>
+     */
+
+    /**
+     * Increases the count of applications of the vaccine in this instance.
+     */
     public void apply() {
         _applyCount++;
     }
 
+    /**
+     * Returns the vaccine registry in the format:
+     * REGISTO-VACINA|idVacina|idVeterinario|idEspecie
+     * @return the vaccine registry in format // TODO: should it be the format itself?
+     */
     public String toString() {
-        String species = "";
+        String speciesString = "";
+        
+        for (HashMap.Entry<String, Species> entry : _species.entrySet()) {
+            speciesString += entry.getKey() + ",";
+        }
 
-        // TODO
+        speciesString.substring(0, speciesString.length() - 1);
 
-        return "VACINA|" + _id + "|" + _name + "|" + Integer.toString(_applyCount) + "|" + species;
+        return "VACINA|" + _id + "|" + _name + "|" + Integer.toString(_applyCount) + "|" + speciesString;
     }
 
-    public boolean equals() {
+    /**
+     * Returns true if the vaccine in this instance is equal to the given vaccine.
+     * @return true or false // TODO: what do I put here?
+     */
+    public boolean equals(Vaccine vaccine) {
+        // TODO: define equals method
 
-        // TODO
+        return _id.equals(vaccine.id());
+    }
 
-        return true;
+    /**
+     * INCOMPLETO
+     * Returns the hashcode of the vaccine in this instance.
+     * @return the hashcode of the vaccine
+     */
+    public int hashCode() {
+        // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares avisa
+        return 20;
     }
 }

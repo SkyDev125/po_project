@@ -3,36 +3,77 @@ package hva.core;
 import java.io.Serial;
 
 import hva.core.enumf.LeafState;
+import hva.core.enumf.SeasonType;
 
 public class Evergreen extends Tree {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    // constructor
+    /*
+     * <------------------------ Constructor ------------------------>
+     */
+    
     public Evergreen(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
         super(id, name, age, cleaningDifficulty, hotel);
     }
 
-    // others
+    /*
+     * <------------------------ Others ------------------------>
+     */
+
+    /**
+     * Returns the seasonal effort of the tree in this instance.
+     * @return the seasonal effort
+     */
     protected int seasonalEffort() {
+        SeasonType currentSeason = hotel().season();
 
-        // TODO
+        if (currentSeason == SeasonType.SPRING) {
+            return 1;
+        }
 
-        return 20;
+        if (currentSeason == SeasonType.SUMMER) {
+            return 1;
+        }
+
+        if (currentSeason == SeasonType.FALL) {
+            return 1;
+        }
+
+        return 2;
     }
 
+    /**
+     * Returns the leaf state of the tree in this instance.
+     * @return the leaf state
+     */
     protected LeafState leafState() {
+        SeasonType currentSeason = hotel().season();
 
-        // TODO
+        if (currentSeason == SeasonType.SPRING) {
+            return LeafState.GENERATELEAVES;
+        }
+
+        if (currentSeason == SeasonType.SUMMER) {
+            return LeafState.WITHLEAVES;
+        }
+
+        if (currentSeason == SeasonType.FALL) {
+            return LeafState.WITHLEAVES;
+        }
 
         return LeafState.FALLINGLEAVES;
     }
 
+    /**
+     * Returns the tree in the format:
+     * ́ARVORE|idArvore|nomeArvore|idadeArvore|dificuldadeBaseLimpeza|tipoArvore|cicloBiologico
+     * @return the tree in format 
+     */
     public String toString() {
+        LeafState bioCycle = leafState();
 
-        // TODO
-
-        return "ola";
+        return "ARVORE|" + id() + "|" + name() + "|" + Integer.toString(age()) + "|" + Integer.toString(cleaningDifficulty()) + "|PERENE|" + bioCycle;
     }
 }
