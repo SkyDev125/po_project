@@ -7,14 +7,14 @@ public class Deciduos extends Tree {
         super(id, name, age, cleaningDifficulty, hotel);
     }
 
-    private int seasonalEffort() {
+    protected int seasonalEffort() {
 
         // TODO
 
         return 20;
     }
 
-    private LeafState leafState() {
+    protected LeafState leafState() {
 
         // TODO
 

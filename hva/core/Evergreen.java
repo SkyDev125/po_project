@@ -10,14 +10,14 @@ public class Evergreen extends Tree {
     }
 
     // others
-    private int seasonalEffort() {
+    protected int seasonalEffort() {
 
         // TODO
 
         return 20;
     }
 
-    private LeafState leafState() {
+    protected LeafState leafState() {
 
         // TODO
 

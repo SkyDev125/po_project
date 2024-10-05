@@ -3,7 +3,7 @@ package hva.app.habitat;
 import hva.core.Hotel;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
+import pt.tecnico.uilib.Display;
 
 /**
  * Show all habitats of this zoo hotel.
@@ -16,6 +16,7 @@ class DoShowAllHabitats extends Command<Hotel> {
   
   @Override
   protected void execute() {
-    //FIXME implement command
+    Display display = new Display();
+    display.addAll(_receiver.habitats());
   }
 }
