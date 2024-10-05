@@ -20,14 +20,14 @@ public class Evergreen extends Tree {
     protected LeafState leafState() {
 
 
-        // TODO 
+        // TODO
 
         return LeafState.FALLINGLEAVES;
     }
 
     public String toString() {
 
-        // TODO 
+        // TODO
 
         return "ola";
     }

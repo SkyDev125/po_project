@@ -1,16 +1,20 @@
 package hva.core;
 
 import java.util.*;
+import java.io.*;
 
+public class Animal implements Serializable {
 
-public class Animal {
+    @Serial
+    private static final long serialVersionUID = 202407081733L;
+
     private final String _id;
     private final String _name;
     private Species _species;
     private Habitat _habitat;
     private ArrayList<VaccineRegistry> _vaccineRegistry;
 
-    // constructor 
+    // constructor
     public Animal(String id, String name, Species species, Habitat habitat) {
         _id = id;
         _name = name;
@@ -48,7 +52,7 @@ public class Animal {
     }
 
     protected int satisfaction() {
-        return 20;      // calcular 
+        return 20; // calcular
     }
 
     public String toString() {
@@ -58,12 +62,12 @@ public class Animal {
             health = "";
 
             for (VaccineRegistry vaccineRegistry : _vaccineRegistry) {
-                health += vaccineRegistry.vaccineDamage() + ",";    // ver forma diferente de fazer 
+                health += vaccineRegistry.vaccineDamage() + ","; // ver forma diferente de fazer
             }
 
             health.substring(0, health.length() - 1);
         }
 
-        return "ANIMAL|" + _id + "|" + _name + "|" + _species.id() + "|" + health + "|" + _habitat.id(); 
+        return "ANIMAL|" + _id + "|" + _name + "|" + _species.id() + "|" + health + "|" + _habitat.id();
     }
 }

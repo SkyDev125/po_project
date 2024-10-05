@@ -1,5 +1,6 @@
 package hva.core;
 
+import hva.core.enumf.SeasonType;
 import hva.core.exception.*;
 import java.io.*;
 
@@ -12,7 +13,15 @@ import java.io.*;
 public class HotelManager {
   /** The current zoo hotel */ // Should we initialize this field?
   private Hotel _hotel = new Hotel();
-  
+
+  public SeasonType progressSeason(){
+    return _hotel.progressSeason();
+  }
+
+  public int satisfaction(){
+    return _hotel.satisfaction();
+  }
+
   /**
    * Saves the serialized application's state into the file associated to the current network.
    *

@@ -1,7 +1,5 @@
 package hva.core;
 
-import java.util.HashMap;
-
 import hva.core.enumf.VaccineDamage;
 
 

@@ -4,8 +4,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.io.*;
 
-public class Vaccine {
+public class Vaccine implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 202407081733L;
+
     private final String _id;
     private final String _name;
     private int _applyCount;
@@ -41,7 +46,7 @@ public class Vaccine {
     }
 
     public boolean equals() {
-        
+
         // TODO
 
         return true;
