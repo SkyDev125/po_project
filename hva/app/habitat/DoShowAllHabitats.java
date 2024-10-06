@@ -1,6 +1,7 @@
 package hva.app.habitat;
 
 import hva.core.Hotel;
+
 import pt.tecnico.uilib.menus.Command;
 
 /**

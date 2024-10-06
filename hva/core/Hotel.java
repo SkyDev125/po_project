@@ -2,6 +2,7 @@ package hva.core;
 
 import hva.core.enumf.Influence;
 import hva.core.enumf.SeasonType;
+import hva.core.enumf.VaccineDamage;
 import hva.core.exception.*;
 
 import java.io.IOException;
@@ -154,9 +155,8 @@ public class Hotel implements Serializable {
     if (vaccineExists(idVaccine) != null)
       throw new DuplicateVaccineException(idVaccine);
 
-    String[] idsSpecies = idSpecies.split(",");
+    String[] idsSpecies = idSpecies.split("\\s*,\\s*");
     ArrayList<Species> allSpecies = new ArrayList<Species>();
-
     for (String id : idsSpecies) {
       Species species = speciesExistsWithException(id);
       allSpecies.add(species);
@@ -247,29 +247,49 @@ public class Hotel implements Serializable {
     return habitatExistsWithException(idHabitat).trees();
   }
 
-  public void vaccinateAnimal(String idAnimal, String idVaccine, String idVet) {
-    // TODO: define the function
-    return;
+  public VaccineRegistry vaccinateAnimal(String idAnimal, String idVaccine, String idVet)
+      throws AnimalNotFoundException, VaccineNotFoundException, WorkerNotFoundException, WorkerNotAuthorizedException {
+
+    // Exception Checks
+    Animal animal = animalExistsWithException(idAnimal);
+    Vaccine vaccine = vaccineExistsWithException(idVaccine);
+    Worker worker = workerExistsWithException(idVet);
+    if (!(worker instanceof Vet)) {
+      throw new WorkerNotFoundException(idVet);
+    }
+
+    // Vaccinate Animal
+    VaccineRegistry vaccineRegistry = ((Vet) worker).vaccinate(animal, vaccine);
+    _vaccineRegistry.add(vaccineRegistry);
+    return vaccineRegistry;
   }
 
-  public Collection<Animal> habitatAnimals(String idHabitat) {
-    // TODO: define the function
-    return Collections.unmodifiableCollection(null);
+  public Collection<Animal> habitatAnimals(String idHabitat) throws HabitatNotFoundException {
+    return habitatExistsWithException(idHabitat).animals();
   }
 
-  public List<VaccineRegistry> animalVaccinations(String idAnimal) {
-    // TODO: define the function
-    return Collections.unmodifiableList(null);
+  public List<VaccineRegistry> animalVaccinations(String idAnimal) throws AnimalNotFoundException {
+    return animalExistsWithException(idAnimal).vaccineRegistry();
   }
 
-  public List<VaccineRegistry> vetVaccinations(String idVet) {
-    // TODO: define the function
-    return Collections.unmodifiableList(null);
+  public List<VaccineRegistry> vetVaccinations(String idVet) throws WorkerNotFoundException {
+    Worker worker = workerExistsWithException(idVet);
+    if (!(worker instanceof Vet)) {
+      throw new WorkerNotFoundException(idVet);
+    }
+    return ((Vet) worker).vaccineRegistry();
   }
 
   public List<VaccineRegistry> filterWrongVaccinations() {
-    // TODO: define the function
-    return Collections.unmodifiableList(null);
+    ArrayList<VaccineRegistry> wrongVaccinations = new ArrayList<VaccineRegistry>();
+
+    for (VaccineRegistry vaccineRegistry : _vaccineRegistry) {
+      if (vaccineRegistry.vaccineDamage() != VaccineDamage.NORMAL) {
+        wrongVaccinations.add(vaccineRegistry);
+      }
+    }
+
+    return Collections.unmodifiableList(wrongVaccinations);
   }
 
   /*

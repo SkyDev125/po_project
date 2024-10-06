@@ -1,9 +1,8 @@
 package hva.app.vaccine;
 
 import hva.core.Hotel;
+
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
-import pt.tecnico.uilib.Display;
 
 /**
  * Show all applied vacines by all veterinarians of this zoo hotel.
@@ -16,7 +15,7 @@ class DoShowVaccinations extends Command<Hotel> {
 
   @Override
   protected final void execute() {
-    Display display = new Display();
-    display.addAll(_receiver.vaccineRegistry());
+    _display.addAll(_receiver.vaccineRegistry());
+    _display.display();
   }
 }

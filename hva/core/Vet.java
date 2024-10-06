@@ -1,6 +1,7 @@
 package hva.core;
 
 import java.util.HashMap;
+import java.util.List;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +9,7 @@ import java.util.Collection;
 
 import hva.core.enumf.VaccineDamage;
 import hva.core.exception.SpeciesNotFoundException;
+import hva.core.exception.WorkerNotAuthorizedException;
 
 public class Vet extends Worker {
 
@@ -36,7 +38,7 @@ public class Vet extends Worker {
      * 
      * @return the collection of vaccine registries
      */
-    public Collection<VaccineRegistry> vaccineRegistry() {
+    public List<VaccineRegistry> vaccineRegistry() {
         return Collections.unmodifiableList(_vaccineRegistry);
     }
 
@@ -90,15 +92,30 @@ public class Vet extends Worker {
      * @param animal  that was vaccinated
      * @param vaccine that was applied
      * @return the vaccine registry
+     * @throws WorkerNotAuthorizedException
      */
-    protected VaccineRegistry vaccinate(Animal animal, Vaccine vaccine) {
+    protected VaccineRegistry vaccinate(Animal animal, Vaccine vaccine) throws WorkerNotAuthorizedException {
+        if (!_responsibilities.containsValue(animal.species())) {
+            throw new WorkerNotAuthorizedException(id(), animal.species().id());
+        }
+
         VaccineDamage vaccineDamage = calculateVaccineDamage(animal, vaccine);
-
         VaccineRegistry vaccineRegistry = new VaccineRegistry(vaccine, this, animal, vaccineDamage);
-
         addVaccineRegistry(vaccineRegistry);
-
         return vaccineRegistry;
+    }
+
+    private int countSameChars(HashMap<Character, Integer> animalSpeciesName, char[] speciesName) {
+        int count = 0;
+
+        for (char speciesChar : speciesName) {
+            if (animalSpeciesName.containsKey(speciesChar) && animalSpeciesName.get(speciesChar) > 0) {
+                count++;
+                animalSpeciesName.put(speciesChar, animalSpeciesName.get(speciesChar) - 1);
+            }
+        }
+
+        return count;
     }
 
     /**
@@ -111,55 +128,36 @@ public class Vet extends Worker {
      */
     private VaccineDamage calculateVaccineDamage(Animal animal, Vaccine vaccine) {
         int damage = 0;
+        char[] animalSpeciesName = animal.species().toString().toCharArray();
+        HashMap<Character, Integer> animalSpeciesNameCharCount = new HashMap<Character, Integer>();
 
-        // defining fixed values for later
-        int length = animal.species().name().length();
-
-        HashMap<Character, Integer> speciesCharCount = new HashMap<Character, Integer>();
-
-        for (char speciesChar : animal.species().name().toCharArray()) {
-            speciesCharCount.put(speciesChar, speciesCharCount.getOrDefault(speciesChar, 0) + 1);
+        // Count the number of each character in the animal species name
+        for (char speciesChar : animalSpeciesName) {
+            animalSpeciesNameCharCount.put(
+                    speciesChar,
+                    animalSpeciesNameCharCount.getOrDefault(speciesChar, 0) + 1);
         }
 
-        // comparison of the species to each species of the vaccine
-        for (Species vaccineSpecies : vaccine.species()) {
-            // checking if the vaccine is for this species
-            if (animal.species().equals(vaccineSpecies)) {
-                return VaccineDamage.NORMAL;
-            }
-
-            // calculation of the largest name
-            int nameLength = Math.max(vaccineSpecies.name().length(), length);
-
-            // calculation of the characters in common
-            int nameSameChar = 0;
-            HashMap<Character, Integer> vaccineCharCount = new HashMap<Character, Integer>();
-
-            for (char vaccineChar : vaccineSpecies.name().toCharArray()) {
-                vaccineCharCount.put(vaccineChar, vaccineCharCount.getOrDefault(vaccineChar, 0) + 1);
-            }
-
-            for (HashMap.Entry<Character, Integer> entry : speciesCharCount.entrySet()) {
-                char speciesChar = entry.getKey();
-
-                if (vaccineCharCount.containsKey(speciesChar)) {
-                    nameSameChar += Math.min(entry.getValue(), vaccineCharCount.get(speciesChar));
-                }
-            }
-
-            // calculation of the damage
-            damage = Math.max(damage, (nameLength - nameSameChar));
+        // Calculate the max damage
+        for (Species species : vaccine.species()) {
+            char[] vaccineSpeciesName = species.toString().toCharArray();
+            int tempDamage = Math.max(vaccineSpeciesName.length, animalSpeciesName.length)
+                    - countSameChars(animalSpeciesNameCharCount, vaccineSpeciesName);
+            damage = Math.max(tempDamage, damage);
         }
 
-        if (damage == 0) {
-            return VaccineDamage.CONFUSION;
+        // Convert damage to Enum
+        switch (damage) {
+            case 0:
+                return VaccineDamage.CONFUSION;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                return VaccineDamage.ACCIDENT;
+            default:
+                return VaccineDamage.ERROR;
         }
-
-        if (damage < 5) {
-            return VaccineDamage.ACCIDENT;
-        }
-
-        return VaccineDamage.ERROR;
     }
 
     /**
@@ -171,7 +169,8 @@ public class Vet extends Worker {
     private void addVaccineRegistry(VaccineRegistry vaccineRegistry) {
         _vaccineRegistry.add(vaccineRegistry);
         vaccineRegistry.animal().addVaccineRegistration(vaccineRegistry);
-        // TODO: criar metodo para adicionar vaccineRegistry ao hotel
+        // TODO: Not necessary to create method in hotel cause we return
+        // vaccineRegistry!
     }
 
     /**

@@ -36,8 +36,8 @@ public class Animal implements Serializable {
         return _species;
     }
 
-    public Collection<VaccineRegistry> vaccineRegistry() {
-        return Collections.unmodifiableCollection(_vaccineRegistry);
+    public List<VaccineRegistry> vaccineRegistry() {
+        return Collections.unmodifiableList(_vaccineRegistry);
     }
 
     // method

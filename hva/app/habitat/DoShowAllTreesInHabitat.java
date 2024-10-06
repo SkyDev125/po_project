@@ -2,7 +2,9 @@ package hva.app.habitat;
 
 import hva.core.Hotel;
 import hva.core.exception.HabitatNotFoundException;
+
 import hva.app.exception.UnknownHabitatKeyException;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
