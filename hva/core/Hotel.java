@@ -148,34 +148,44 @@ public class Hotel implements Serializable {
     return _season;
   }
 
-  public int satisfaction() {
+  public float satisfaction() {
     // TODO: define the function
     return -1;
   }
 
-  public void transferAnimal(String idAnimal, String idHabitat) {
-    // TODO: define the function
-    return;
+  public void transferAnimal(String idAnimal, String idHabitat)
+      throws AnimalNotFoundException, HabitatNotFoundException {
+    Animal animal = animalExistsWithException(idAnimal);
+    Habitat habitat = habitatExistsWithException(idHabitat);
+    animal.transferAnimal(habitat);
   }
 
-  public int animalSatisfaction(String id) {
-    // TODO: define the function
-    return -1;
+  public float animalSatisfaction(String id) throws AnimalNotFoundException {
+    return animalExistsWithException(id).satisfaction();
   }
 
-  public void addResponsibilityToWorker(String idWorker, String idResponsibility) {
-    // TODO: define the function
-    return;
+  public void addResponsibilityToWorker(String idWorker, String idResponsibility)
+      throws WorkerNotFoundException, ResponsibilityNotFoundException {
+    Worker worker = workerExistsWithException(idWorker);
+    try {
+      worker.addResponsibility(idResponsibility);
+    } catch (HabitatNotFoundException | SpeciesNotFoundException e) {
+      throw new ResponsibilityNotFoundException(idWorker, idResponsibility);
+    }
   }
 
-  public void removeResponsibilityFromWorker(String idWorker, String idResponsibility) {
-    // TODO: define the function
-    return;
+  public void removeResponsibilityFromWorker(String idWorker, String idResponsibility)
+      throws WorkerNotFoundException, ResponsibilityNotFoundException {
+    Worker worker = workerExistsWithException(idWorker);
+    try {
+      worker.removeResponsibility(idResponsibility);
+    } catch (HabitatNotFoundException | SpeciesNotFoundException e) {
+      throw new ResponsibilityNotFoundException(idWorker, idResponsibility);
+    }
   }
 
-  public int workerSatisfaction(String id) {
-    // TODO: define the function
-    return -1;
+  public float workerSatisfaction(String id) throws WorkerNotFoundException {
+    return workerExistsWithException(id).satisfaction();
   }
 
   public void changeHabitatArea(String idHabitat, int area) {

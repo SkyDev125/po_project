@@ -3,6 +3,9 @@ package hva.core;
 import java.io.Serial;
 import java.io.Serializable;
 
+import hva.core.exception.HabitatNotFoundException;
+import hva.core.exception.SpeciesNotFoundException;
+
 abstract public class Worker implements Serializable {
 
     @Serial
@@ -28,6 +31,7 @@ abstract public class Worker implements Serializable {
 
     /**
      * Returns the id of the worker in this instance.
+     * 
      * @return the id of the worker
      */
     public String id() {
@@ -36,6 +40,7 @@ abstract public class Worker implements Serializable {
 
     /**
      * Returns the name of the worker in this instance.
+     * 
      * @return the name of the worker
      */
     String name() {
@@ -44,6 +49,7 @@ abstract public class Worker implements Serializable {
 
     /**
      * Returns the hotel of the worker in this instance.
+     * 
      * @return the hotel of the worker
      */
     protected Hotel hotel() {
@@ -54,16 +60,17 @@ abstract public class Worker implements Serializable {
      * <------------------------ Others ------------------------>
      */
 
-    abstract protected void addResponsibility(String id);
+    abstract protected void addResponsibility(String id) throws SpeciesNotFoundException, HabitatNotFoundException;
 
-    abstract protected void removeResponsibility(String id);
+    abstract protected void removeResponsibility(String id) throws SpeciesNotFoundException, HabitatNotFoundException;
 
-    abstract protected int satisfaction();
+    abstract protected float satisfaction();
 
     abstract public String toString();
 
     /**
      * Returns true if the worker in this instance is equal to the given worker.
+     * 
      * @param worker to be compared
      * @return true or false // TODO: what do I put here?
      */
@@ -74,10 +81,12 @@ abstract public class Worker implements Serializable {
     /**
      * INCOMPLETO
      * Returns the hashcode of the worker in this instance.
+     * 
      * @return the hashcode of the worker
      */
     public int hashCode() {
-        // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares avisa
+        // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares
+        // avisa
         return 20;
     }
 }

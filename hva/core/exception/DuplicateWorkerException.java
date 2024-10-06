@@ -10,7 +10,6 @@ public class DuplicateWorkerException extends Exception {
     private final String _id;
 
     public DuplicateWorkerException(String id) {
-
         super("Worker with id " + id + " already exists");
         _id = id;
     }

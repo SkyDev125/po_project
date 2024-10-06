@@ -3,6 +3,8 @@ package hva.core;
 import java.io.Serial;
 import java.util.HashMap;
 
+import hva.core.exception.HabitatNotFoundException;
+
 public class CareTaker extends Worker {
 
     @Serial
@@ -13,7 +15,7 @@ public class CareTaker extends Worker {
     /*
      * <------------------------ Constructor ------------------------>
      */
-    
+
     public CareTaker(String id, String name, Hotel hotel) {
         super(id, name, hotel);
         _responsibilities = new HashMap<String, Habitat>();
@@ -24,26 +26,33 @@ public class CareTaker extends Worker {
      */
 
     /**
-     * Adds an habitat as a responsability for the care taker in this instance to care.
+     * Adds an habitat as a responsability for the care taker in this instance to
+     * care.
+     * 
      * @param id of the habitat
      */
-    protected void addResponsibility(String id) {
-        _responsibilities.put(id, hotel().habitatExists(id));
+    protected void addResponsibility(String id) throws HabitatNotFoundException {
+        _responsibilities.put(id, hotel().habitatExistsWithException(id));
     }
 
     /**
-     * Removes an habitat as a responsability for the care taker in this instance to care.
+     * Removes an habitat as a responsability for the care taker in this instance to
+     * care.
+     * 
      * @param id of the habitat
      */
-    protected void removeResponsibility(String id) {
-        _responsibilities.remove(id);
+    protected void removeResponsibility(String id) throws HabitatNotFoundException {
+        if (_responsibilities.remove(id) == null) {
+            throw new HabitatNotFoundException(id);
+        }
     }
 
     /**
      * Calculates the satisfaction of the vet in this instance.
+     * 
      * @return the satisfaction
      */
-    protected int satisfaction() {
+    protected float satisfaction() {
         int satisfactionPerHabitat = 0;
         int workInHabitat;
 
@@ -67,7 +76,9 @@ public class CareTaker extends Worker {
      * tipo|id|nome|idResponsabilidades
      * If the vet doesn't have responsibilities, it's in this format:
      * tipo|id|nome
-     * @return the vaccine registry in format // TODO: should it be the format itself?
+     * 
+     * @return the vaccine registry in format // TODO: should it be the format
+     *         itself?
      */
     public String toString() {
         String responsibilities = "";

@@ -5,8 +5,10 @@ import hva.core.exception.DuplicateAnimalException;
 import hva.core.exception.DuplicateSpeciesException;
 import hva.core.exception.HabitatNotFoundException;
 import hva.core.exception.SpeciesNotFoundException;
+
 import hva.app.exception.DuplicateAnimalKeyException;
 import hva.app.exception.UnknownHabitatKeyException;
+
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -26,19 +28,17 @@ class DoRegisterAnimal extends Command<Hotel> {
 
   @Override
   protected final void execute() throws CommandException, DuplicateAnimalKeyException, UnknownHabitatKeyException {
-    Form form = new Form(title());
     try {
       _receiver.addAnimal(
-          form.field("animalKey").toString(),
-          form.field("animalName").toString(),
-          form.field("speciesKey").toString(),
-          form.field("habitatKey").toString());
+          stringField("animalKey"),
+          stringField("animalName"),
+          stringField("speciesKey"),
+          stringField("habitatKey"));
     } catch (SpeciesNotFoundException e) {
-      addStringField("speciesName", Prompt.speciesName());
       try {
         _receiver.addSpecies(
-            form.field("speciesKey").toString(),
-            form.field("speciesName").toString());
+            stringField("speciesKey"),
+            Form.requestString(Prompt.speciesName()));
       } catch (DuplicateSpeciesException e1) {
         // This should never happen given the context
         // (cause we check if the species exists before adding it)

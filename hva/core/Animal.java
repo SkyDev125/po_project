@@ -51,7 +51,7 @@ public class Animal implements Serializable {
         _vaccineRegistry.add(vaccineReg);
     }
 
-    protected int satisfaction() {
+    protected float satisfaction() {
         // TODO: calculate satisfaction
         return 20;
     }
