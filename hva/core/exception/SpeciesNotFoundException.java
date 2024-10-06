@@ -14,7 +14,7 @@ public class SpeciesNotFoundException extends Exception {
         _id = id;
     }
 
-    public String species() {
+    public String id() {
         return _id;
     }
 }

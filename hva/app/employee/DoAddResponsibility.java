@@ -25,7 +25,9 @@ class DoAddResponsibility extends Command<Hotel> {
   @Override
   protected void execute() throws CommandException {
     try {
-      _receiver.addResponsibilityToWorker(stringField("workerKey"), stringField("responsibilityKey"));
+      _receiver.addResponsibilityToWorker(
+          stringField("workerKey"),
+          stringField("responsibilityKey"));
     } catch (WorkerNotFoundException e) {
       throw new UnknownEmployeeKeyException(e.id());
     } catch (ResponsibilityNotFoundException e) {

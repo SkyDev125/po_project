@@ -21,7 +21,8 @@ class DoShowSatisfactionOfEmployee extends Command<Hotel> {
   @Override
   protected void execute() throws CommandException {
     try {
-      _receiver.workerSatisfaction(stringField("workerKey"));
+      _display.add(Math.round(_receiver.workerSatisfaction(stringField("workerKey"))));
+      _display.display();
     } catch (WorkerNotFoundException e) {
       throw new UnknownEmployeeKeyException(e.id());
     }

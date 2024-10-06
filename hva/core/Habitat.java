@@ -10,7 +10,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 public class Habitat implements Serializable {
-    
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -53,6 +53,10 @@ public class Habitat implements Serializable {
 
     // sets
 
+    public void changeArea(int area) {
+        _area = area;
+    }
+
     // others
     protected void addAnimal(Animal animal) {
         _animals.put(animal.id(), animal);
@@ -60,5 +64,13 @@ public class Habitat implements Serializable {
 
     protected void removeAnimal(Animal animal) {
         _animals.remove(animal.id());
+    }
+
+    public void changeSuitability(Species species, Influence influence) {
+        // TODO Implement Command
+    }
+
+    public void addTree(Tree tree) {
+        _trees.put(tree.id(), tree);
     }
 }

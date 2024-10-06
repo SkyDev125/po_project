@@ -28,7 +28,9 @@ class DoRegisterEmployee extends Command<Hotel> {
 
     while (true) {
       try {
-        _receiver.addWorker(stringField("workerKey"), stringField("workerName"), workerType);
+        _receiver.addWorker(
+            stringField("workerKey"),
+            stringField("workerName"), workerType);
         break;
       } catch (DuplicateWorkerException e) {
         throw new DuplicateEmployeeKeyException(e.id());

@@ -120,6 +120,33 @@ public class Hotel implements Serializable {
     _habitats.put(idHabitat, habitat);
   }
 
+  public Tree addTreeToHabitat(String idHabitat, String idTree, String name, int age, int cleanDiff, String treeType)
+      throws HabitatNotFoundException, UnrecognizedTreeTypeException, DuplicateTreeException {
+
+    // Exception Checks
+    Habitat habitat = habitatExistsWithException(idHabitat);
+    if (treeExists(idTree) != null) {
+      throw new DuplicateTreeException(idTree);
+    }
+
+    // Create and Add Tree
+    Tree tree;
+    switch (treeType) {
+      case "PER":
+        tree = new Deciduos(idTree, name, age, cleanDiff, this);
+        break;
+      case "CAD":
+        tree = new Evergreen(idTree, name, age, cleanDiff, this);
+        break;
+      default:
+        throw new UnrecognizedTreeTypeException(treeType);
+    }
+
+    habitat.addTree(tree);
+    _trees.put(idTree, tree);
+    return tree;
+  }
+
   public void addVaccine(String idVaccine, String name, String idSpecies)
       throws DuplicateVaccineException, SpeciesNotFoundException {
 
@@ -149,8 +176,19 @@ public class Hotel implements Serializable {
   }
 
   public float satisfaction() {
-    // TODO: define the function
-    return -1;
+    Collection<Animal> animals = _animals.values();
+    Collection<Worker> workers = _workers.values();
+    float totalSatisfaction = 0;
+
+    for (Animal animal : animals) {
+      totalSatisfaction += animal.satisfaction();
+    }
+
+    for (Worker worker : workers) {
+      totalSatisfaction += worker.satisfaction();
+    }
+
+    return totalSatisfaction;
   }
 
   public void transferAnimal(String idAnimal, String idHabitat)
@@ -188,24 +226,25 @@ public class Hotel implements Serializable {
     return workerExistsWithException(id).satisfaction();
   }
 
-  public void changeHabitatArea(String idHabitat, int area) {
-    // TODO: define the function
-    return;
+  public void changeHabitatArea(String idHabitat, int area) throws HabitatNotFoundException {
+    habitatExistsWithException(idHabitat).changeArea(area);
   }
 
-  public void changeHabitatSuitability(String idHabitat, String idSpecies, Influence Influence) {
-    // TODO: define the function
-    return;
+  public void changeHabitatSuitability(String idHabitat, String idSpecies, Influence influence)
+      throws HabitatNotFoundException, SpeciesNotFoundException {
+    Habitat habitat = habitatExistsWithException(idHabitat);
+    Species species = speciesExistsWithException(idSpecies);
+
+    // Return early cause theres no need to save neutral influences
+    if (influence == Influence.NEU) {
+      return;
+    }
+
+    habitat.changeSuitability(species, influence);
   }
 
-  public void addTreeToHabitat(String idHabitat, String idTree, String name, int age, int cleanDiff, String treeType) {
-    // TODO: define the function
-    return;
-  }
-
-  public Collection<Tree> habitatTrees(String idHabitat) {
-    // TODO: define the function
-    return Collections.unmodifiableCollection(null);
+  public Collection<Tree> habitatTrees(String idHabitat) throws HabitatNotFoundException {
+    return habitatExistsWithException(idHabitat).trees();
   }
 
   public void vaccinateAnimal(String idAnimal, String idVaccine, String idVet) {

@@ -22,9 +22,9 @@ class DoShowSatisfactionOfAnimal extends Command<Hotel> {
   protected final void execute() throws CommandException {
     try {
       _display.add(Math.round(_receiver.animalSatisfaction(stringField("animalKey"))));
+      _display.display();
     } catch (AnimalNotFoundException e) {
       throw new UnknownAnimalKeyException(e.id());
     }
-    _display.display();
   }
 }
