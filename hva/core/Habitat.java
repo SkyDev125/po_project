@@ -1,8 +1,11 @@
 package hva.core;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import hva.core.enumf.Influence;
 
@@ -17,17 +20,16 @@ public class Habitat implements Serializable {
     private final String _id;
     private final String _name;
     private int _area;
-    private HashMap<String, Animal> _animals;
-    private HashMap<Species, Influence> _suitability;
-    private HashMap<String, CareTaker> _careTakers;
-    private HashMap<String, Tree> _trees;
+    private Map<Species, ArrayList<Animal>> _animals = new HashMap<Species, ArrayList<Animal>>();
+    private HashMap<Species, Influence> _suitability = new HashMap<Species, Influence>();
+    private HashMap<String, CareTaker> _careTakers = new HashMap<String, CareTaker>();
+    private HashMap<String, Tree> _trees = new HashMap<String, Tree>();
 
     // constructor
     public Habitat(String id, String name, int area) {
         _id = id;
         _name = name;
         _area = area;
-        _animals = new HashMap<String, Animal>();
     }
 
     // gets
@@ -40,7 +42,11 @@ public class Habitat implements Serializable {
     }
 
     public Collection<Animal> animals() {
-        return Collections.unmodifiableCollection(_animals.values());
+        Collection<Animal> animals = new ArrayList<Animal>();
+        for (List<Animal> speciesAnimals : _animals.values()) {
+            animals.addAll(speciesAnimals);
+        }
+        return Collections.unmodifiableCollection(animals);
     }
 
     public Collection<CareTaker> careTakers() {
@@ -59,11 +65,17 @@ public class Habitat implements Serializable {
 
     // others
     protected void addAnimal(Animal animal) {
-        _animals.put(animal.id(), animal);
+        _animals.computeIfAbsent(animal.species(), k -> new ArrayList<Animal>()).add(animal);
     }
 
     protected void removeAnimal(Animal animal) {
-        _animals.remove(animal.id());
+        List<Animal> speciesAnimals = _animals.get(animal.species());
+        if (speciesAnimals != null) {
+            speciesAnimals.remove(animal);
+            if (speciesAnimals.isEmpty()) {
+                _animals.remove(animal.species());
+            }
+        }
     }
 
     public void changeSuitability(Species species, Influence influence) {
@@ -72,5 +84,10 @@ public class Habitat implements Serializable {
 
     public void addTree(Tree tree) {
         _trees.put(tree.id(), tree);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("HABITAT|%s|%s|%d|%d", _id, _name, _area, _trees.size());
     }
 }

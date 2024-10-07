@@ -71,7 +71,7 @@ public class Hotel implements Serializable {
 
     // Create and Add Animal
     Animal animal = new Animal(idAnimal, name, species, habitat);
-    _animals.put(idHabitat, animal);
+    _animals.put(idAnimal, animal);
     species.addAnimal(animal);
     habitat.addAnimal(animal);
   }
@@ -133,10 +133,10 @@ public class Hotel implements Serializable {
     // Create and Add Tree
     Tree tree;
     switch (treeType) {
-      case "PER":
+      case "PERENE":
         tree = new Deciduos(idTree, name, age, cleanDiff, this);
         break;
-      case "CAD":
+      case "CADUCA":
         tree = new Evergreen(idTree, name, age, cleanDiff, this);
         break;
       default:
@@ -172,6 +172,9 @@ public class Hotel implements Serializable {
    */
   public SeasonType progressSeason() {
     _season = _season.next();
+    for (Tree tree : _trees.values()) {
+      tree.grow();
+    }
     return _season;
   }
 

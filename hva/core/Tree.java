@@ -37,6 +37,7 @@ public abstract class Tree implements Serializable {
 
     /**
      * Returns the id of the tree in this instance.
+     * 
      * @return the id of the tree
      */
     public String id() {
@@ -45,6 +46,7 @@ public abstract class Tree implements Serializable {
 
     /**
      * Returns the name of the tree in this instance.
+     * 
      * @return the name of the tree
      */
     protected String name() {
@@ -53,6 +55,7 @@ public abstract class Tree implements Serializable {
 
     /**
      * Returns the age of the tree in this instance.
+     * 
      * @return the age of the tree
      */
     protected int age() {
@@ -61,6 +64,7 @@ public abstract class Tree implements Serializable {
 
     /**
      * Returns the cleaning difficulty of the tree in this instance.
+     * 
      * @return the cleaning difficulty of the tree
      */
     protected int cleaningDifficulty() {
@@ -69,6 +73,7 @@ public abstract class Tree implements Serializable {
 
     /**
      * Returns the hotel of the tree in this instance.
+     * 
      * @return the hotel of the tree
      */
     protected Hotel hotel() {
@@ -80,21 +85,31 @@ public abstract class Tree implements Serializable {
      */
 
     /**
-     * Returns the total cleaning effort needed to care for the tree in this instance.
+     * Returns the total cleaning effort needed to care for the tree in this
+     * instance.
+     * 
      * @return the total cleaning effort of the tree
      */
     int totalCleaningEffort() {
         return (int) (_cleaningDifficulty * seasonalEffort() * Math.log(_age * 1));
     }
 
+    void grow() {
+        if (_birthSeason == _hotel.season()) {
+            _age++;
+        }
+    }
+
     protected abstract int seasonalEffort();
 
     protected abstract LeafState leafState();
 
+    @Override
     public abstract String toString();
 
     /**
      * Returns true if the tree in this instance and the given tree are equal.
+     * 
      * @param tree to be compared
      * @return true or false // TODO: what do I put here?
      */
@@ -106,10 +121,11 @@ public abstract class Tree implements Serializable {
     /**
      * INCOMPLETO
      * Returns the hashcode of the vaccine in this instance.
+     * 
      * @return the hashcode of the vaccine
      */
     public int hashCode() {
-        // TODO: implement hashCode 
+        // TODO: implement hashCode
         return 20;
     }
 }

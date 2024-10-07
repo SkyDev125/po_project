@@ -10,7 +10,7 @@ public class CareTaker extends Worker {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private HashMap<String, Habitat> _responsibilities;
+    private HashMap<String, Habitat> _responsibilities = new HashMap<String, Habitat>();
 
     /*
      * <------------------------ Constructor ------------------------>
@@ -80,18 +80,14 @@ public class CareTaker extends Worker {
      * @return the vaccine registry in format // TODO: should it be the format
      *         itself?
      */
+    @Override
     public String toString() {
-        String responsibilities = "";
+        StringBuilder responsibilities = new StringBuilder();
 
-        if (responsibilities != null) {
-
-            responsibilities = "|";
-
-            for (HashMap.Entry<String, Habitat> set : _responsibilities.entrySet()) {
-                responsibilities += set.getKey() + ",";
-            }
-            responsibilities.substring(0, responsibilities.length() - 1);
+        if (_responsibilities != null && !_responsibilities.isEmpty()) {
+            responsibilities.append(String.join(",", _responsibilities.keySet()));
         }
-        return "VET|" + super.id() + "|" + super.name() + responsibilities;
+
+        return String.format("TRT|%s|%s|%s", id(), name(), responsibilities.toString());
     }
 }

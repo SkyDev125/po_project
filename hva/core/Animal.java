@@ -1,6 +1,7 @@
 package hva.core;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.io.*;
 
 public class Animal implements Serializable {
@@ -12,7 +13,7 @@ public class Animal implements Serializable {
     private final String _name;
     private Species _species;
     private Habitat _habitat;
-    private ArrayList<VaccineRegistry> _vaccineRegistry;
+    private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
     // constructor
     public Animal(String id, String name, Species species, Habitat habitat) {
@@ -56,19 +57,17 @@ public class Animal implements Serializable {
         return 20;
     }
 
+    @Override
     public String toString() {
         String health = "VOID";
 
-        if (_vaccineRegistry != null) {
-            health = "";
-
-            for (VaccineRegistry vaccineRegistry : _vaccineRegistry) {
-                health += vaccineRegistry.vaccineDamage() + ","; // ver forma diferente de fazer
-            }
-
-            health.substring(0, health.length() - 1);
+        if (_vaccineRegistry != null && !_vaccineRegistry.isEmpty()) {
+            health = _vaccineRegistry.stream()
+                    .map(vaccineReg -> vaccineReg.vaccineDamage().toString())
+                    .collect(Collectors.joining(","));
         }
 
-        return "ANIMAL|" + _id + "|" + _name + "|" + _species.id() + "|" + health + "|" + _habitat.id();
+        return String.format("ANIMAL|%s|%s|%s|%s|%s",
+                _id, _name, _species.id(), health, _habitat.id());
     }
 }

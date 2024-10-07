@@ -24,55 +24,54 @@ public class Deciduos extends Tree {
 
     /**
      * Returns the seasonal effort of the tree in this instance.
+     * 
      * @return the seasonal effort
      */
     protected int seasonalEffort() {
         SeasonType currentSeason = hotel().season();
 
-        if (currentSeason == SeasonType.SPRING) {
-            return 1;
+        switch (currentSeason) {
+            case SPRING:
+                return 1;
+            case SUMMER:
+                return 2;
+            case FALL:
+                return 5;
+            default:
+                return 0;
         }
-
-        if (currentSeason == SeasonType.SUMMER) {
-            return 2;
-        }
-
-        if (currentSeason == SeasonType.FALL) {
-            return 5;
-        }
-
-        return 0;
     }
 
     /**
      * Returns the leaf state of the tree in this instance.
+     * 
      * @return the leaf state
      */
     protected LeafState leafState() {
         SeasonType currentSeason = hotel().season();
-        if (currentSeason == SeasonType.SPRING) {
-            return LeafState.GENERATELEAVES;
-        }
 
-        if (currentSeason == SeasonType.SUMMER) {
-            return LeafState.WITHLEAVES;
+        switch (currentSeason) {
+            case SPRING:
+                return LeafState.GENERATELEAVES;
+            case SUMMER:
+                return LeafState.WITHLEAVES;
+            case FALL:
+                return LeafState.FALLINGLEAVES;
+            default:
+                return LeafState.WITHOUTLEAVES;
         }
-
-        if (currentSeason == SeasonType.FALL) {
-            return LeafState.FALLINGLEAVES;
-        }
-
-        return LeafState.WITHOUTLEAVES;
     }
 
     /**
      * Returns the tree in the format:
      * ́ARVORE|idArvore|nomeArvore|idadeArvore|dificuldadeBaseLimpeza|tipoArvore|cicloBiologico
-     * @return the tree in format 
+     * 
+     * @return the tree in format
      */
+    @Override
     public String toString() {
-        LeafState bioCycle = leafState();
-
-        return "ARVORE|" + id() + "|" + name() + "|" + Integer.toString(age()) + "|" + Integer.toString(cleaningDifficulty()) + "|CADUCA|" + bioCycle;
+        return String.format(
+                "ARVORE|%s|%s|%d|%d|CADUCA|%s",
+                id(), name(), age(), cleaningDifficulty(), leafState());
     }
 }

@@ -66,6 +66,7 @@ abstract public class Worker implements Serializable {
 
     abstract protected float satisfaction();
 
+    @Override
     abstract public String toString();
 
     /**

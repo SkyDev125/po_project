@@ -13,7 +13,7 @@ public class Evergreen extends Tree {
     /*
      * <------------------------ Constructor ------------------------>
      */
-    
+
     public Evergreen(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
         super(id, name, age, cleaningDifficulty, hotel);
     }
@@ -24,56 +24,53 @@ public class Evergreen extends Tree {
 
     /**
      * Returns the seasonal effort of the tree in this instance.
+     * 
      * @return the seasonal effort
      */
     protected int seasonalEffort() {
         SeasonType currentSeason = hotel().season();
 
-        if (currentSeason == SeasonType.SPRING) {
-            return 1;
+        switch (currentSeason) {
+            case SPRING:
+                return 1;
+            case SUMMER:
+                return 1;
+            case FALL:
+                return 1;
+            default:
+                return 2;
         }
-
-        if (currentSeason == SeasonType.SUMMER) {
-            return 1;
-        }
-
-        if (currentSeason == SeasonType.FALL) {
-            return 1;
-        }
-
-        return 2;
     }
 
     /**
      * Returns the leaf state of the tree in this instance.
+     * 
      * @return the leaf state
      */
     protected LeafState leafState() {
         SeasonType currentSeason = hotel().season();
 
-        if (currentSeason == SeasonType.SPRING) {
-            return LeafState.GENERATELEAVES;
+        switch (currentSeason) {
+            case SPRING:
+                return LeafState.GENERATELEAVES;
+            case SUMMER:
+                return LeafState.WITHLEAVES;
+            case FALL:
+                return LeafState.WITHLEAVES;
+            default:
+                return LeafState.WITHLEAVES;
         }
-
-        if (currentSeason == SeasonType.SUMMER) {
-            return LeafState.WITHLEAVES;
-        }
-
-        if (currentSeason == SeasonType.FALL) {
-            return LeafState.WITHLEAVES;
-        }
-
-        return LeafState.FALLINGLEAVES;
     }
 
     /**
      * Returns the tree in the format:
      * ́ARVORE|idArvore|nomeArvore|idadeArvore|dificuldadeBaseLimpeza|tipoArvore|cicloBiologico
-     * @return the tree in format 
+     * 
+     * @return the tree in format
      */
+    @Override
     public String toString() {
-        LeafState bioCycle = leafState();
-
-        return "ARVORE|" + id() + "|" + name() + "|" + Integer.toString(age()) + "|" + Integer.toString(cleaningDifficulty()) + "|PERENE|" + bioCycle;
+        return String.format("ARVORE|%s|%s|%d|%d|PERENE|%s",
+                id(), name(), age(), cleaningDifficulty(), leafState());
     }
 }

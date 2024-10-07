@@ -16,7 +16,7 @@ class DoShowAllVaccines extends Command<Hotel> {
 
   @Override
   protected final void execute() {
-    Display display = new Display();
-    display.addAll(_receiver.vaccines());
+    _display.addAll(_receiver.vaccines());
+    _display.display();
   }
 }

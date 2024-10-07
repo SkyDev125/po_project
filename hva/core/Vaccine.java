@@ -15,16 +15,15 @@ public class Vaccine implements Serializable {
     private final String _id;
     private final String _name;
     private int _applyCount;
-    private HashMap<String, Species> _species;
+    private HashMap<String, Species> _species = new HashMap<String, Species>();
 
     /*
      * <------------------------ Constructor ------------------------>
      */
-    
+
     public Vaccine(String id, String name, List<Species> species) {
         _id = id;
         _name = name;
-        _species = new HashMap<String, Species>();
 
         for (Species currentSpecies : species) {
             _species.put(currentSpecies.id(), currentSpecies);
@@ -37,6 +36,7 @@ public class Vaccine implements Serializable {
 
     /**
      * Returns the id of the vaccine in this instance.
+     * 
      * @return the id of the vaccine
      */
     public String id() {
@@ -44,7 +44,9 @@ public class Vaccine implements Serializable {
     }
 
     /**
-     * Returns the collection of species to which the vaccine in this instance works.
+     * Returns the collection of species to which the vaccine in this instance
+     * works.
+     * 
      * @return the collection of species
      */
     public Collection<Species> species() {
@@ -65,22 +67,23 @@ public class Vaccine implements Serializable {
     /**
      * Returns the vaccine in the format:
      * VACINA|idVacina|nomeVacina|numeroAplicacoes|especies
+     * 
      * @return the vaccines in format // TODO: should it be the format itself?
      */
+    @Override
     public String toString() {
-        String speciesString = "";
-        
-        for (HashMap.Entry<String, Species> entry : _species.entrySet()) {
-            speciesString += entry.getKey() + ",";
+        StringBuilder species = new StringBuilder();
+
+        if (_species != null && !_species.isEmpty()) {
+            species.append(String.join(",", _species.keySet()));
         }
 
-        speciesString.substring(0, speciesString.length() - 1);
-
-        return "VACINA|" + _id + "|" + _name + "|" + Integer.toString(_applyCount) + "|" + speciesString;
+        return String.format("VACINA|%s|%s|%d|%s", _id, _name, _applyCount, species.toString());
     }
 
     /**
      * Returns true if the vaccine in this instance is equal to the given vaccine.
+     * 
      * @param vaccine to be compared
      * @return true or false // TODO: what do I put here?
      */
@@ -93,10 +96,12 @@ public class Vaccine implements Serializable {
     /**
      * INCOMPLETO
      * Returns the hashcode of the vaccine in this instance.
+     * 
      * @return the hashcode of the vaccine
      */
     public int hashCode() {
-        // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares avisa
+        // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares
+        // avisa
         return 20;
     }
 }

@@ -11,8 +11,8 @@ public class Species implements Serializable {
 
     private final String _id;
     private final String _name;
-    private HashMap<String, Animal> _animals;
-    private HashMap<String, Vet> _vets;
+    private HashMap<String, Animal> _animals = new HashMap<String, Animal>();
+    private HashMap<String, Vet> _vets = new HashMap<String, Vet>();
 
     // constructor
     public Species(String id, String name) {

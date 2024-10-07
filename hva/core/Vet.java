@@ -5,7 +5,6 @@ import java.util.List;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Collection;
 
 import hva.core.enumf.VaccineDamage;
 import hva.core.exception.SpeciesNotFoundException;
@@ -16,8 +15,8 @@ public class Vet extends Worker {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private HashMap<String, Species> _responsibilities;
-    private ArrayList<VaccineRegistry> _vaccineRegistry;
+    private HashMap<String, Species> _responsibilities = new HashMap<String, Species>();
+    private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
     /*
      * <------------------------ Constructor ------------------------>
@@ -127,8 +126,14 @@ public class Vet extends Worker {
      * @return the vaccine damage dealt
      */
     private VaccineDamage calculateVaccineDamage(Animal animal, Vaccine vaccine) {
+
+        // Early Check for correct Vaccines
+        if (vaccine.species().contains(animal.species())) {
+            return VaccineDamage.NORMAL;
+        }
+
         int damage = 0;
-        char[] animalSpeciesName = animal.species().toString().toCharArray();
+        char[] animalSpeciesName = animal.species().name().toCharArray();
         HashMap<Character, Integer> animalSpeciesNameCharCount = new HashMap<Character, Integer>();
 
         // Count the number of each character in the animal species name
@@ -140,7 +145,7 @@ public class Vet extends Worker {
 
         // Calculate the max damage
         for (Species species : vaccine.species()) {
-            char[] vaccineSpeciesName = species.toString().toCharArray();
+            char[] vaccineSpeciesName = species.name().toCharArray();
             int tempDamage = Math.max(vaccineSpeciesName.length, animalSpeciesName.length)
                     - countSameChars(animalSpeciesNameCharCount, vaccineSpeciesName);
             damage = Math.max(tempDamage, damage);
@@ -182,18 +187,14 @@ public class Vet extends Worker {
      * @return the vaccine registry in format // TODO: should it be the format
      *         itself?
      */
+    @Override
     public String toString() {
-        String responsibilities = "";
+        StringBuilder responsibilities = new StringBuilder();
 
-        if (responsibilities != null) {
-
-            responsibilities = "|";
-
-            for (HashMap.Entry<String, Species> set : _responsibilities.entrySet()) {
-                responsibilities += set.getKey() + ",";
-            }
-            responsibilities.substring(0, responsibilities.length() - 1);
+        if (_responsibilities != null && !_responsibilities.isEmpty()) {
+            responsibilities.append(String.join(",", _responsibilities.keySet()));
         }
-        return "VET|" + super.id() + "|" + super.name() + responsibilities;
+
+        return String.format("VET|%s|%s|%s", super.id(), super.name(), responsibilities.toString());
     }
 }
