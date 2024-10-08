@@ -2,6 +2,9 @@ package hva.core;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import hva.core.enumf.Influence;
+
 import java.io.*;
 
 public class Animal implements Serializable {
@@ -15,7 +18,10 @@ public class Animal implements Serializable {
     private Habitat _habitat;
     private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
-    // constructor
+    /*
+     * <------------------------ Constructor ------------------------>
+     */
+
     public Animal(String id, String name, Species species, Habitat habitat) {
         _id = id;
         _name = name;
@@ -24,7 +30,10 @@ public class Animal implements Serializable {
         _vaccineRegistry = new ArrayList<VaccineRegistry>();
     }
 
-    // gets
+    /*
+     * <------------------------ Gets ------------------------>
+     */
+
     public String id() {
         return _id;
     }
@@ -41,7 +50,10 @@ public class Animal implements Serializable {
         return Collections.unmodifiableList(_vaccineRegistry);
     }
 
-    // method
+    /*
+     * <------------------------ Others ------------------------>
+     */
+
     protected void transferAnimal(Habitat habitat) {
         _habitat.removeAnimal(this);
         habitat.addAnimal(this);
@@ -53,8 +65,24 @@ public class Animal implements Serializable {
     }
 
     protected float satisfaction() {
-        // TODO: calculate satisfaction
-        return 20;
+        int sameSpecies, population, suitability;
+        Influence influence;
+
+        sameSpecies = (int) _habitat.animals().stream().filter(animal -> animal.species() == _species).count();
+
+        population = _habitat.animals().size();
+
+        influence = _habitat.suitability(_species);
+        switch (influence) {
+            case POS: 
+                suitability = 20;
+            case NEU: 
+                suitability = 0;
+            default:
+                suitability = -20;
+        }
+
+        return (20 + (3 * sameSpecies) - (2 * (population - sameSpecies)) + (_habitat.area() / population) + suitability);
     }
 
     @Override

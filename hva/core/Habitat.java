@@ -25,20 +25,30 @@ public class Habitat implements Serializable {
     private HashMap<String, CareTaker> _careTakers = new HashMap<String, CareTaker>();
     private HashMap<String, Tree> _trees = new HashMap<String, Tree>();
 
-    // constructor
+    /*
+     * <------------------------ Constructor ------------------------>
+     */
+
     public Habitat(String id, String name, int area) {
         _id = id;
         _name = name;
         _area = area;
     }
 
-    // gets
+    /*
+     * <------------------------ Gets ------------------------>
+     */
+
     public String id() {
         return _id;
     }
 
     public int area() {
         return _area;
+    }
+
+    public Influence suitability(Species species) {
+        return _suitability.get(species);
     }
 
     public Collection<Animal> animals() {
@@ -57,13 +67,18 @@ public class Habitat implements Serializable {
         return Collections.unmodifiableCollection(_trees.values());
     }
 
-    // sets
+    /*
+     * <------------------------ Sets ------------------------>
+     */
 
     public void changeArea(int area) {
         _area = area;
     }
 
-    // others
+    /*
+     * <------------------------ Others ------------------------>
+     */
+
     protected void addAnimal(Animal animal) {
         _animals.computeIfAbsent(animal.species(), k -> new ArrayList<Animal>()).add(animal);
     }
@@ -79,7 +94,7 @@ public class Habitat implements Serializable {
     }
 
     public void changeSuitability(Species species, Influence influence) {
-        // TODO Implement Command
+        _suitability.put(species, influence);
     }
 
     public void addTree(Tree tree) {

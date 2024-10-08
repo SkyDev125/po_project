@@ -174,8 +174,6 @@ public class Vet extends Worker {
     private void addVaccineRegistry(VaccineRegistry vaccineRegistry) {
         _vaccineRegistry.add(vaccineRegistry);
         vaccineRegistry.animal().addVaccineRegistration(vaccineRegistry);
-        // TODO: Not necessary to create method in hotel cause we return
-        // vaccineRegistry!
     }
 
     /**
