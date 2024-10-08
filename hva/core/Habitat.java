@@ -12,7 +12,7 @@ import hva.core.enumerator.Influence;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class Habitat implements Serializable {
+public class Habitat implements Serializable, Comparable<Habitat> {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -20,7 +20,8 @@ public class Habitat implements Serializable {
   private final String _id;
   private final String _name;
   private int _area;
-  private final Map<Species, ArrayList<Animal>> _animals = new HashMap<Species, ArrayList<Animal>>();
+  private final Map<Species, ArrayList<Animal>> _animals =
+      new HashMap<Species, ArrayList<Animal>>();
   private final HashMap<Species, Influence> _suitability = new HashMap<Species, Influence>();
   private final HashMap<String, CareTaker> _careTakers = new HashMap<String, CareTaker>();
   private final HashMap<String, Tree> _trees = new HashMap<String, Tree>();
@@ -29,7 +30,7 @@ public class Habitat implements Serializable {
    * <------------------------ Constructor ------------------------>
    */
 
-  public Habitat(String id, String name, int area) {
+  Habitat(String id, String name, int area) {
     _id = id;
     _name = name;
     _area = area;
@@ -39,19 +40,19 @@ public class Habitat implements Serializable {
    * <------------------------ Gets ------------------------>
    */
 
-  public String id() {
+  String id() {
     return _id;
   }
 
-  public int area() {
+  int area() {
     return _area;
   }
 
-  public Influence suitability(Species species) {
-    return _suitability.get(species);
+  Influence suitability(Species species) {
+    return _suitability.getOrDefault(species, Influence.NEU);
   }
 
-  public Collection<Animal> animals() {
+  Collection<Animal> animals() {
     Collection<Animal> animals = new ArrayList<Animal>();
     for (List<Animal> speciesAnimals : _animals.values()) {
       animals.addAll(speciesAnimals);
@@ -59,19 +60,23 @@ public class Habitat implements Serializable {
     return Collections.unmodifiableCollection(animals);
   }
 
-  public Collection<CareTaker> careTakers() {
+  Collection<CareTaker> careTakers() {
     return Collections.unmodifiableCollection(_careTakers.values());
   }
 
-  public Collection<Tree> trees() {
+  Collection<Tree> trees() {
     return Collections.unmodifiableCollection(_trees.values());
+  }
+
+  int sameSpeciesCount(Species species) {
+    return _animals.getOrDefault(species, new ArrayList<Animal>()).size();
   }
 
   /*
    * <------------------------ Sets ------------------------>
    */
 
-  public void changeArea(int area) {
+  void changeArea(int area) {
     _area = area;
   }
 
@@ -79,11 +84,11 @@ public class Habitat implements Serializable {
    * <------------------------ Others ------------------------>
    */
 
-  protected void addAnimal(Animal animal) {
+  void addAnimal(Animal animal) {
     _animals.computeIfAbsent(animal.species(), k -> new ArrayList<Animal>()).add(animal);
   }
 
-  protected void removeAnimal(Animal animal) {
+  void removeAnimal(Animal animal) {
     List<Animal> speciesAnimals = _animals.get(animal.species());
     if (speciesAnimals != null) {
       speciesAnimals.remove(animal);
@@ -93,16 +98,21 @@ public class Habitat implements Serializable {
     }
   }
 
-  public void changeSuitability(Species species, Influence influence) {
+  void changeSuitability(Species species, Influence influence) {
     _suitability.put(species, influence);
   }
 
-  public void addTree(Tree tree) {
+  void addTree(Tree tree) {
     _trees.put(tree.id(), tree);
   }
 
   @Override
   public String toString() {
     return String.format("HABITAT|%s|%s|%d|%d", _id, _name, _area, _trees.size());
+  }
+
+  @Override
+  public int compareTo(Habitat habitat) {
+    return _id.compareTo(habitat.id());
   }
 }

@@ -22,7 +22,7 @@ public class Vaccine implements Serializable {
    * <------------------------ Constructor ------------------------>
    */
 
-  public Vaccine(String id, String name, List<Species> species) {
+  Vaccine(String id, String name, List<Species> species) {
     _id = id;
     _name = name;
 
@@ -38,7 +38,7 @@ public class Vaccine implements Serializable {
    * 
    * @return the id of the vaccine
    */
-  public String id() {
+  String id() {
     return _id;
   }
 
@@ -47,7 +47,7 @@ public class Vaccine implements Serializable {
    * 
    * @return the collection of species
    */
-  public Collection<Species> species() {
+  Collection<Species> species() {
     return Collections.unmodifiableCollection(_species.values());
   }
 
@@ -58,7 +58,7 @@ public class Vaccine implements Serializable {
   /**
    * Increases the count of applications of the vaccine in this instance.
    */
-  public void apply() {
+  void apply() {
     _applyCount++;
   }
 

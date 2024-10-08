@@ -17,7 +17,7 @@ public class CareTaker extends Worker {
    * <------------------------ Constructor ------------------------>
    */
 
-  public CareTaker(String id, String name, Hotel hotel) {
+  CareTaker(String id, String name, Hotel hotel) {
     super(id, name, hotel);
   }
 
@@ -30,7 +30,7 @@ public class CareTaker extends Worker {
    * 
    * @param id of the habitat
    */
-  protected void addResponsibility(String id) throws HabitatNotFoundException {
+  void addResponsibility(String id) throws HabitatNotFoundException {
     _responsibilities.put(id, hotel().habitatExistsWithException(id));
   }
 
@@ -39,7 +39,7 @@ public class CareTaker extends Worker {
    * 
    * @param id of the habitat
    */
-  protected void removeResponsibility(String id) throws HabitatNotFoundException {
+  void removeResponsibility(String id) throws HabitatNotFoundException {
     if (_responsibilities.remove(id) == null) {
       throw new HabitatNotFoundException(id);
     }
@@ -50,7 +50,7 @@ public class CareTaker extends Worker {
    * 
    * @return the satisfaction
    */
-  protected float satisfaction() {
+  float satisfaction() {
     int satisfactionPerHabitat = 0;
     int workInHabitat;
 

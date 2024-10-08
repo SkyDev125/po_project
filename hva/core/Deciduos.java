@@ -14,7 +14,7 @@ public class Deciduos extends Tree {
    * <------------------------ Constructor ------------------------>
    */
 
-  public Deciduos(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
+  Deciduos(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
     super(id, name, age, cleaningDifficulty, hotel);
   }
 
@@ -27,7 +27,7 @@ public class Deciduos extends Tree {
    * 
    * @return the seasonal effort
    */
-  protected int seasonalEffort() {
+  int seasonalEffort() {
     SeasonType currentSeason = hotel().season();
 
     switch (currentSeason) {
@@ -47,7 +47,7 @@ public class Deciduos extends Tree {
    * 
    * @return the leaf state
    */
-  protected LeafState leafState() {
+  LeafState leafState() {
     SeasonType currentSeason = hotel().season();
 
     switch (currentSeason) {

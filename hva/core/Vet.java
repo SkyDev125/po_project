@@ -23,7 +23,7 @@ public class Vet extends Worker {
    * <------------------------ Constructor ------------------------>
    */
 
-  public Vet(String id, String name, Hotel hotel) {
+  Vet(String id, String name, Hotel hotel) {
     super(id, name, hotel);
   }
 
@@ -36,7 +36,7 @@ public class Vet extends Worker {
    * 
    * @return the collection of vaccine registries
    */
-  public List<VaccineRegistry> vaccineRegistry() {
+  List<VaccineRegistry> vaccineRegistry() {
     return Collections.unmodifiableList(_vaccineRegistry);
   }
 
@@ -49,7 +49,7 @@ public class Vet extends Worker {
    * 
    * @param id of the species
    */
-  protected void addResponsibility(String id) throws SpeciesNotFoundException {
+  void addResponsibility(String id) throws SpeciesNotFoundException {
     // No need to check if it's already there, as the species object is always the
     // same.
     _responsibilities.put(id, hotel().speciesExistsWithException(id));
@@ -60,7 +60,7 @@ public class Vet extends Worker {
    * 
    * @param id of the species
    */
-  protected void removeResponsibility(String id) throws SpeciesNotFoundException {
+  void removeResponsibility(String id) throws SpeciesNotFoundException {
     if (_responsibilities.remove(id) == null) {
       throw new SpeciesNotFoundException(id);
     }
@@ -71,7 +71,7 @@ public class Vet extends Worker {
    * 
    * @return the satisfaction
    */
-  protected float satisfaction() {
+  float satisfaction() {
     int satisfactionPerSpecies = 0;
 
     for (HashMap.Entry<String, Species> entry : _responsibilities.entrySet()) {
@@ -91,7 +91,7 @@ public class Vet extends Worker {
    * @return the vaccine registry
    * @throws WorkerNotAuthorizedException
    */
-  protected VaccineRegistry vaccinate(Animal animal, Vaccine vaccine)
+  VaccineRegistry vaccinate(Animal animal, Vaccine vaccine)
       throws WorkerNotAuthorizedException {
     if (!_responsibilities.containsValue(animal.species())) {
       throw new WorkerNotAuthorizedException(id(), animal.species().id());

@@ -16,43 +16,43 @@ public class Species implements Serializable, Comparable<Species> {
   private final HashMap<String, Vet> _vets = new HashMap<String, Vet>();
 
   // constructor
-  public Species(String id, String name) {
+  Species(String id, String name) {
     _id = id;
     _name = name;
   }
 
   // gets
-  public String id() {
+  String id() {
     return _id;
   }
 
-  public String name() {
+  String name() {
     return _name;
   }
 
   // methods
-  protected void addAnimal(Animal animal) {
+  void addAnimal(Animal animal) {
     _animals.put(animal.id(), animal);
   }
 
-  protected void addVet(Vet vet) {
+  void addVet(Vet vet) {
     _vets.put(vet.id(), vet);
   }
 
-  protected void removeVet(Vet vet) {
+  void removeVet(Vet vet) {
     _vets.remove(vet.id());
   }
 
-  public int animalCount() {
+  int animalCount() {
     return _animals.size();
   }
 
-  public int vetCount() {
+  int vetCount() {
     return _vets.size();
   }
 
   @Override
-  public int compareTo(Species other) {
-    return _id.compareTo(other.id()) + _name.compareTo(other.name());
+  public int compareTo(Species species) {
+    return _id.compareTo(species.id()) + _name.compareTo(species.name());
   }
 }

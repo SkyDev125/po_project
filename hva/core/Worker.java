@@ -6,7 +6,7 @@ import java.io.Serializable;
 import hva.core.exception.HabitatNotFoundException;
 import hva.core.exception.SpeciesNotFoundException;
 
-abstract public class Worker implements Serializable {
+abstract public class Worker implements Serializable, Comparable<Worker> {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ abstract public class Worker implements Serializable {
    * <------------------------ Constructor ------------------------>
    */
 
-  public Worker(String id, String name, Hotel hotel) {
+  Worker(String id, String name, Hotel hotel) {
     _id = id;
     _name = name;
     _hotel = hotel;
@@ -34,7 +34,7 @@ abstract public class Worker implements Serializable {
    * 
    * @return the id of the worker
    */
-  public String id() {
+  String id() {
     return _id;
   }
 
@@ -52,7 +52,7 @@ abstract public class Worker implements Serializable {
    * 
    * @return the hotel of the worker
    */
-  protected Hotel hotel() {
+  Hotel hotel() {
     return _hotel;
   }
 
@@ -60,13 +60,13 @@ abstract public class Worker implements Serializable {
    * <------------------------ Others ------------------------>
    */
 
-  abstract protected void addResponsibility(String id)
+  abstract void addResponsibility(String id)
       throws SpeciesNotFoundException, HabitatNotFoundException;
 
-  abstract protected void removeResponsibility(String id)
+  abstract void removeResponsibility(String id)
       throws SpeciesNotFoundException, HabitatNotFoundException;
 
-  abstract protected float satisfaction();
+  abstract float satisfaction();
 
   @Override
   abstract public String toString();
@@ -90,5 +90,10 @@ abstract public class Worker implements Serializable {
     // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares
     // avisa
     return 20;
+  }
+
+  @Override
+  public int compareTo(Worker worker) {
+    return _id.compareTo(worker.id());
   }
 }

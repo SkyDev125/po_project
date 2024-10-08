@@ -3,11 +3,9 @@ package hva.core;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import hva.core.enumerator.Influence;
-
 import java.io.*;
 
-public class Animal implements Serializable {
+public class Animal implements Serializable, Comparable<Animal> {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -21,7 +19,7 @@ public class Animal implements Serializable {
   /*
    * <------------------------ Constructor ------------------------>
    */
-  public Animal(String id, String name, Species species, Habitat habitat) {
+  Animal(String id, String name, Species species, Habitat habitat) {
     _id = id;
     _name = name;
     _species = species;
@@ -31,56 +29,41 @@ public class Animal implements Serializable {
   /*
    * <------------------------ Gets ------------------------>
    */
-  public String id() {
+  String id() {
     return _id;
   }
 
-  public String name() {
+  String name() {
     return _name;
   }
 
-  public Species species() {
+  Species species() {
     return _species;
   }
 
-  public List<VaccineRegistry> vaccineRegistry() {
+  List<VaccineRegistry> vaccineRegistry() {
     return Collections.unmodifiableList(_vaccineRegistry);
   }
 
   /*
    * <------------------------ Others ------------------------>
    */
-  protected void transferAnimal(Habitat habitat) {
+  void transferAnimal(Habitat habitat) {
     _habitat.removeAnimal(this);
     habitat.addAnimal(this);
     _habitat = habitat;
   }
 
-  protected void addVaccineRegistration(VaccineRegistry vaccineReg) {
+  void addVaccineRegistration(VaccineRegistry vaccineReg) {
     _vaccineRegistry.add(vaccineReg);
   }
 
-  protected float satisfaction() {
-    int sameSpecies, population, suitability;
-    Influence influence;
-
-    sameSpecies =
-        (int) _habitat.animals().stream().filter(animal -> animal.species() == _species).count();
-
-    population = _habitat.animals().size();
-
-    influence = _habitat.suitability(_species);
-    switch (influence) {
-      case POS:
-        suitability = 20;
-      case NEU:
-        suitability = 0;
-      default:
-        suitability = -20;
-    }
+  float satisfaction() {
+    float sameSpecies = _habitat.sameSpeciesCount(_species);
+    int population = _habitat.animals().size();
 
     return (20 + (3 * sameSpecies) - (2 * (population - sameSpecies))
-        + (_habitat.area() / population) + suitability);
+        + (_habitat.area() / population) + _habitat.suitability(_species).getValue());
   }
 
   @Override
@@ -93,5 +76,10 @@ public class Animal implements Serializable {
     }
 
     return String.format("ANIMAL|%s|%s|%s|%s|%s", _id, _name, _species.id(), health, _habitat.id());
+  }
+
+  @Override
+  public int compareTo(Animal animal) {
+    return _id.compareTo(animal.id());
   }
 }

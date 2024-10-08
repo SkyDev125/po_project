@@ -6,7 +6,7 @@ import java.io.Serializable;
 import hva.core.enumerator.LeafState;
 import hva.core.enumerator.SeasonType;
 
-public abstract class Tree implements Serializable {
+public abstract class Tree implements Serializable, Comparable<Tree> {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -22,7 +22,7 @@ public abstract class Tree implements Serializable {
    * <------------------------ Constructor ------------------------>
    */
 
-  public Tree(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
+  Tree(String id, String name, int age, int cleaningDifficulty, Hotel hotel) {
     _id = id;
     _name = name;
     _age = age;
@@ -40,7 +40,7 @@ public abstract class Tree implements Serializable {
    * 
    * @return the id of the tree
    */
-  public String id() {
+  String id() {
     return _id;
   }
 
@@ -49,7 +49,7 @@ public abstract class Tree implements Serializable {
    * 
    * @return the name of the tree
    */
-  protected String name() {
+  String name() {
     return _name;
   }
 
@@ -58,7 +58,7 @@ public abstract class Tree implements Serializable {
    * 
    * @return the age of the tree
    */
-  protected int age() {
+  int age() {
     return _age;
   }
 
@@ -67,7 +67,7 @@ public abstract class Tree implements Serializable {
    * 
    * @return the cleaning difficulty of the tree
    */
-  protected int cleaningDifficulty() {
+  int cleaningDifficulty() {
     return _cleaningDifficulty;
   }
 
@@ -76,7 +76,7 @@ public abstract class Tree implements Serializable {
    * 
    * @return the hotel of the tree
    */
-  protected Hotel hotel() {
+  Hotel hotel() {
     return _hotel;
   }
 
@@ -99,9 +99,9 @@ public abstract class Tree implements Serializable {
     }
   }
 
-  protected abstract int seasonalEffort();
+  abstract int seasonalEffort();
 
-  protected abstract LeafState leafState();
+  abstract LeafState leafState();
 
   @Override
   public abstract String toString();
@@ -125,5 +125,10 @@ public abstract class Tree implements Serializable {
   public int hashCode() {
     // TODO: implement hashCode
     return 20;
+  }
+
+  @Override
+  public int compareTo(Tree tree) {
+    return _id.compareTo(tree.id());
   }
 }

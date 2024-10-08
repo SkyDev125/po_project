@@ -20,7 +20,7 @@ public class VaccineRegistry implements Serializable {
    * <------------------------ Constructor ------------------------>
    */
 
-  public VaccineRegistry(Vaccine vaccine, Vet vet, Animal animal, VaccineDamage vaccineDamage) {
+  VaccineRegistry(Vaccine vaccine, Vet vet, Animal animal, VaccineDamage vaccineDamage) {
     _vaccine = vaccine;
     _vet = vet;
     _species = animal.species();
@@ -37,7 +37,7 @@ public class VaccineRegistry implements Serializable {
    * 
    * @return the vaccinated animal
    */
-  public Animal animal() {
+  Animal animal() {
     return _animal;
   }
 
@@ -46,7 +46,7 @@ public class VaccineRegistry implements Serializable {
    * 
    * @return the vaccine damage dealt
    */
-  public VaccineDamage vaccineDamage() {
+  VaccineDamage vaccineDamage() {
     return _vaccineDamage;
   }
 
