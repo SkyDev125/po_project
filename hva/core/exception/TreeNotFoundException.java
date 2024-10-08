@@ -4,18 +4,18 @@ import java.io.Serial;
 
 public class TreeNotFoundException extends Exception {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+  @Serial
+  private static final long serialVersionUID = 1L;
 
-    private final String _id;
+  private final String _id;
 
-    public TreeNotFoundException(String id) {
-        super("Tree with id " + id + " not found");
-        _id = id;
-    }
+  public TreeNotFoundException(String id) {
+    super("Tree with id " + id + " not found");
+    _id = id;
+  }
 
-    public String id() {
-        return _id;
-    }
+  public String id() {
+    return _id;
+  }
 
 }

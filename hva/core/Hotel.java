@@ -397,8 +397,8 @@ public class Hotel implements Serializable {
    * @throws UnrecognizedEntryException if some entry is not correct
    * @throws IOException if there is an IO erro while processing the text file
    **/
-  void importFile(String filename)
-      throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */ {
-    // FIXME implement method
+  void importFile(String filename) throws UnrecognizedEntryException, IOException {
+    Parser parser = new Parser(this);
+    parser.parseFile(filename);
   }
 }

@@ -25,8 +25,7 @@ public class CareTaker extends Worker {
    */
 
   /**
-   * Adds an habitat as a responsability for the care taker in this instance to
-   * care.
+   * Adds an habitat as a responsability for the care taker in this instance to care.
    * 
    * @param id of the habitat
    */
@@ -35,8 +34,7 @@ public class CareTaker extends Worker {
   }
 
   /**
-   * Removes an habitat as a responsability for the care taker in this instance to
-   * care.
+   * Removes an habitat as a responsability for the care taker in this instance to care.
    * 
    * @param id of the habitat
    */
@@ -71,11 +69,10 @@ public class CareTaker extends Worker {
   }
 
   /**
-   * Returns the vet in the format: tipo|id|nome|idResponsabilidades If the vet
-   * doesn't have responsibilities, it's in this format: tipo|id|nome
+   * Returns the vet in the format: tipo|id|nome|idResponsabilidades If the vet doesn't have
+   * responsibilities, it's in this format: tipo|id|nome
    * 
-   * @return the vaccine registry in format // TODO: should it be the format
-   *         itself?
+   * @return the vaccine registry in format // TODO: should it be the format itself?
    */
   @Override
   public String toString() {

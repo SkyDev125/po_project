@@ -8,86 +8,87 @@ import hva.core.exception.SpeciesNotFoundException;
 
 abstract public class Worker implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+  @Serial
+  private static final long serialVersionUID = 1L;
 
-    private final String _id;
-    private final String _name;
-    private final Hotel _hotel;
+  private final String _id;
+  private final String _name;
+  private final Hotel _hotel;
 
-    /*
-     * <------------------------ Constructor ------------------------>
-     */
+  /*
+   * <------------------------ Constructor ------------------------>
+   */
 
-    public Worker(String id, String name, Hotel hotel) {
-        _id = id;
-        _name = name;
-        _hotel = hotel;
-    }
+  public Worker(String id, String name, Hotel hotel) {
+    _id = id;
+    _name = name;
+    _hotel = hotel;
+  }
 
-    /*
-     * <------------------------ Gets ------------------------>
-     */
+  /*
+   * <------------------------ Gets ------------------------>
+   */
 
-    /**
-     * Returns the id of the worker in this instance.
-     * 
-     * @return the id of the worker
-     */
-    public String id() {
-        return _id;
-    }
+  /**
+   * Returns the id of the worker in this instance.
+   * 
+   * @return the id of the worker
+   */
+  public String id() {
+    return _id;
+  }
 
-    /**
-     * Returns the name of the worker in this instance.
-     * 
-     * @return the name of the worker
-     */
-    String name() {
-        return _name;
-    }
+  /**
+   * Returns the name of the worker in this instance.
+   * 
+   * @return the name of the worker
+   */
+  String name() {
+    return _name;
+  }
 
-    /**
-     * Returns the hotel of the worker in this instance.
-     * 
-     * @return the hotel of the worker
-     */
-    protected Hotel hotel() {
-        return _hotel;
-    }
+  /**
+   * Returns the hotel of the worker in this instance.
+   * 
+   * @return the hotel of the worker
+   */
+  protected Hotel hotel() {
+    return _hotel;
+  }
 
-    /*
-     * <------------------------ Others ------------------------>
-     */
+  /*
+   * <------------------------ Others ------------------------>
+   */
 
-    abstract protected void addResponsibility(String id) throws SpeciesNotFoundException, HabitatNotFoundException;
+  abstract protected void addResponsibility(String id)
+      throws SpeciesNotFoundException, HabitatNotFoundException;
 
-    abstract protected void removeResponsibility(String id) throws SpeciesNotFoundException, HabitatNotFoundException;
+  abstract protected void removeResponsibility(String id)
+      throws SpeciesNotFoundException, HabitatNotFoundException;
 
-    abstract protected float satisfaction();
+  abstract protected float satisfaction();
 
-    @Override
-    abstract public String toString();
+  @Override
+  abstract public String toString();
 
-    /**
-     * Returns true if the worker in this instance is equal to the given worker.
-     * 
-     * @param worker to be compared
-     * @return true or false // TODO: what do I put here?
-     */
-    public boolean equals(Worker worker) {
-        return (_id == worker.id());
-    }
+  /**
+   * Returns true if the worker in this instance is equal to the given worker.
+   * 
+   * @param worker to be compared
+   * @return true or false // TODO: what do I put here?
+   */
+  public boolean equals(Worker worker) {
+    return (_id == worker.id());
+  }
 
-    /**
-     * INCOMPLETO
-     * Returns the hashcode of the worker in this instance.
-     * 
-     * @return the hashcode of the worker
-     */
-    public int hashCode() {
-        // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares
-        // avisa
-        return 20;
-    }
+  /**
+   * INCOMPLETO Returns the hashcode of the worker in this instance.
+   * 
+   * @return the hashcode of the worker
+   */
+  public int hashCode() {
+    // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares
+    // avisa
+    return 20;
+  }
 }

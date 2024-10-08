@@ -12,95 +12,95 @@ import java.io.Serializable;
 
 public class Habitat implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+  @Serial
+  private static final long serialVersionUID = 1L;
 
-    private final String _id;
-    private final String _name;
-    private int _area;
-    private Map<Species, ArrayList<Animal>> _animals = new HashMap<Species, ArrayList<Animal>>();
-    private HashMap<Species, Influence> _suitability = new HashMap<Species, Influence>();
-    private HashMap<String, CareTaker> _careTakers = new HashMap<String, CareTaker>();
-    private HashMap<String, Tree> _trees = new HashMap<String, Tree>();
+  private final String _id;
+  private final String _name;
+  private int _area;
+  private Map<Species, ArrayList<Animal>> _animals = new HashMap<Species, ArrayList<Animal>>();
+  private HashMap<Species, Influence> _suitability = new HashMap<Species, Influence>();
+  private HashMap<String, CareTaker> _careTakers = new HashMap<String, CareTaker>();
+  private HashMap<String, Tree> _trees = new HashMap<String, Tree>();
 
-    /*
-     * <------------------------ Constructor ------------------------>
-     */
+  /*
+   * <------------------------ Constructor ------------------------>
+   */
 
-    public Habitat(String id, String name, int area) {
-        _id = id;
-        _name = name;
-        _area = area;
+  public Habitat(String id, String name, int area) {
+    _id = id;
+    _name = name;
+    _area = area;
+  }
+
+  /*
+   * <------------------------ Gets ------------------------>
+   */
+
+  public String id() {
+    return _id;
+  }
+
+  public int area() {
+    return _area;
+  }
+
+  public Influence suitability(Species species) {
+    return _suitability.get(species);
+  }
+
+  public Collection<Animal> animals() {
+    Collection<Animal> animals = new ArrayList<Animal>();
+    for (List<Animal> speciesAnimals : _animals.values()) {
+      animals.addAll(speciesAnimals);
     }
+    return Collections.unmodifiableCollection(animals);
+  }
 
-    /*
-     * <------------------------ Gets ------------------------>
-     */
+  public Collection<CareTaker> careTakers() {
+    return Collections.unmodifiableCollection(_careTakers.values());
+  }
 
-    public String id() {
-        return _id;
+  public Collection<Tree> trees() {
+    return Collections.unmodifiableCollection(_trees.values());
+  }
+
+  /*
+   * <------------------------ Sets ------------------------>
+   */
+
+  public void changeArea(int area) {
+    _area = area;
+  }
+
+  /*
+   * <------------------------ Others ------------------------>
+   */
+
+  protected void addAnimal(Animal animal) {
+    _animals.computeIfAbsent(animal.species(), k -> new ArrayList<Animal>()).add(animal);
+  }
+
+  protected void removeAnimal(Animal animal) {
+    List<Animal> speciesAnimals = _animals.get(animal.species());
+    if (speciesAnimals != null) {
+      speciesAnimals.remove(animal);
+      if (speciesAnimals.isEmpty()) {
+        _animals.remove(animal.species());
+      }
     }
+  }
 
-    public int area() {
-        return _area;
-    }
+  public void changeSuitability(Species species, Influence influence) {
+    _suitability.put(species, influence);
+  }
 
-    public Influence suitability(Species species) {
-        return _suitability.get(species);
-    }
+  public void addTree(Tree tree) {
+    _trees.put(tree.id(), tree);
+  }
 
-    public Collection<Animal> animals() {
-        Collection<Animal> animals = new ArrayList<Animal>();
-        for (List<Animal> speciesAnimals : _animals.values()) {
-            animals.addAll(speciesAnimals);
-        }
-        return Collections.unmodifiableCollection(animals);
-    }
-
-    public Collection<CareTaker> careTakers() {
-        return Collections.unmodifiableCollection(_careTakers.values());
-    }
-
-    public Collection<Tree> trees() {
-        return Collections.unmodifiableCollection(_trees.values());
-    }
-
-    /*
-     * <------------------------ Sets ------------------------>
-     */
-
-    public void changeArea(int area) {
-        _area = area;
-    }
-
-    /*
-     * <------------------------ Others ------------------------>
-     */
-
-    protected void addAnimal(Animal animal) {
-        _animals.computeIfAbsent(animal.species(), k -> new ArrayList<Animal>()).add(animal);
-    }
-
-    protected void removeAnimal(Animal animal) {
-        List<Animal> speciesAnimals = _animals.get(animal.species());
-        if (speciesAnimals != null) {
-            speciesAnimals.remove(animal);
-            if (speciesAnimals.isEmpty()) {
-                _animals.remove(animal.species());
-            }
-        }
-    }
-
-    public void changeSuitability(Species species, Influence influence) {
-        _suitability.put(species, influence);
-    }
-
-    public void addTree(Tree tree) {
-        _trees.put(tree.id(), tree);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("HABITAT|%s|%s|%d|%d", _id, _name, _area, _trees.size());
-    }
+  @Override
+  public String toString() {
+    return String.format("HABITAT|%s|%s|%d|%d", _id, _name, _area, _trees.size());
+  }
 }
