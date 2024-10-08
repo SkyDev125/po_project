@@ -32,12 +32,8 @@ class DoAddTreeToHabitat extends Command<Hotel> {
     String treeType = stringField("treeType");
     while (true) {
       try {
-        _display.add(_receiver.addTreeToHabitat(
-            stringField("habitatKey"),
-            stringField("treeKey"),
-            stringField("treeName"),
-            integerField("treeAge"),
-            integerField("treeDifficulty"),
+        _display.add(_receiver.addTreeToHabitat(stringField("habitatKey"), stringField("treeKey"),
+            stringField("treeName"), integerField("treeAge"), integerField("treeDifficulty"),
             treeType));
         _display.display();
         break;

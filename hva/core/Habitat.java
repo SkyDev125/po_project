@@ -6,9 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import hva.core.enumf.Influence;
-
+import hva.core.enumerator.Influence;
 import java.io.Serial;
 import java.io.Serializable;
 

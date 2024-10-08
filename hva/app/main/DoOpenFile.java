@@ -6,7 +6,7 @@ import hva.core.exception.UnavailableFileException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
+// FIXME add more imports if needed
 
 /**
  * Command to open a file.
@@ -19,11 +19,8 @@ class DoOpenFile extends Command<HotelManager> {
   @Override
   protected final void execute() throws CommandException {
     /*
-      try {
-      //FIXME implement command
-      } catch (UnavailableFileException efe) {
-      throw new FileOpenFailedException(efe);
-      }
-    */
+     * try { //FIXME implement command } catch (UnavailableFileException efe) { throw new
+     * FileOpenFailedException(efe); }
+     */
   }
 }

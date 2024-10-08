@@ -11,8 +11,7 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
 /**
- * Add a new responsability to an employee: species to veterinarians and
- * habitats to zookeepers.
+ * Add a new responsability to an employee: species to veterinarians and habitats to zookeepers.
  **/
 class DoAddResponsibility extends Command<Hotel> {
 
@@ -25,8 +24,7 @@ class DoAddResponsibility extends Command<Hotel> {
   @Override
   protected void execute() throws CommandException {
     try {
-      _receiver.addResponsibilityToWorker(
-          stringField("workerKey"),
+      _receiver.addResponsibilityToWorker(stringField("workerKey"),
           stringField("responsibilityKey"));
     } catch (WorkerNotFoundException e) {
       throw new UnknownEmployeeKeyException(e.id());

@@ -1,4 +1,4 @@
-package hva.core.enumf;
+package hva.core.enumerator;
 
 public enum VaccineDamage {
     NORMAL,

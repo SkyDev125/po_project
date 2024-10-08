@@ -1,9 +1,8 @@
 package hva.core;
 
 import java.io.Serial;
-
-import hva.core.enumf.LeafState;
-import hva.core.enumf.SeasonType;
+import hva.core.enumerator.LeafState;
+import hva.core.enumerator.SeasonType;
 
 public class Deciduos extends Tree {
 
@@ -31,14 +30,14 @@ public class Deciduos extends Tree {
         SeasonType currentSeason = hotel().season();
 
         switch (currentSeason) {
-            case SPRING:
-                return 1;
-            case SUMMER:
-                return 2;
-            case FALL:
-                return 5;
-            default:
-                return 0;
+        case SPRING:
+            return 1;
+        case SUMMER:
+            return 2;
+        case FALL:
+            return 5;
+        default:
+            return 0;
         }
     }
 
@@ -51,14 +50,14 @@ public class Deciduos extends Tree {
         SeasonType currentSeason = hotel().season();
 
         switch (currentSeason) {
-            case SPRING:
-                return LeafState.GENERATELEAVES;
-            case SUMMER:
-                return LeafState.WITHLEAVES;
-            case FALL:
-                return LeafState.FALLINGLEAVES;
-            default:
-                return LeafState.WITHOUTLEAVES;
+        case SPRING:
+            return LeafState.GENERATELEAVES;
+        case SUMMER:
+            return LeafState.WITHLEAVES;
+        case FALL:
+            return LeafState.FALLINGLEAVES;
+        default:
+            return LeafState.WITHOUTLEAVES;
         }
     }
 
@@ -70,8 +69,6 @@ public class Deciduos extends Tree {
      */
     @Override
     public String toString() {
-        return String.format(
-                "ARVORE|%s|%s|%d|%d|CADUCA|%s",
-                id(), name(), age(), cleaningDifficulty(), leafState());
+        return String.format("ARVORE|%s|%s|%d|%d|CADUCA|%s", id(), name(), age(), cleaningDifficulty(), leafState());
     }
 }

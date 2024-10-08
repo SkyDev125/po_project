@@ -24,8 +24,7 @@ class DoRemoveResponsibility extends Command<Hotel> {
   @Override
   protected void execute() throws CommandException {
     try {
-      _receiver.removeResponsibilityFromWorker(
-          stringField("workerKey"),
+      _receiver.removeResponsibilityFromWorker(stringField("workerKey"),
           stringField("responsibilityKey"));
     } catch (WorkerNotFoundException e) {
       throw new UnknownEmployeeKeyException(e.id());

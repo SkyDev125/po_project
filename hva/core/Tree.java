@@ -2,9 +2,8 @@ package hva.core;
 
 import java.io.Serial;
 import java.io.Serializable;
-
-import hva.core.enumf.LeafState;
-import hva.core.enumf.SeasonType;
+import hva.core.enumerator.LeafState;
+import hva.core.enumerator.SeasonType;
 
 public abstract class Tree implements Serializable {
 

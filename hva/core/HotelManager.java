@@ -1,6 +1,6 @@
 package hva.core;
 
-import hva.core.enumf.SeasonType;
+import hva.core.enumerator.SeasonType;
 import hva.core.exception.*;
 import java.io.*;
 

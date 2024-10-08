@@ -9,14 +9,14 @@ import java.io.*;
 
 public class Animal implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+  @Serial
+  private static final long serialVersionUID = 1L;
 
-    private final String _id;
-    private final String _name;
-    private Species _species;
-    private Habitat _habitat;
-    private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  private final String _id;
+  private final String _name;
+  private Species _species;
+  private Habitat _habitat;
+  private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
     /*
      * <------------------------ Constructor ------------------------>
@@ -38,17 +38,17 @@ public class Animal implements Serializable {
         return _id;
     }
 
-    public String name() {
-        return _name;
-    }
+  public String name() {
+    return _name;
+  }
 
-    public Species species() {
-        return _species;
-    }
+  public Species species() {
+    return _species;
+  }
 
-    public List<VaccineRegistry> vaccineRegistry() {
-        return Collections.unmodifiableList(_vaccineRegistry);
-    }
+  public List<VaccineRegistry> vaccineRegistry() {
+    return Collections.unmodifiableList(_vaccineRegistry);
+  }
 
     /*
      * <------------------------ Others ------------------------>
@@ -60,9 +60,9 @@ public class Animal implements Serializable {
         _habitat = habitat;
     }
 
-    protected void addVaccineRegistration(VaccineRegistry vaccineReg) {
-        _vaccineRegistry.add(vaccineReg);
-    }
+  protected void addVaccineRegistration(VaccineRegistry vaccineReg) {
+    _vaccineRegistry.add(vaccineReg);
+  }
 
     protected float satisfaction() {
         int sameSpecies, population, suitability;
@@ -85,17 +85,15 @@ public class Animal implements Serializable {
         return (20 + (3 * sameSpecies) - (2 * (population - sameSpecies)) + (_habitat.area() / population) + suitability);
     }
 
-    @Override
-    public String toString() {
-        String health = "VOID";
+  @Override
+  public String toString() {
+    String health = "VOID";
 
-        if (_vaccineRegistry != null && !_vaccineRegistry.isEmpty()) {
-            health = _vaccineRegistry.stream()
-                    .map(vaccineReg -> vaccineReg.vaccineDamage().toString())
-                    .collect(Collectors.joining(","));
-        }
-
-        return String.format("ANIMAL|%s|%s|%s|%s|%s",
-                _id, _name, _species.id(), health, _habitat.id());
+    if (_vaccineRegistry != null && !_vaccineRegistry.isEmpty()) {
+      health = _vaccineRegistry.stream().map(vaccineReg -> vaccineReg.vaccineDamage().toString())
+          .collect(Collectors.joining(","));
     }
+
+    return String.format("ANIMAL|%s|%s|%s|%s|%s", _id, _name, _species.id(), health, _habitat.id());
+  }
 }

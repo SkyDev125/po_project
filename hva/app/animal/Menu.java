@@ -10,5 +10,5 @@ public class Menu extends pt.tecnico.uilib.menus.Menu {
           new DoShowSatisfactionOfAnimal(receiver)
           );
   }
-  
+
 }
