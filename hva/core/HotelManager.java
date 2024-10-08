@@ -5,14 +5,13 @@ import hva.core.exception.*;
 
 import java.io.*;
 
-// FIXME import classes
-
 /**
  * Class representing the manager of this application. It manages the current zoo hotel.
  **/
 public class HotelManager {
-  /** The current zoo hotel */ // Should we initialize this field?
+  /** The current zoo hotel */
   private Hotel _hotel = new Hotel();
+  private String _filePath;
 
   public SeasonType progressSeason() {
     return _hotel.progressSeason();
@@ -30,7 +29,7 @@ public class HotelManager {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    **/
   public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-    // FIXME implement serialization method
+    saveAs(_filePath);
   }
 
   /**
@@ -42,9 +41,17 @@ public class HotelManager {
    * @throws MissingFileAssociationException if the current network does not have a file.
    * @throws IOException if there is some error while serializing the state of the network to disk.
    **/
-  public void saveAs(String filename)
+  public void saveAs(String filePath)
       throws FileNotFoundException, MissingFileAssociationException, IOException {
-    // FIXME implement serialization method
+
+    if (filePath.isEmpty()) {
+      throw new MissingFileAssociationException();
+    }
+
+    try (FileOutputStream fileOut = new FileOutputStream(filePath);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+      out.writeObject(_hotel);
+    }
   }
 
   /**
@@ -52,8 +59,14 @@ public class HotelManager {
    * @throws UnavailableFileException if the specified file does not exist or there is an error
    *         while processing this file.
    **/
-  public void load(String filename) throws UnavailableFileException {
-    // FIXME implement serialization method
+  public void load(String filePath) throws UnavailableFileException {
+    try (FileInputStream fileIn = new FileInputStream(filePath);
+        ObjectInputStream in = new ObjectInputStream(fileIn)) {
+      _hotel = (Hotel) in.readObject();
+      _filePath = filePath;
+    } catch (IOException | ClassNotFoundException e) {
+      throw new UnavailableFileException(filePath);
+    }
   }
 
   /**

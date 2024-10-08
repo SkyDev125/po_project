@@ -59,7 +59,7 @@ public class Animal implements Serializable, Comparable<Animal> {
   }
 
   float satisfaction() {
-    float sameSpecies = _habitat.sameSpeciesCount(_species);
+    int sameSpecies = _habitat.sameSpeciesCount(_species);
     int population = _habitat.animals().size();
 
     return (20 + (3 * sameSpecies) - (2 * (population - sameSpecies))

@@ -89,8 +89,8 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
    * 
    * @return the total cleaning effort of the tree
    */
-  int totalCleaningEffort() {
-    return (int) (_cleaningDifficulty * seasonalEffort() * Math.log(_age * 1));
+  double totalCleaningEffort() {
+    return _cleaningDifficulty * seasonalEffort() * Math.log(_age + 1);
   }
 
   void grow() {
