@@ -91,8 +91,7 @@ public class Vet extends Worker {
    * @return the vaccine registry
    * @throws WorkerNotAuthorizedException
    */
-  VaccineRegistry vaccinate(Animal animal, Vaccine vaccine)
-      throws WorkerNotAuthorizedException {
+  VaccineRegistry vaccinate(Animal animal, Vaccine vaccine) throws WorkerNotAuthorizedException {
     if (!_responsibilities.containsValue(animal.species())) {
       throw new WorkerNotAuthorizedException(id(), animal.species().id());
     }
@@ -178,7 +177,7 @@ public class Vet extends Worker {
    * Returns the vet in the format: tipo|id|nome|idResponsabilidades If the vet doesn't have
    * responsibilities, it's in this format: tipo|id|nome
    * 
-   * @return the vaccine registry in format 
+   * @return the vaccine registry in format
    */
   @Override
   public String toString() {

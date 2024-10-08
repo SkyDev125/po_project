@@ -46,7 +46,7 @@ public class VaccineRegistry implements Serializable {
    * 
    * @return the vaccine damage dealt
    */
-  VaccineDamage vaccineDamage() {
+  public VaccineDamage vaccineDamage() {
     return _vaccineDamage;
   }
 
