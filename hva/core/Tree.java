@@ -2,6 +2,7 @@ package hva.core;
 
 import java.io.Serial;
 import java.io.Serializable;
+
 import hva.core.enumerator.LeafState;
 import hva.core.enumerator.SeasonType;
 

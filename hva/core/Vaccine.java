@@ -2,6 +2,7 @@ package hva.core;
 
 import java.io.Serial;
 import java.io.Serializable;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class Vaccine implements Serializable {
   private final String _id;
   private final String _name;
   private int _applyCount;
-  private HashMap<String, Species> _species = new HashMap<String, Species>();
+  private final HashMap<String, Species> _species = new HashMap<String, Species>();
 
   /*
    * <------------------------ Constructor ------------------------>
@@ -70,7 +71,7 @@ public class Vaccine implements Serializable {
   public String toString() {
     StringBuilder species = new StringBuilder();
 
-    if (_species != null && !_species.isEmpty()) {
+    if (!_species.isEmpty()) {
       species.append(String.join(",", _species.keySet()));
     }
 

@@ -14,26 +14,23 @@ public class Animal implements Serializable {
 
   private final String _id;
   private final String _name;
-  private Species _species;
+  private final Species _species;
   private Habitat _habitat;
-  private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
   /*
    * <------------------------ Constructor ------------------------>
    */
-
   public Animal(String id, String name, Species species, Habitat habitat) {
     _id = id;
     _name = name;
     _species = species;
     _habitat = habitat;
-    _vaccineRegistry = new ArrayList<VaccineRegistry>();
   }
 
   /*
    * <------------------------ Gets ------------------------>
    */
-
   public String id() {
     return _id;
   }
@@ -53,7 +50,6 @@ public class Animal implements Serializable {
   /*
    * <------------------------ Others ------------------------>
    */
-
   protected void transferAnimal(Habitat habitat) {
     _habitat.removeAnimal(this);
     habitat.addAnimal(this);
@@ -91,7 +87,7 @@ public class Animal implements Serializable {
   public String toString() {
     String health = "VOID";
 
-    if (_vaccineRegistry != null && !_vaccineRegistry.isEmpty()) {
+    if (!_vaccineRegistry.isEmpty()) {
       health = _vaccineRegistry.stream().map(vaccineReg -> vaccineReg.vaccineDamage().toString())
           .collect(Collectors.joining(","));
     }

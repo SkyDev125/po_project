@@ -2,6 +2,7 @@ package hva.core;
 
 import java.io.Serial;
 import java.io.Serializable;
+
 import java.util.HashMap;
 
 public class Species implements Serializable, Comparable<Species> {
@@ -11,8 +12,8 @@ public class Species implements Serializable, Comparable<Species> {
 
   private final String _id;
   private final String _name;
-  private HashMap<String, Animal> _animals = new HashMap<String, Animal>();
-  private HashMap<String, Vet> _vets = new HashMap<String, Vet>();
+  private final HashMap<String, Animal> _animals = new HashMap<String, Animal>();
+  private final HashMap<String, Vet> _vets = new HashMap<String, Vet>();
 
   // constructor
   public Species(String id, String name) {

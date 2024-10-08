@@ -1,10 +1,12 @@
 package hva.core;
 
+import java.io.Serial;
+
 import java.util.HashMap;
 import java.util.List;
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
+
 import hva.core.enumerator.VaccineDamage;
 import hva.core.exception.SpeciesNotFoundException;
 import hva.core.exception.WorkerNotAuthorizedException;
@@ -14,8 +16,8 @@ public class Vet extends Worker {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private HashMap<String, Species> _responsibilities = new HashMap<String, Species>();
-  private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  private final HashMap<String, Species> _responsibilities = new HashMap<String, Species>();
+  private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
   /*
    * <------------------------ Constructor ------------------------>
@@ -23,7 +25,6 @@ public class Vet extends Worker {
 
   public Vet(String id, String name, Hotel hotel) {
     super(id, name, hotel);
-    _responsibilities = new HashMap<String, Species>();
   }
 
   /*
@@ -177,13 +178,13 @@ public class Vet extends Worker {
    * Returns the vet in the format: tipo|id|nome|idResponsabilidades If the vet doesn't have
    * responsibilities, it's in this format: tipo|id|nome
    * 
-   * @return the vaccine registry in format // TODO: should it be the format itself?
+   * @return the vaccine registry in format 
    */
   @Override
   public String toString() {
     StringBuilder responsibilities = new StringBuilder();
 
-    if (_responsibilities != null && !_responsibilities.isEmpty()) {
+    if (!_responsibilities.isEmpty()) {
       responsibilities.append(String.join(",", _responsibilities.keySet()));
     }
 

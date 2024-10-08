@@ -8,6 +8,7 @@ import hva.core.exception.*;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,13 +23,13 @@ public class Hotel implements Serializable {
 
   // TODO: how to use this later - private boolean _isModified = false;
   private SeasonType _season = SeasonType.SPRING;
-  private Map<String, Species> _species = new HashMap<String, Species>();
-  private Map<String, Vaccine> _vaccines = new HashMap<String, Vaccine>();
-  private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
-  private Map<String, Animal> _animals = new HashMap<String, Animal>();
-  private Map<String, Habitat> _habitats = new HashMap<String, Habitat>();
-  private Map<String, Tree> _trees = new HashMap<String, Tree>();
-  private Map<String, Worker> _workers = new HashMap<String, Worker>();
+  private final Map<String, Species> _species = new HashMap<String, Species>();
+  private final Map<String, Vaccine> _vaccines = new HashMap<String, Vaccine>();
+  private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  private final Map<String, Animal> _animals = new HashMap<String, Animal>();
+  private final Map<String, Habitat> _habitats = new HashMap<String, Habitat>();
+  private final Map<String, Tree> _trees = new HashMap<String, Tree>();
+  private final Map<String, Worker> _workers = new HashMap<String, Worker>();
 
   /*
    * <------------------------ Gets ------------------------>

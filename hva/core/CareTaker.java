@@ -1,6 +1,7 @@
 package hva.core;
 
 import java.io.Serial;
+
 import java.util.HashMap;
 
 import hva.core.exception.HabitatNotFoundException;
@@ -10,7 +11,7 @@ public class CareTaker extends Worker {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private HashMap<String, Habitat> _responsibilities = new HashMap<String, Habitat>();
+  private final HashMap<String, Habitat> _responsibilities = new HashMap<String, Habitat>();
 
   /*
    * <------------------------ Constructor ------------------------>
@@ -78,7 +79,7 @@ public class CareTaker extends Worker {
   public String toString() {
     StringBuilder responsibilities = new StringBuilder();
 
-    if (_responsibilities != null && !_responsibilities.isEmpty()) {
+    if (!_responsibilities.isEmpty()) {
       responsibilities.append(String.join(",", _responsibilities.keySet()));
     }
 

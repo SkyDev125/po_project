@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import hva.core.enumerator.Influence;
+
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -18,10 +20,10 @@ public class Habitat implements Serializable {
   private final String _id;
   private final String _name;
   private int _area;
-  private Map<Species, ArrayList<Animal>> _animals = new HashMap<Species, ArrayList<Animal>>();
-  private HashMap<Species, Influence> _suitability = new HashMap<Species, Influence>();
-  private HashMap<String, CareTaker> _careTakers = new HashMap<String, CareTaker>();
-  private HashMap<String, Tree> _trees = new HashMap<String, Tree>();
+  private final Map<Species, ArrayList<Animal>> _animals = new HashMap<Species, ArrayList<Animal>>();
+  private final HashMap<Species, Influence> _suitability = new HashMap<Species, Influence>();
+  private final HashMap<String, CareTaker> _careTakers = new HashMap<String, CareTaker>();
+  private final HashMap<String, Tree> _trees = new HashMap<String, Tree>();
 
   /*
    * <------------------------ Constructor ------------------------>
