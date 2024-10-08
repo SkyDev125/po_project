@@ -23,9 +23,7 @@ class DoRegisterHabitat extends Command<Hotel> {
   @Override
   protected void execute() throws CommandException {
     try {
-      _receiver.addHabitat(
-          stringField("habitatKey"),
-          stringField("habitatName"),
+      _receiver.addHabitat(stringField("habitatKey"), stringField("habitatName"),
           integerField("habitatArea"));
     } catch (DuplicateHabitatException e) {
       throw new DuplicateHabitatKeyException(e.id());

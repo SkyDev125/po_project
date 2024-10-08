@@ -6,68 +6,65 @@ import java.io.*;
 
 public class Animal implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+  @Serial
+  private static final long serialVersionUID = 1L;
 
-    private final String _id;
-    private final String _name;
-    private Species _species;
-    private Habitat _habitat;
-    private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  private final String _id;
+  private final String _name;
+  private Species _species;
+  private Habitat _habitat;
+  private ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
-    // constructor
-    public Animal(String id, String name, Species species, Habitat habitat) {
-        _id = id;
-        _name = name;
-        _species = species;
-        _habitat = habitat;
-        _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  // constructor
+  public Animal(String id, String name, Species species, Habitat habitat) {
+    _id = id;
+    _name = name;
+    _species = species;
+    _habitat = habitat;
+  }
+
+  // gets
+  public String id() {
+    return _id;
+  }
+
+  public String name() {
+    return _name;
+  }
+
+  public Species species() {
+    return _species;
+  }
+
+  public List<VaccineRegistry> vaccineRegistry() {
+    return Collections.unmodifiableList(_vaccineRegistry);
+  }
+
+  // method
+  protected void transferAnimal(Habitat habitat) {
+    _habitat.removeAnimal(this);
+    habitat.addAnimal(this);
+    _habitat = habitat;
+  }
+
+  protected void addVaccineRegistration(VaccineRegistry vaccineReg) {
+    _vaccineRegistry.add(vaccineReg);
+  }
+
+  protected float satisfaction() {
+    // TODO: calculate satisfaction
+    return 20;
+  }
+
+  @Override
+  public String toString() {
+    String health = "VOID";
+
+    if (_vaccineRegistry != null && !_vaccineRegistry.isEmpty()) {
+      health = _vaccineRegistry.stream().map(vaccineReg -> vaccineReg.vaccineDamage().toString())
+          .collect(Collectors.joining(","));
     }
 
-    // gets
-    public String id() {
-        return _id;
-    }
-
-    public String name() {
-        return _name;
-    }
-
-    public Species species() {
-        return _species;
-    }
-
-    public List<VaccineRegistry> vaccineRegistry() {
-        return Collections.unmodifiableList(_vaccineRegistry);
-    }
-
-    // method
-    protected void transferAnimal(Habitat habitat) {
-        _habitat.removeAnimal(this);
-        habitat.addAnimal(this);
-        _habitat = habitat;
-    }
-
-    protected void addVaccineRegistration(VaccineRegistry vaccineReg) {
-        _vaccineRegistry.add(vaccineReg);
-    }
-
-    protected float satisfaction() {
-        // TODO: calculate satisfaction
-        return 20;
-    }
-
-    @Override
-    public String toString() {
-        String health = "VOID";
-
-        if (_vaccineRegistry != null && !_vaccineRegistry.isEmpty()) {
-            health = _vaccineRegistry.stream()
-                    .map(vaccineReg -> vaccineReg.vaccineDamage().toString())
-                    .collect(Collectors.joining(","));
-        }
-
-        return String.format("ANIMAL|%s|%s|%s|%s|%s",
-                _id, _name, _species.id(), health, _habitat.id());
-    }
+    return String.format("ANIMAL|%s|%s|%s|%s|%s", _id, _name, _species.id(), health, _habitat.id());
+  }
 }

@@ -1,7 +1,7 @@
 package hva.app.habitat;
 
 import hva.core.Hotel;
-import hva.core.enumf.Influence;
+import hva.core.enumerator.Influence;
 import hva.core.exception.HabitatNotFoundException;
 import hva.core.exception.SpeciesNotFoundException;
 
@@ -49,9 +49,7 @@ class DoChangeHabitatInfluence extends Command<Hotel> {
     }
 
     try {
-      _receiver.changeHabitatSuitability(
-          stringField("habitatKey"),
-          stringField("speciesKey"),
+      _receiver.changeHabitatSuitability(stringField("habitatKey"), stringField("speciesKey"),
           influence);
     } catch (HabitatNotFoundException e) {
       throw new UnknownHabitatKeyException(e.id());

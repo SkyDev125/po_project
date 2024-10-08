@@ -2,8 +2,7 @@ package hva.core;
 
 import java.io.Serial;
 import java.io.Serializable;
-
-import hva.core.enumf.VaccineDamage;
+import hva.core.enumerator.VaccineDamage;
 
 public class VaccineRegistry implements Serializable {
 

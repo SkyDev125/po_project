@@ -1,9 +1,8 @@
 package hva.core;
 
 import java.io.Serial;
-
-import hva.core.enumf.LeafState;
-import hva.core.enumf.SeasonType;
+import hva.core.enumerator.LeafState;
+import hva.core.enumerator.SeasonType;
 
 public class Evergreen extends Tree {
 

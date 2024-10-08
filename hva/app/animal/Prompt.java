@@ -8,11 +8,11 @@ public interface Prompt {
   static String animalName() {
     return "Nome do animal: ";
   }
-  
+
   static String speciesKey() {
     return "Identificador único da espécie: ";
   }
-  
+
   static String speciesKeys() {
     return "Lista de identificadores de espécies: ";
   }

@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class Species implements Serializable {
+public class Species implements Serializable, Comparable<Species> {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -48,5 +48,10 @@ public class Species implements Serializable {
 
     public int vetCount() {
         return _vets.size();
+    }
+
+    @Override
+    public int compareTo(Species other) {
+        return _id.compareTo(other.id()) + _name.compareTo(other.name());
     }
 }

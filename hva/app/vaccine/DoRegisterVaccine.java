@@ -25,9 +25,7 @@ class DoRegisterVaccine extends Command<Hotel> {
   @Override
   protected final void execute() throws CommandException {
     try {
-      _receiver.addVaccine(
-          stringField("vaccineKey"),
-          stringField("vaccineName"),
+      _receiver.addVaccine(stringField("vaccineKey"), stringField("vaccineName"),
           stringField("speciesKeys"));
     } catch (DuplicateVaccineException e) {
       throw new DuplicateVaccineKeyException(e.id());

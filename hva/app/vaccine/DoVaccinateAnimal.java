@@ -32,10 +32,8 @@ class DoVaccinateAnimal extends Command<Hotel> {
     String idVaccine = stringField("vaccineKey");
 
     try {
-      VaccineRegistry vaccineRegistry = _receiver.vaccinateAnimal(
-          idAnimal,
-          idVaccine,
-          stringField("vetKey"));
+      VaccineRegistry vaccineRegistry =
+          _receiver.vaccinateAnimal(idAnimal, idVaccine, stringField("vetKey"));
 
       switch (vaccineRegistry.vaccineDamage()) {
         case ACCIDENT:

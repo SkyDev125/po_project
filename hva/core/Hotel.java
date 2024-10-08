@@ -1,8 +1,8 @@
 package hva.core;
 
-import hva.core.enumf.Influence;
-import hva.core.enumf.SeasonType;
-import hva.core.enumf.VaccineDamage;
+import hva.core.enumerator.Influence;
+import hva.core.enumerator.SeasonType;
+import hva.core.enumerator.VaccineDamage;
 import hva.core.exception.*;
 
 import java.io.IOException;
@@ -60,12 +60,13 @@ public class Hotel implements Serializable {
   /*
    * <------------------------ Sets ------------------------>
    */
-  public void addAnimal(String idAnimal, String name, String idSpecies, String idHabitat)
+  public Animal addAnimal(String idAnimal, String name, String idSpecies, String idHabitat)
       throws DuplicateAnimalException, SpeciesNotFoundException, HabitatNotFoundException {
 
     // Exception Checks
-    if (animalExists(idAnimal) != null)
+    if (animalExists(idAnimal) != null) {
       throw new DuplicateAnimalException(idAnimal);
+    }
     Species species = speciesExistsWithException(idSpecies);
     Habitat habitat = habitatExistsWithException(idHabitat);
 
@@ -74,26 +75,30 @@ public class Hotel implements Serializable {
     _animals.put(idAnimal, animal);
     species.addAnimal(animal);
     habitat.addAnimal(animal);
+    return animal;
   }
 
-  public void addSpecies(String idSpecies, String name) throws DuplicateSpeciesException {
+  public Species addSpecies(String idSpecies, String name) throws DuplicateSpeciesException {
 
     // Exception Checks
-    if (speciesExists(idSpecies) != null)
+    if (speciesExists(idSpecies) != null
+        || _species.values().stream().anyMatch(species -> species.name().equals(name))) {
       throw new DuplicateSpeciesException(idSpecies);
+    }
 
     // Create and Add Species
     Species species = new Species(idSpecies, name);
     _species.put(idSpecies, species);
-    return;
+    return species;
   }
 
-  public void addWorker(String idWorker, String name, String type)
+  public Worker addWorker(String idWorker, String name, String type)
       throws DuplicateWorkerException, UnrecognizedWorkerTypeException {
 
     // Exception Checks
-    if (workerExists(idWorker) != null)
+    if (workerExists(idWorker) != null) {
       throw new DuplicateWorkerException(idWorker);
+    }
 
     // Create and Add Worker
     Worker worker;
@@ -108,29 +113,43 @@ public class Hotel implements Serializable {
         throw new UnrecognizedWorkerTypeException(type);
     }
     _workers.put(idWorker, worker);
+    return worker;
   }
 
-  public void addHabitat(String idHabitat, String name, int area) throws DuplicateHabitatException {
+  public Habitat addHabitat(String idHabitat, String name, int area)
+      throws DuplicateHabitatException {
 
     // Exception Checks
-    if (habitatExists(idHabitat) != null)
+    if (habitatExists(idHabitat) != null) {
       throw new DuplicateHabitatException(idHabitat);
+    }
 
     // Create and Add Habitat
     Habitat habitat = new Habitat(idHabitat, name, area);
     _habitats.put(idHabitat, habitat);
+    return habitat;
   }
 
-  public Tree addTreeToHabitat(String idHabitat, String idTree, String name, int age, int cleanDiff, String treeType)
+  public Tree addTreeToHabitat(String idHabitat, String idTree, String name, int age, int cleanDiff,
+      String treeType)
       throws HabitatNotFoundException, UnrecognizedTreeTypeException, DuplicateTreeException {
 
     // Exception Checks
     Habitat habitat = habitatExistsWithException(idHabitat);
+
+    Tree tree = addTree(idTree, name, age, cleanDiff, treeType);
+    habitat.addTree(tree);
+    return tree;
+  }
+
+  public Tree addTree(String idTree, String name, int age, int cleanDiff, String treeType)
+      throws DuplicateTreeException, UnrecognizedTreeTypeException {
+
+    // Exception Checks
     if (treeExists(idTree) != null) {
       throw new DuplicateTreeException(idTree);
     }
 
-    // Create and Add Tree
     Tree tree;
     switch (treeType) {
       case "PERENE":
@@ -143,7 +162,6 @@ public class Hotel implements Serializable {
         throw new UnrecognizedTreeTypeException(treeType);
     }
 
-    habitat.addTree(tree);
     _trees.put(idTree, tree);
     return tree;
   }
@@ -152,8 +170,9 @@ public class Hotel implements Serializable {
       throws DuplicateVaccineException, SpeciesNotFoundException {
 
     // Exception Checks
-    if (vaccineExists(idVaccine) != null)
+    if (vaccineExists(idVaccine) != null) {
       throw new DuplicateVaccineException(idVaccine);
+    }
 
     String[] idsSpecies = idSpecies.split("\\s*,\\s*");
     ArrayList<Species> allSpecies = new ArrayList<Species>();
@@ -251,7 +270,8 @@ public class Hotel implements Serializable {
   }
 
   public VaccineRegistry vaccinateAnimal(String idAnimal, String idVaccine, String idVet)
-      throws AnimalNotFoundException, VaccineNotFoundException, WorkerNotFoundException, WorkerNotAuthorizedException {
+      throws AnimalNotFoundException, VaccineNotFoundException, WorkerNotFoundException,
+      WorkerNotAuthorizedException {
 
     // Exception Checks
     Animal animal = animalExistsWithException(idAnimal);
@@ -375,10 +395,10 @@ public class Hotel implements Serializable {
    * 
    * @param filename name of the text input file
    * @throws UnrecognizedEntryException if some entry is not correct
-   * @throws IOException                if there is an IO erro while processing
-   *                                    the text file
+   * @throws IOException if there is an IO erro while processing the text file
    **/
-  void importFile(String filename) throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */ {
+  void importFile(String filename)
+      throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */ {
     // FIXME implement method
   }
 }

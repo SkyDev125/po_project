@@ -25,9 +25,7 @@ public class Vaccine implements Serializable {
         _id = id;
         _name = name;
 
-        for (Species currentSpecies : species) {
-            _species.put(currentSpecies.id(), currentSpecies);
-        }
+        species.forEach(currentSpecies -> _species.put(currentSpecies.id(), currentSpecies));
     }
 
     /*

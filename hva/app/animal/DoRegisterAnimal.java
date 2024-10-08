@@ -27,22 +27,17 @@ class DoRegisterAnimal extends Command<Hotel> {
   }
 
   @Override
-  protected final void execute() throws CommandException, DuplicateAnimalKeyException, UnknownHabitatKeyException {
+  protected final void execute() throws CommandException {
     try {
-      _receiver.addAnimal(
-          stringField("animalKey"),
-          stringField("animalName"),
-          stringField("speciesKey"),
-          stringField("habitatKey"));
+      _receiver.addAnimal(stringField("animalKey"), stringField("animalName"),
+          stringField("speciesKey"), stringField("habitatKey"));
     } catch (SpeciesNotFoundException e) {
       try {
-        _receiver.addSpecies(
-            stringField("speciesKey"),
-            Form.requestString(Prompt.speciesName()));
+        _receiver.addSpecies(stringField("speciesKey"), Form.requestString(Prompt.speciesName()));
       } catch (DuplicateSpeciesException e1) {
         // This should never happen given the context
         // (cause we check if the species exists before adding it)
-        e1.printStackTrace();
+        assert false : "This should never happen";
       }
       execute();
     } catch (DuplicateAnimalException e) {

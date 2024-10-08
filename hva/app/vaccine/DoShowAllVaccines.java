@@ -3,7 +3,6 @@ package hva.app.vaccine;
 import hva.core.Hotel;
 
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.Display;
 
 /**
  * Show all vaccines.

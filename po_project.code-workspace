@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+		"java.format.settings.profile": "GoogleStyle",
+		"editor.tabSize": 2,
+		"editor.rulers": [
+			100
+		]
+	}
+}
