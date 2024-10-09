@@ -1,6 +1,7 @@
 package hva.app.habitat;
 
 import hva.core.Hotel;
+
 import hva.core.exception.HabitatNotFoundException;
 
 import hva.app.exception.UnknownHabitatKeyException;

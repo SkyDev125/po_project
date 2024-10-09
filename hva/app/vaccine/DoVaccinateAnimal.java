@@ -2,6 +2,7 @@ package hva.app.vaccine;
 
 import hva.core.Hotel;
 import hva.core.VaccineRegistry;
+
 import hva.core.exception.AnimalNotFoundException;
 import hva.core.exception.VaccineNotFoundException;
 import hva.core.exception.WorkerNotAuthorizedException;

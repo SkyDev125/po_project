@@ -1,6 +1,7 @@
 package hva.app.animal;
 
 import hva.core.Hotel;
+
 import hva.core.exception.AnimalNotFoundException;
 import hva.core.exception.HabitatNotFoundException;
 

@@ -1,6 +1,7 @@
 package hva.app.habitat;
 
 import hva.core.Hotel;
+
 import hva.core.exception.DuplicateTreeException;
 import hva.core.exception.HabitatNotFoundException;
 import hva.core.exception.UnrecognizedTreeTypeException;
@@ -9,6 +10,7 @@ import hva.app.exception.UnknownHabitatKeyException;
 import hva.app.exception.DuplicateTreeKeyException;
 
 import pt.tecnico.uilib.forms.Form;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 

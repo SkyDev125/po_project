@@ -1,6 +1,7 @@
 package hva.app.search;
 
 import hva.core.Hotel;
+
 import hva.core.exception.WorkerNotFoundException;
 
 import hva.app.exception.UnknownVeterinarianKeyException;

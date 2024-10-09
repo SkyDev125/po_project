@@ -1,9 +1,11 @@
 package hva.app.main;
 
 import hva.core.HotelManager;
+
 import hva.core.exception.MissingFileAssociationException;
 
 import pt.tecnico.uilib.forms.Form;
+
 import pt.tecnico.uilib.menus.Command;
 
 import java.io.IOException;

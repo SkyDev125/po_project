@@ -1,9 +1,19 @@
 package hva.core;
 
 import hva.core.enumerator.SeasonType;
-import hva.core.exception.*;
+import hva.core.exception.ImportFileException;
+import hva.core.exception.MissingFileAssociationException;
+import hva.core.exception.UnavailableFileException;
+import hva.core.exception.UnrecognizedEntryException;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import java.util.Arrays;
 
 /**

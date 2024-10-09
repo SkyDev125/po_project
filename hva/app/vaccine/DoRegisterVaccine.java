@@ -1,6 +1,7 @@
 package hva.app.vaccine;
 
 import hva.core.Hotel;
+
 import hva.core.exception.DuplicateVaccineException;
 import hva.core.exception.SpeciesNotFoundException;
 
