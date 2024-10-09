@@ -25,26 +25,8 @@ class DoSaveFile extends Command<HotelManager> {
     try (FileOutputStream fileOut = new FileOutputStream(_receiver.filePath());
         ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 
-      for (Animal animal : _receiver.getHotel().animals()) {
-        out.writeObject(animal);
-      }
-
-      for (Worker worker : _receiver.getHotel().workers()) {
-        out.writeObject(worker);
-      }
-
-      for (Habitat habitat : _receiver.getHotel().habitats()) {
-        out.writeObject(habitat);
-      }
-
-      for (Vaccine vaccine : _receiver.getHotel().vaccines()) {
-        out.writeObject(vaccine);
-      }
-
-      for (VaccineRegistry vaccineRegistry : _receiver.getHotel().vaccineRegistry()) {
-        out.writeObject(vaccineRegistry);
-      }
-
+      out.writeObject(_receiver.getHotel());
+      
       } catch (IOException e) {
         e.printStackTrace();
       }
