@@ -26,22 +26,60 @@ public class HotelManager {
   private String _filePath = "";
   private byte[] _originalSerializedObject;
 
-  public void create() throws IOException {
-    _hotel = new Hotel();
-    _filePath = "";
-    _originalSerializedObject = serializeObject(_hotel);
+  /*
+   * <------------------------ Gets ------------------------>
+   */
+
+  /**
+   * Returns the zoo hotel managed by this instance.
+   *
+   * @return the current zoo hotel
+   **/
+  public final Hotel getHotel() {
+    return _hotel;
   }
 
+  /**
+   * Returns the file path associated with the current zoo hotel.
+   *
+   * @return the file path
+   **/
   public String filePath() {
     return _filePath;
   }
 
+  /*
+   * <------------------------ Others ------------------------>
+   */
+
+  /**
+   * Progress the season of the hotel.
+   * 
+   * @return the season type that was progressed to
+   */
   public SeasonType progressSeason() {
     return _hotel.progressSeason();
   }
 
+  /**
+   * Returns the satisfaction of the hotel.
+   * 
+   * @return
+   */
   public float satisfaction() {
     return _hotel.satisfaction();
+  }
+
+
+  /**
+   * Creates a new hotel.
+   *
+   * @throws IOException if there is some error while serializing the state of the network to disk.
+   **/
+  public void create() throws IOException {
+    _hotel = new Hotel();
+    _filePath = "";
+    _originalSerializedObject = serializeObject(_hotel);
   }
 
   /**
@@ -60,6 +98,7 @@ public class HotelManager {
    * associated to this file.
    *
    * @param filename the name of the file.
+   * 
    * @throws FileNotFoundException if for some reason the file cannot be created or opened.
    * @throws MissingFileAssociationException if the current network does not have a file.
    * @throws IOException if there is some error while serializing the state of the network to disk.
@@ -79,6 +118,7 @@ public class HotelManager {
 
   /**
    * @param filename name of the file containing the serialized application's state to load.
+   * 
    * @throws UnavailableFileException if the specified file does not exist or there is an error
    *         while processing this file.
    **/
@@ -98,6 +138,7 @@ public class HotelManager {
    * domain entitiesi representeed in the import file.
    *
    * @param filename name of the text input file
+   * 
    * @throws ImportFileException if some error happens during the processing of the import file.
    **/
   public void importFile(String filename) throws ImportFileException {
@@ -110,20 +151,15 @@ public class HotelManager {
     }
   }
 
-  /**
-   * Returns the zoo hotel managed by this instance.
-   *
-   * @return the current zoo hotel
-   **/
-  public final Hotel getHotel() {
-    return _hotel;
-  }
+
 
   /**
    * Serialize an object to a byte array.
    *
    * @param obj the object to serialize.
+   * 
    * @return the byte array representing the serialized object.
+   * 
    * @throws IOException if an I/O error occurs during serialization.
    **/
   private byte[] serializeObject(Object obj) throws IOException {
@@ -136,10 +172,9 @@ public class HotelManager {
 
   /**
    * Compare the serialized forms of two objects.
-   *
-   * @param obj1 the first object to compare.
-   * @param obj2 the second object to compare.
+   * 
    * @return true if the serialized forms of the objects are equal, false otherwise.
+   * 
    * @throws IOException if an I/O error occurs during serialization.
    **/
   public boolean hotelModified() throws IOException {
