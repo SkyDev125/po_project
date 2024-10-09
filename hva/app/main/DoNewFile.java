@@ -22,20 +22,25 @@ class DoNewFile extends Command<HotelManager> {
 
   @Override
   protected final void execute() throws CommandException {
-    String filePath = _receiver.filePath();
-    while (true) {
-      try {
-        if (_receiver.hotelModified() && Form.confirm(Prompt.saveBeforeExit())) {
-          _receiver.saveAs(filePath);
-        }
-        _receiver.create();
-        break;
-      } catch (MissingFileAssociationException | FileNotFoundException e) {
-        filePath = Form.requestString(Prompt.saveAs());
-      } catch (IOException e) {
-        e.printStackTrace();
-        break;
+    try {
+
+      // Verify if the hotel has been modified and save it if necessary
+      if (_receiver.hotelModified() && Form.confirm(Prompt.saveBeforeExit())) {
+        _receiver.save();
       }
+      _receiver.create();
+
+    } catch (MissingFileAssociationException e) {
+
+      // Retry with a new file path
+      try {
+        _receiver.saveAs(Form.requestString(Prompt.saveAs()));
+      } catch (MissingFileAssociationException | IOException e1) {
+        e1.printStackTrace();
+      }
+
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }

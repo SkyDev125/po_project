@@ -21,17 +21,19 @@ class DoSaveFile extends Command<HotelManager> {
 
   @Override
   protected final void execute() {
-    String filePath = _receiver.filePath();
-    while (true) {
+    try {
+      _receiver.save();
+    } catch (MissingFileAssociationException | FileNotFoundException e) {
+
+      // Retry with a new file path
       try {
-        _receiver.saveAs(filePath);
-        break;
-      } catch (MissingFileAssociationException | FileNotFoundException e) {
-        filePath = Form.requestString(Prompt.newSaveAs());
-      } catch (IOException e) {
-        e.printStackTrace();
-        break;
+        _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
+      } catch (MissingFileAssociationException | IOException e1) {
+        e1.printStackTrace();
       }
+
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }

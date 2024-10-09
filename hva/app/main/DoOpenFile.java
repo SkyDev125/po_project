@@ -5,7 +5,6 @@ import hva.core.HotelManager;
 import hva.core.exception.MissingFileAssociationException;
 import hva.core.exception.UnavailableFileException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import hva.app.exception.FileOpenFailedException;
@@ -26,19 +25,25 @@ class DoOpenFile extends Command<HotelManager> {
 
   @Override
   protected final void execute() throws CommandException {
-    String filePath = _receiver.filePath();
-    while (true) {
-      try {
-        if (_receiver.hotelModified() && Form.confirm(Prompt.saveBeforeExit())) {
-          _receiver.saveAs(filePath);
-        }
-        _receiver.load(stringField("filePath"));
-        break;
-      } catch (MissingFileAssociationException | FileNotFoundException e) {
-        filePath = Form.requestString(Prompt.saveBeforeExit());
-      } catch (IOException | UnavailableFileException e) {
-        throw new FileOpenFailedException(e);
+    try {
+
+      // Verify if the hotel has been modified and save it if necessary
+      if (_receiver.hotelModified() && Form.confirm(Prompt.saveBeforeExit())) {
+        _receiver.save();
       }
+      _receiver.load(stringField("filePath"));
+
+    } catch (MissingFileAssociationException e) {
+
+      // Retry with a new file path
+      try {
+        _receiver.saveAs(Form.requestString(Prompt.saveBeforeExit()));
+      } catch (MissingFileAssociationException | IOException e1) {
+        throw new FileOpenFailedException(e1);
+      }
+
+    } catch (IOException | UnavailableFileException e) {
+      throw new FileOpenFailedException(e);
     }
   }
 }
