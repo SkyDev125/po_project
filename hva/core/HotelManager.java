@@ -92,4 +92,8 @@ public class HotelManager {
   public final Hotel getHotel() {
     return _hotel;
   }
+
+  public String filePath() {
+    return _filePath;
+  }
 }
