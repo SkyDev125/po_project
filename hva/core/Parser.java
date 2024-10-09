@@ -63,10 +63,10 @@ public class Parser {
     try {
       String id = components[1];
       String name = components[2];
-      String habitatId = components[4];
       String speciesId = components[3];
+      String habitatId = components[4];
 
-      _hotel.addAnimal(id, name, habitatId, speciesId);
+      _hotel.addAnimal(id, name, speciesId, habitatId);
     } catch (hva.core.exception.DuplicateAnimalException | SpeciesNotFoundException
         | HabitatNotFoundException e) {
       throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
@@ -110,8 +110,13 @@ public class Parser {
 
     String id = components[1];
     String name = components[2];
+
     try {
-      _hotel.addVaccine(id, name, components[3]);
+      if (components.length == 4) {
+        _hotel.addVaccine(id, name, components[3]);
+      } else {
+        _hotel.addVaccine(id, name, "");
+      }
     } catch (DuplicateVaccineException | SpeciesNotFoundException e) {
       throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
     }

@@ -167,7 +167,7 @@ public class Hotel implements Serializable {
     return tree;
   }
 
-  public void addVaccine(String idVaccine, String name, String idSpecies)
+  public Vaccine addVaccine(String idVaccine, String name, String idSpecies)
       throws DuplicateVaccineException, SpeciesNotFoundException {
 
     // Exception Checks
@@ -177,14 +177,19 @@ public class Hotel implements Serializable {
 
     String[] idsSpecies = idSpecies.split("\\s*,\\s*");
     ArrayList<Species> allSpecies = new ArrayList<Species>();
-    for (String id : idsSpecies) {
-      Species species = speciesExistsWithException(id);
-      allSpecies.add(species);
+
+    // Add Check due to parser allowing for vaccines with no species.
+    if (!idSpecies.isBlank()) {
+      for (String id : idsSpecies) {
+        Species species = speciesExistsWithException(id);
+        allSpecies.add(species);
+      }
     }
 
     // Create and Add Vaccine
     Vaccine vaccine = new Vaccine(idVaccine, name, allSpecies);
     _vaccines.put(idVaccine, vaccine);
+    return vaccine;
   }
 
   /*

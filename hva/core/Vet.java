@@ -181,12 +181,12 @@ public class Vet extends Worker {
    */
   @Override
   public String toString() {
-    StringBuilder responsibilities = new StringBuilder();
+    String responsibilities = "";
 
     if (!_responsibilities.isEmpty()) {
-      responsibilities.append(String.join(",", _responsibilities.keySet()));
+      responsibilities = "|" + String.join(",", _responsibilities.keySet());
     }
 
-    return String.format("VET|%s|%s|%s", super.id(), super.name(), responsibilities.toString());
+    return String.format("VET|%s|%s%s", super.id(), super.name(), responsibilities.toString());
   }
 }

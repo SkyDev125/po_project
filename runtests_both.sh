@@ -3,11 +3,11 @@
 let total=0;
 let correct=0;
 
-for x in testsBoth/*.in; do
+for x in ./testsBoth/*.in; do
     if [ -e ${x%.in}.import ]; then
-        java -cp :po-uilib.jar:. -Dimport=${x%.in}.import -Din=$x -DwriteInput=true -Dout=${x%.in}.outhyp hva.app.App;
+        java -cp ./lib/po-uilib.jar:. -Dimport=${x%.in}.import -Din=$x -DwriteInput=true -Dout=${x%.in}.outhyp hva.app.App;
     else
-        java -cp po-uilib.jar:. -Din=$x -DwriteInput=true -Dout=${x%.in}.outhyp hva.app.App;
+        java -cp ./lib/po-uilib.jar:. -Din=$x -DwriteInput=true -Dout=${x%.in}.outhyp hva.app.App;
     fi
 
     diff -cwB ${x%.in}.out ${x%.in}.outhyp > ${x%.in}.diff ;

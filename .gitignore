@@ -18,6 +18,8 @@
 *.zip
 *.tar.gz
 *.rar
+*.outhyp
+*.diff
 
 # Dont ignore libraries
 !lib/*

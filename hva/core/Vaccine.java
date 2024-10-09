@@ -69,13 +69,13 @@ public class Vaccine implements Serializable {
    */
   @Override
   public String toString() {
-    StringBuilder species = new StringBuilder();
+    String species = "";
 
     if (!_species.isEmpty()) {
-      species.append(String.join(",", _species.keySet()));
+      species = "|" + String.join(",", _species.keySet());
     }
 
-    return String.format("VACINA|%s|%s|%d|%s", _id, _name, _applyCount, species.toString());
+    return String.format("VACINA|%s|%s|%d%s", _id, _name, _applyCount, species.toString());
   }
 
   /**
