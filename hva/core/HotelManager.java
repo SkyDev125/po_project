@@ -4,6 +4,7 @@ import hva.core.enumerator.SeasonType;
 import hva.core.exception.*;
 
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * Class representing the manager of this application. It manages the current zoo hotel.
@@ -11,7 +12,18 @@ import java.io.*;
 public class HotelManager {
   /** The current zoo hotel */
   private Hotel _hotel = new Hotel();
-  private String _filePath;
+  private String _filePath = "";
+  private byte[] _originalSerializedObject;
+
+  public void create() throws IOException {
+    _hotel = new Hotel();
+    _filePath = "";
+    _originalSerializedObject = serializeObject(_hotel);
+  }
+
+  public String filePath() {
+    return _filePath;
+  }
 
   public SeasonType progressSeason() {
     return _hotel.progressSeason();
@@ -44,7 +56,7 @@ public class HotelManager {
   public void saveAs(String filePath)
       throws FileNotFoundException, MissingFileAssociationException, IOException {
 
-    if (filePath.isEmpty()) {
+    if (filePath.isBlank()) {
       throw new MissingFileAssociationException();
     }
 
@@ -64,6 +76,7 @@ public class HotelManager {
         ObjectInputStream in = new ObjectInputStream(fileIn)) {
       _hotel = (Hotel) in.readObject();
       _filePath = filePath;
+      _originalSerializedObject = serializeObject(_hotel);
     } catch (IOException | ClassNotFoundException e) {
       throw new UnavailableFileException(filePath);
     }
@@ -77,7 +90,9 @@ public class HotelManager {
    * @throws ImportFileException if some error happens during the processing of the import file.
    **/
   public void importFile(String filename) throws ImportFileException {
+    _hotel = new Hotel();
     try {
+      _originalSerializedObject = serializeObject(_hotel);
       _hotel.importFile(filename);
     } catch (IOException | UnrecognizedEntryException e) {
       throw new ImportFileException(filename, e);
@@ -92,4 +107,33 @@ public class HotelManager {
   public final Hotel getHotel() {
     return _hotel;
   }
+
+  /**
+   * Serialize an object to a byte array.
+   *
+   * @param obj the object to serialize.
+   * @return the byte array representing the serialized object.
+   * @throws IOException if an I/O error occurs during serialization.
+   **/
+  private byte[] serializeObject(Object obj) throws IOException {
+    try (ByteArrayOutputStream byteIn = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(byteIn)) {
+      out.writeObject(obj);
+      return byteIn.toByteArray();
+    }
+  }
+
+  /**
+   * Compare the serialized forms of two objects.
+   *
+   * @param obj1 the first object to compare.
+   * @param obj2 the second object to compare.
+   * @return true if the serialized forms of the objects are equal, false otherwise.
+   * @throws IOException if an I/O error occurs during serialization.
+   **/
+  public boolean hotelModified() throws IOException {
+    return _originalSerializedObject != null
+        && !Arrays.equals(_originalSerializedObject, serializeObject(_hotel));
+  }
+
 }
