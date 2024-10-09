@@ -1,9 +1,13 @@
 package hva.core;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.io.Serial;
+import java.io.Serializable;
 
-import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import java.util.stream.Collectors;
 
 public class Animal implements Serializable, Comparable<Animal> {
 

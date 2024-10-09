@@ -3,7 +3,24 @@ package hva.core;
 import hva.core.enumerator.Influence;
 import hva.core.enumerator.SeasonType;
 import hva.core.enumerator.VaccineDamage;
-import hva.core.exception.*;
+
+import hva.core.exception.AnimalNotFoundException;
+import hva.core.exception.DuplicateAnimalException;
+import hva.core.exception.DuplicateHabitatException;
+import hva.core.exception.DuplicateSpeciesException;
+import hva.core.exception.DuplicateTreeException;
+import hva.core.exception.DuplicateVaccineException;
+import hva.core.exception.DuplicateWorkerException;
+import hva.core.exception.HabitatNotFoundException;
+import hva.core.exception.ResponsibilityNotFoundException;
+import hva.core.exception.SpeciesNotFoundException;
+import hva.core.exception.TreeNotFoundException;
+import hva.core.exception.UnrecognizedEntryException;
+import hva.core.exception.UnrecognizedTreeTypeException;
+import hva.core.exception.UnrecognizedWorkerTypeException;
+import hva.core.exception.VaccineNotFoundException;
+import hva.core.exception.WorkerNotAuthorizedException;
+import hva.core.exception.WorkerNotFoundException;
 
 import java.io.IOException;
 import java.io.Serial;

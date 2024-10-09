@@ -1,6 +1,7 @@
 package hva.core;
 
 import hva.core.enumerator.SeasonType;
+
 import hva.core.exception.ImportFileException;
 import hva.core.exception.MissingFileAssociationException;
 import hva.core.exception.UnavailableFileException;
