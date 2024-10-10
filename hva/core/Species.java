@@ -5,6 +5,13 @@ import java.io.Serializable;
 
 import java.util.Map;
 
+/**
+ * Class representing an species of animals in the zoo hotel.
+ * 
+ * <p>
+ * A species is defined by its id, name, and keeps record of its {@link Animal}s and 
+ * {@link Vet}s. The species can return its {@link #animalCount()} and {@link #vetCount()}.
+ */
 public class Species implements Serializable, Comparable<Species> {
 
   @Serial
@@ -15,13 +22,19 @@ public class Species implements Serializable, Comparable<Species> {
   private final Map<String, Animal> _animals = new CaseInsensitiveHashMap<Animal>();
   private final Map<String, Vet> _vets = new CaseInsensitiveHashMap<Vet>();
 
-  // constructor
+  /*
+   * <------------------------ Constructor ------------------------>
+   */
+
   Species(String id, String name) {
     _id = id;
     _name = name;
   }
 
-  // gets
+  /*
+   * <------------------------ Gets ------------------------>
+   */
+
   String id() {
     return _id;
   }
@@ -30,7 +43,10 @@ public class Species implements Serializable, Comparable<Species> {
     return _name;
   }
 
-  // methods
+  /*
+   * <------------------------ Sets ------------------------>
+   */
+
   void addAnimal(Animal animal) {
     _animals.put(animal.id(), animal);
   }
@@ -42,6 +58,10 @@ public class Species implements Serializable, Comparable<Species> {
   void removeVet(Vet vet) {
     _vets.remove(vet.id());
   }
+
+  /*
+   * <------------------------ Others ------------------------>
+   */
 
   int animalCount() {
     return _animals.size();

@@ -10,6 +10,14 @@ import java.util.List;
 
 import java.util.stream.Collectors;
 
+/**
+ * Class representing an animal in the zoo hotel.
+ * 
+ * <p>
+ * An animal is defined by its id, name, {@link Species}, {@link Habitat} and keeps record of its
+ * {@link VaccineRegistry}. The animal can be transfered to another habitat through
+ * {@link #transferAnimal(Habitat)}, and it can calculate its {@link #satisfaction()}.
+ */
 public class Animal implements Serializable, Comparable<Animal> {
 
   @Serial
@@ -87,7 +95,26 @@ public class Animal implements Serializable, Comparable<Animal> {
   }
 
   /*
+   * <------------------------ Sets ------------------------>
+   */
+  
+  /**
+   * This method as a vaccine register to the animal.
+   * 
+   * @param vaccineReg the vaccine registry to be added.
+   */
+  void addVaccineRegistration(VaccineRegistry vaccineReg) {
+    _vaccineRegistry.add(vaccineReg);
+  }
+
+  /*
    * <------------------------ Others ------------------------>
+   */
+
+  /**
+   * Transfer the animal from the current habitat to a given one.
+   *  
+   * @param habitat to tranfer the animal to.
    */
   void transferAnimal(Habitat habitat) {
     _habitat.removeAnimal(this);
@@ -95,10 +122,14 @@ public class Animal implements Serializable, Comparable<Animal> {
     _habitat = habitat;
   }
 
-  void addVaccineRegistration(VaccineRegistry vaccineReg) {
-    _vaccineRegistry.add(vaccineReg);
-  }
-
+  /**
+   * Calculates the satisfaction of the animal.
+   * 
+   * This method calculates the satisfaction of the animal based on its habitat and the other
+   * animals present there.
+   * 
+   * @return the satisfaction of the animal.
+   */
   float satisfaction() {
     int sameSpecies = _habitat.sameSpeciesCount(_species);
     int population = _habitat.animals().size();
