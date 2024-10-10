@@ -4,6 +4,7 @@ import java.io.Serial;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -17,7 +18,7 @@ public class Vet extends Worker {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private final HashMap<String, Species> _responsibilities = new HashMap<String, Species>();
+  private final Map<String, Species> _responsibilities = new CaseInsensitiveHashMap<Species>();
   private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
   /*
@@ -185,7 +186,8 @@ public class Vet extends Worker {
     String responsibilities = "";
 
     if (!_responsibilities.isEmpty()) {
-      responsibilities = "|" + String.join(",", _responsibilities.keySet());
+      responsibilities =
+          "|" + String.join(",", _responsibilities.values().stream().map(Species::id).toList());
     }
 
     return String.format("VET|%s|%s%s", super.id(), super.name(), responsibilities.toString());

@@ -29,7 +29,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,13 +41,13 @@ public class Hotel implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private SeasonType _season = SeasonType.SPRING;
-  private final Map<String, Species> _species = new HashMap<String, Species>();
-  private final Map<String, Vaccine> _vaccines = new HashMap<String, Vaccine>();
+  private final Map<String, Species> _species = new CaseInsensitiveHashMap<Species>();
+  private final Map<String, Vaccine> _vaccines = new CaseInsensitiveHashMap<Vaccine>();
   private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
-  private final Map<String, Animal> _animals = new HashMap<String, Animal>();
-  private final Map<String, Habitat> _habitats = new HashMap<String, Habitat>();
-  private final Map<String, Tree> _trees = new HashMap<String, Tree>();
-  private final Map<String, Worker> _workers = new HashMap<String, Worker>();
+  private final Map<String, Animal> _animals = new CaseInsensitiveHashMap<Animal>();
+  private final Map<String, Habitat> _habitats = new CaseInsensitiveHashMap<Habitat>();
+  private final Map<String, Tree> _trees = new CaseInsensitiveHashMap<Tree>();
+  private final Map<String, Worker> _workers = new CaseInsensitiveHashMap<Worker>();
 
   /*
    * <------------------------ Gets ------------------------>
@@ -194,7 +193,7 @@ public class Hotel implements Serializable {
 
     // Exception Checks
     if (speciesExists(idSpecies) != null
-        || _species.values().stream().anyMatch(species -> species.name().equals(name))) {
+        || _species.values().stream().anyMatch(species -> species.name().equalsIgnoreCase(name))) {
       throw new DuplicateSpeciesException(idSpecies);
     }
 

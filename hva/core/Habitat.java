@@ -22,9 +22,9 @@ public class Habitat implements Serializable, Comparable<Habitat> {
   private int _area;
   private final Map<Species, ArrayList<Animal>> _animals =
       new HashMap<Species, ArrayList<Animal>>();
-  private final HashMap<Species, Influence> _suitability = new HashMap<Species, Influence>();
-  private final HashMap<String, CareTaker> _careTakers = new HashMap<String, CareTaker>();
-  private final HashMap<String, Tree> _trees = new HashMap<String, Tree>();
+  private final Map<Species, Influence> _suitability = new HashMap<Species, Influence>();
+  private final Map<String, CareTaker> _careTakers = new CaseInsensitiveHashMap<CareTaker>();
+  private final Map<String, Tree> _trees = new CaseInsensitiveHashMap<Tree>();
 
   /*
    * <------------------------ Constructor ------------------------>
@@ -90,11 +90,9 @@ public class Habitat implements Serializable, Comparable<Habitat> {
 
   void removeAnimal(Animal animal) {
     List<Animal> speciesAnimals = _animals.get(animal.species());
-    if (speciesAnimals != null) {
-      speciesAnimals.remove(animal);
-      if (speciesAnimals.isEmpty()) {
-        _animals.remove(animal.species());
-      }
+    speciesAnimals.remove(animal);
+    if (speciesAnimals.isEmpty()) {
+      _animals.remove(animal.species());
     }
   }
 
@@ -126,6 +124,6 @@ public class Habitat implements Serializable, Comparable<Habitat> {
    */
   @Override
   public int compareTo(Habitat habitat) {
-    return _id.compareTo(habitat.id());
+    return _id.compareToIgnoreCase(habitat.id());
   }
 }

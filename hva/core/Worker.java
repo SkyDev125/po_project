@@ -86,6 +86,6 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
    */
   @Override
   public int compareTo(Worker worker) {
-    return _id.compareTo(worker.id());
+    return _id.compareToIgnoreCase(worker.id());
   }
 }

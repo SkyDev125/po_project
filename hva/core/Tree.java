@@ -121,6 +121,6 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
    */
   @Override
   public int compareTo(Tree tree) {
-    return _id.compareTo(tree.id());
+    return _id.compareToIgnoreCase(tree.id());
   }
 }

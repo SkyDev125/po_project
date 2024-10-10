@@ -2,7 +2,7 @@ package hva.core;
 
 import java.io.Serial;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import hva.core.exception.HabitatNotFoundException;
 
@@ -11,7 +11,7 @@ public class CareTaker extends Worker {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private final HashMap<String, Habitat> _responsibilities = new HashMap<String, Habitat>();
+  private final Map<String, Habitat> _responsibilities = new CaseInsensitiveHashMap<Habitat>();
 
   /*
    * <------------------------ Constructor ------------------------>
@@ -54,7 +54,7 @@ public class CareTaker extends Worker {
     int satisfactionPerHabitat = 0;
     int workInHabitat;
 
-    for (HashMap.Entry<String, Habitat> entry : _responsibilities.entrySet()) {
+    for (Map.Entry<String, Habitat> entry : _responsibilities.entrySet()) {
       Habitat currentHabitat = entry.getValue();
 
       workInHabitat = currentHabitat.area() + 3 * currentHabitat.animals().size();
@@ -73,14 +73,15 @@ public class CareTaker extends Worker {
    * Returns the vet in the format: tipo|id|nome|idResponsabilidades If the vet doesn't have
    * responsibilities, it's in this format: tipo|id|nome
    * 
-   * @return the vaccine registry in format // TODO: should it be the format itself?
+   * @return the vaccine registry in format
    */
   @Override
   public String toString() {
     String responsibilities = "";
 
     if (!_responsibilities.isEmpty()) {
-      responsibilities = "|" + String.join(",", _responsibilities.keySet());
+      responsibilities =
+          "|" + String.join(",", _responsibilities.values().stream().map(Habitat::id).toList());
     }
 
     return String.format("TRT|%s|%s%s", id(), name(), responsibilities.toString());

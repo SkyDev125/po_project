@@ -3,7 +3,7 @@ package hva.core;
 import java.io.Serial;
 import java.io.Serializable;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Species implements Serializable, Comparable<Species> {
 
@@ -12,8 +12,8 @@ public class Species implements Serializable, Comparable<Species> {
 
   private final String _id;
   private final String _name;
-  private final HashMap<String, Animal> _animals = new HashMap<String, Animal>();
-  private final HashMap<String, Vet> _vets = new HashMap<String, Vet>();
+  private final Map<String, Animal> _animals = new CaseInsensitiveHashMap<Animal>();
+  private final Map<String, Vet> _vets = new CaseInsensitiveHashMap<Vet>();
 
   // constructor
   Species(String id, String name) {
@@ -69,9 +69,8 @@ public class Species implements Serializable, Comparable<Species> {
     return _id.compareToIgnoreCase(species.id()) + _name.compareToIgnoreCase(species.name());
   }
 
-  // TODO: how?
   @Override
   public int hashCode() {
-    return super.hashCode();
+    return _id.hashCode();
   }
 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 public class Vaccine implements Serializable, Comparable<Vaccine> {
@@ -16,7 +16,7 @@ public class Vaccine implements Serializable, Comparable<Vaccine> {
   private final String _id;
   private final String _name;
   private int _applyCount;
-  private final HashMap<String, Species> _species = new HashMap<String, Species>();
+  private final Map<String, Species> _species = new CaseInsensitiveHashMap<Species>();
 
   /*
    * <------------------------ Constructor ------------------------>
@@ -65,14 +65,14 @@ public class Vaccine implements Serializable, Comparable<Vaccine> {
   /**
    * Returns the vaccine in the format: VACINA|idVacina|nomeVacina|numeroAplicacoes|especies
    * 
-   * @return the vaccines in format // TODO: should it be the format itself?
+   * @return the vaccines in format
    */
   @Override
   public String toString() {
     String species = "";
 
     if (!_species.isEmpty()) {
-      species = "|" + String.join(",", _species.keySet());
+      species = "|" + String.join(",", _species.values().stream().map(Species::id).toList());
     }
 
     return String.format("VACINA|%s|%s|%d%s", _id, _name, _applyCount, species.toString());
