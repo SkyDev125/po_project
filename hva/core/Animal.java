@@ -33,17 +33,53 @@ public class Animal implements Serializable, Comparable<Animal> {
   /*
    * <------------------------ Gets ------------------------>
    */
+
+   /**
+    * Retrieves the identifier of the animal.
+    * 
+    * <p>
+    * The identifier of the animal is an unique String by which the animal is identified.
+    *
+    * @return the identifier of the animal.
+    */
   String id() {
     return _id;
   }
 
+  /**
+   * Retrieves the name of the animal.
+   * 
+   * <p>
+   * The name of the animal is a non unique String.
+   *
+   * @return the name of the animal.
+   */
   String name() {
     return _name;
   }
 
+  /**
+   * Retrieves the species of the animal.
+   * 
+   * <p>
+   * This method provides a way to access the {@link Species} of the animal.
+   *
+   * @return the species of the animal.
+   */
   Species species() {
     return _species;
   }
+
+  /**
+   * Retrieves all the vaccine registries in the hotel.
+   * 
+   * <p>
+   * This method provides a way to access the collection of {@link VaccineRegistry} without allowing
+   * modifications to the underlying collection. The returned collection is a read-only view, and
+   * any attempts to modify it will result in an {@code UnsupportedOperationException}.
+   * 
+   * @return an unmodifiable {@link Collection} of the vaccine registries of the animal.
+   */
 
   List<VaccineRegistry> vaccineRegistry() {
     return Collections.unmodifiableList(_vaccineRegistry);
