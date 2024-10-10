@@ -22,7 +22,7 @@ import java.util.Arrays;
  **/
 public class HotelManager {
   /** The current zoo hotel */
-  private Hotel _hotel = new Hotel();
+  private Hotel _hotel;
   private String _filePath = "";
   private byte[] _originalSerializedObject;
 
@@ -135,15 +135,15 @@ public class HotelManager {
 
   /**
    * Read text input file and initializes the current zoo hotel (which should be empty) with the
-   * domain entitiesi representeed in the import file.
+   * domain entities represented in the import file.
    *
    * @param filename name of the text input file
    * 
    * @throws ImportFileException if some error happens during the processing of the import file.
    **/
   public void importFile(String filename) throws ImportFileException {
-    _hotel = new Hotel();
     try {
+      _hotel = new Hotel();
       _originalSerializedObject = serializeObject(_hotel);
       _hotel.importFile(filename);
     } catch (IOException | UnrecognizedEntryException e) {
