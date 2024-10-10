@@ -194,7 +194,7 @@ public class Hotel implements Serializable {
 
     // Exception Checks
     if (speciesExists(idSpecies) != null
-        || _species.values().stream().anyMatch(species -> species.name().equals(name))) {
+        || _species.values().stream().anyMatch(species -> species.name().equalsIgnoreCase(name))) {
       throw new DuplicateSpeciesException(idSpecies);
     }
 
