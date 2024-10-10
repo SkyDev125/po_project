@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class Vaccine implements Serializable {
+public class Vaccine implements Serializable, Comparable<Vaccine> {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -79,25 +79,20 @@ public class Vaccine implements Serializable {
   }
 
   /**
-   * Returns true if the vaccine in this instance is equal to the given vaccine.
+   * Default method of comparison between two vaccines.
    * 
-   * @param vaccine to be compared
-   * @return true or false // TODO: what do I put here?
-   */
-  public boolean equals(Vaccine vaccine) {
-    // TODO: define equals method
-
-    return _id.equals(vaccine.id());
-  }
-
-  /**
-   * INCOMPLETO Returns the hashcode of the vaccine in this instance.
+   * <p>
+   * This method compares two {@link Vaccine}s by their identifier in a case-insensitive manner.
+   * returning a negative integer, zero, or a positive integer as this object is less than, equal
+   * to, or greater than the specified object.
    * 
-   * @return the hashcode of the vaccine
+   * @param vaccine the vaccine to be compared.
+   * @return an integer value representing the comparison between the two vaccines.
+   * @see String#compareToIgnoreCase(String)
+   * @see Comparable#compareTo(Object)
    */
-  public int hashCode() {
-    // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares
-    // avisa
-    return 20;
+  @Override
+  public int compareTo(Vaccine vaccine) {
+    return _id.compareToIgnoreCase(vaccine.id());
   }
 }

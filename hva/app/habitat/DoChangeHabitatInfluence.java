@@ -24,31 +24,27 @@ class DoChangeHabitatInfluence extends Command<Hotel> {
     super(Label.CHANGE_HABITAT_INFLUENCE, receiver);
     addStringField("habitatKey", Prompt.habitatKey());
     addStringField("speciesKey", hva.app.animal.Prompt.speciesKey());
-    addStringField("influence", Prompt.habitatInfluence());
+    addOptionField("influence", Prompt.habitatInfluence(), "POS", "NEG", "NEU");
   }
 
   @Override
   protected void execute() throws CommandException {
     Influence influence = null;
-    String influenceString = stringField("influence");
 
     // Convert to Enum
-    while (true) {
-      switch (influenceString) {
-        case "POS":
-          influence = Influence.POS;
-          break;
-        case "NEG":
-          influence = Influence.NEG;
-          break;
-        case "NEU":
-          influence = Influence.NEU;
-          break;
-        default:
-          influenceString = Form.requestString(Prompt.habitatInfluence());
-          continue;
-      }
-      break;
+    switch (optionField("influence")) {
+      case "POS":
+        influence = Influence.POS;
+        break;
+      case "NEG":
+        influence = Influence.NEG;
+        break;
+      case "NEU":
+        influence = Influence.NEU;
+        break;
+      default:
+        // This should never happen unless the optionField method is badly configured.
+        throw new RuntimeException("Invalid influence: " + optionField("influence"));
     }
 
     try {

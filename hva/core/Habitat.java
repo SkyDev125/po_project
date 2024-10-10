@@ -111,6 +111,19 @@ public class Habitat implements Serializable, Comparable<Habitat> {
     return String.format("HABITAT|%s|%s|%d|%d", _id, _name, _area, _trees.size());
   }
 
+  /**
+   * Default method of comparison between two habitats.
+   * 
+   * <p>
+   * This method compares two {@link Habitat}s by their identifier in a case-insensitive manner.
+   * returning a negative integer, zero, or a positive integer as this object is less than, equal
+   * to, or greater than the specified object.
+   * 
+   * @param habitat the habitat to be compared.
+   * @return an integer value representing the comparison between the two animals.
+   * @see String#compareToIgnoreCase(String)
+   * @see Comparable#compareTo(Object)
+   */
   @Override
   public int compareTo(Habitat habitat) {
     return _id.compareTo(habitat.id());

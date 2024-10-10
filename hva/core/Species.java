@@ -51,8 +51,27 @@ public class Species implements Serializable, Comparable<Species> {
     return _vets.size();
   }
 
+  /**
+   * Default method of comparison between two species.
+   * 
+   * <p>
+   * This method compares two {@link Species} by their identifier in a case-insensitive manner.
+   * returning a negative integer, zero, or a positive integer as this object is less than, equal
+   * to, or greater than the specified object.
+   * 
+   * @param species the species to be compared.
+   * @return an integer value representing the comparison between the two species.
+   * @see String#compareToIgnoreCase(String)
+   * @see Comparable#compareTo(Object)
+   */
   @Override
   public int compareTo(Species species) {
-    return _id.compareTo(species.id()) + _name.compareTo(species.name());
+    return _id.compareToIgnoreCase(species.id()) + _name.compareToIgnoreCase(species.name());
+  }
+
+  // TODO: how?
+  @Override
+  public int hashCode() {
+    return super.hashCode();
   }
 }

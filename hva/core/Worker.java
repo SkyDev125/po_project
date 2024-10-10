@@ -72,26 +72,18 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
   abstract public String toString();
 
   /**
-   * Returns true if the worker in this instance is equal to the given worker.
+   * Default method of comparison between two workers.
    * 
-   * @param worker to be compared
-   * @return true or false // TODO: what do I put here?
-   */
-  public boolean equals(Worker worker) {
-    return (_id == worker.id());
-  }
-
-  /**
-   * INCOMPLETO Returns the hashcode of the worker in this instance.
+   * <p>
+   * This method compares two {@link Worker}s by their identifier in a case-insensitive manner.
+   * returning a negative integer, zero, or a positive integer as this object is less than, equal
+   * to, or greater than the specified object.
    * 
-   * @return the hashcode of the worker
+   * @param worker the worker to be compared.
+   * @return an integer value representing the comparison between the two workers.
+   * @see String#compareToIgnoreCase(String)
+   * @see Comparable#compareTo(Object)
    */
-  public int hashCode() {
-    // TODO: ainda nao vi como se faz, vou tratar do resto primeiro, se precisares
-    // avisa
-    return 20;
-  }
-
   @Override
   public int compareTo(Worker worker) {
     return _id.compareTo(worker.id());

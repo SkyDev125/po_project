@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,14 +35,14 @@ public class Animal implements Serializable, Comparable<Animal> {
    * <------------------------ Gets ------------------------>
    */
 
-   /**
-    * Retrieves the identifier of the animal.
-    * 
-    * <p>
-    * The identifier of the animal is an unique String by which the animal is identified.
-    *
-    * @return the identifier of the animal.
-    */
+  /**
+   * Retrieves the identifier of the animal.
+   * 
+   * <p>
+   * The identifier of the animal is an unique String by which the animal is identified.
+   *
+   * @return the identifier of the animal.
+   */
   String id() {
     return _id;
   }
@@ -118,8 +119,22 @@ public class Animal implements Serializable, Comparable<Animal> {
     return String.format("ANIMAL|%s|%s|%s|%s|%s", _id, _name, _species.id(), health, _habitat.id());
   }
 
+
+  /**
+   * Default method of comparison between two animals.
+   * 
+   * <p>
+   * This method compares two {@link Animal} by their identifier in a case-insensitive manner.
+   * returning a negative integer, zero, or a positive integer as this object is less than, equal
+   * to, or greater than the specified object.
+   * 
+   * @param animal the animal to be compared.
+   * @return an integer value representing the comparison between the two animals.
+   * @see String#compareToIgnoreCase(String)
+   * @see Comparable#compareTo(Object)
+   */
   @Override
   public int compareTo(Animal animal) {
-    return _id.compareTo(animal.id());
+    return _id.compareToIgnoreCase(animal.id());
   }
 }

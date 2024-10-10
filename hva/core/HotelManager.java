@@ -22,9 +22,17 @@ import java.util.Arrays;
  **/
 public class HotelManager {
   /** The current zoo hotel */
-  private Hotel _hotel;
+  private Hotel _hotel = new Hotel();
   private String _filePath = "";
   private byte[] _originalSerializedObject;
+
+  public HotelManager() {
+    try {
+      _originalSerializedObject = serializeObject(_hotel);
+    } catch (IOException e) {
+      System.err.println("Error while serializing the hotel.");
+    }
+  }
 
   /*
    * <------------------------ Gets ------------------------>
@@ -143,7 +151,6 @@ public class HotelManager {
    **/
   public void importFile(String filename) throws ImportFileException {
     try {
-      _hotel = new Hotel();
       _originalSerializedObject = serializeObject(_hotel);
       _hotel.importFile(filename);
     } catch (IOException | UnrecognizedEntryException e) {

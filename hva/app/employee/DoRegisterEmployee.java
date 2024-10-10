@@ -7,8 +7,6 @@ import hva.core.Hotel;
 import hva.core.exception.DuplicateWorkerException;
 import hva.core.exception.UnrecognizedWorkerTypeException;
 
-import pt.tecnico.uilib.forms.Form;
-
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
@@ -21,22 +19,18 @@ class DoRegisterEmployee extends Command<Hotel> {
     super(Label.REGISTER_EMPLOYEE, receiver);
     addStringField("workerKey", Prompt.employeeKey());
     addStringField("workerName", Prompt.employeeName());
-    addStringField("workerType", Prompt.employeeType());
+    addOptionField("workerType", Prompt.employeeType(), "VET", "TRT");
   }
 
   @Override
   protected void execute() throws CommandException {
-    String workerType = stringField("workerType");
-
-    while (true) {
-      try {
-        _receiver.addWorker(stringField("workerKey"), stringField("workerName"), workerType);
-        break;
-      } catch (DuplicateWorkerException e) {
-        throw new DuplicateEmployeeKeyException(e.id());
-      } catch (UnrecognizedWorkerTypeException e) {
-        workerType = Form.requestString(Prompt.employeeType());
-      }
+    try {
+      _receiver.addWorker(stringField("workerKey"), stringField("workerName"),
+          optionField("workerType"));
+    } catch (DuplicateWorkerException e) {
+      throw new DuplicateEmployeeKeyException(e.id());
+    } catch (UnrecognizedWorkerTypeException e) {
+      e.printStackTrace();
     }
 
   }
