@@ -107,26 +107,18 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
   public abstract String toString();
 
   /**
-   * Returns true if the tree in this instance and the given tree are equal.
+   * Default method of comparison between two Trees.
    * 
-   * @param tree to be compared
-   * @return true or false // TODO: what do I put here?
-   */
-  public boolean equals(Tree tree) {
-    // TODO: define equals method
-    return _id.equals(tree.id());
-  }
-
-  /**
-   * INCOMPLETO Returns the hashcode of the vaccine in this instance.
+   * <p>
+   * This method compares two {@link Tree}s by their identifier in a case-insensitive manner.
+   * returning a negative integer, zero, or a positive integer as this object is less than, equal
+   * to, or greater than the specified object.
    * 
-   * @return the hashcode of the vaccine
+   * @param tree the tree to be compared.
+   * @return an integer value representing the comparison between the two Trees.
+   * @see String#compareToIgnoreCase(String)
+   * @see Comparable#compareTo(Object)
    */
-  public int hashCode() {
-    // TODO: implement hashCode
-    return 20;
-  }
-
   @Override
   public int compareTo(Tree tree) {
     return _id.compareTo(tree.id());
