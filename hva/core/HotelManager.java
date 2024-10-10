@@ -24,13 +24,15 @@ public class HotelManager {
   /** The current zoo hotel */
   private Hotel _hotel = new Hotel();
   private String _filePath = "";
-  private byte[] _originalSerializedObject;
+  private byte[] _originalSerializedHotel;
 
   public HotelManager() {
     try {
-      _originalSerializedObject = serializeObject(_hotel);
+      _originalSerializedHotel = serializeHotel(_hotel);
     } catch (IOException e) {
-      System.err.println("Error while serializing the hotel.");
+      System.err
+          .println("Error while serializing the hotel. Changes cant be tracked, save required.");
+      _originalSerializedHotel = null;
     }
   }
 
@@ -87,7 +89,7 @@ public class HotelManager {
   public void create() throws IOException {
     _hotel = new Hotel();
     _filePath = "";
-    _originalSerializedObject = serializeObject(_hotel);
+    _originalSerializedHotel = serializeHotel(_hotel);
   }
 
   /**
@@ -135,7 +137,7 @@ public class HotelManager {
         ObjectInputStream in = new ObjectInputStream(fileIn)) {
       _hotel = (Hotel) in.readObject();
       _filePath = filePath;
-      _originalSerializedObject = serializeObject(_hotel);
+      _originalSerializedHotel = serializeHotel(_hotel);
     } catch (IOException | ClassNotFoundException e) {
       throw new UnavailableFileException(filePath);
     }
@@ -151,7 +153,7 @@ public class HotelManager {
    **/
   public void importFile(String filename) throws ImportFileException {
     try {
-      _originalSerializedObject = serializeObject(_hotel);
+      _originalSerializedHotel = serializeHotel(_hotel);
       _hotel.importFile(filename);
     } catch (IOException | UnrecognizedEntryException e) {
       throw new ImportFileException(filename, e);
@@ -161,32 +163,34 @@ public class HotelManager {
 
 
   /**
-   * Serialize an object to a byte array.
+   * Serialize an hotel to a byte array.
    *
-   * @param obj the object to serialize.
+   * @param hotel the hotel to serialize.
    * 
-   * @return the byte array representing the serialized object.
+   * @return the byte array representing the serialized hotel.
    * 
    * @throws IOException if an I/O error occurs during serialization.
    **/
-  private byte[] serializeObject(Object obj) throws IOException {
+  private byte[] serializeHotel(Hotel hotel) throws IOException {
     try (ByteArrayOutputStream byteIn = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(byteIn)) {
-      out.writeObject(obj);
+      out.writeObject(hotel);
       return byteIn.toByteArray();
     }
   }
 
   /**
-   * Compare the serialized forms of two objects.
+   * Compare the serialized forms of two hotels.
    * 
    * @return true if the serialized forms of the objects are equal, false otherwise.
    * 
    * @throws IOException if an I/O error occurs during serialization.
    **/
   public boolean hotelModified() throws IOException {
-    return _originalSerializedObject != null
-        && !Arrays.equals(_originalSerializedObject, serializeObject(_hotel));
+    if (_originalSerializedHotel == null) {
+      return true;
+    }
+    return !Arrays.equals(_originalSerializedHotel, serializeHotel(_hotel));
   }
 
 }
