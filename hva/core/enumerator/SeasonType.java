@@ -21,4 +21,9 @@ public enum SeasonType {
       case WINTER -> SPRING;
     };
   }
+
+
+  public String toString() {
+    return Integer.toString(getValue());
+  }
 }
