@@ -33,6 +33,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class representing the zoo hotel of this application.
+ */
 public class Hotel implements Serializable {
 
   @Serial
@@ -52,70 +55,70 @@ public class Hotel implements Serializable {
    */
 
   /**
-   * Returns an unmodifiable view of the collection of animals.
+   * Retrieves all the animals in the hotel.
    * 
    * <p>
    * This method provides a way to access the collection of {@link Animals} without allowing
    * modifications to the underlying collection. The returned collection is a read-only view, and
    * any attempts to modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable view of the collection of animals.
+   * @return an unmodifiable {@link Collection} of the animals.
    */
   public Collection<Animal> animals() {
     return Collections.unmodifiableCollection(_animals.values());
   }
 
   /**
-   * Returns an unmodifiable view of the collection of species.
+   * Retrieves all the species in the hotel.
    * 
    * <p>
    * This method provides a way to access the collection of {@link Species} without allowing
    * modifications to the underlying collection. The returned collection is a read-only view, and
    * any attempts to modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable view of the collection of species.
+   * @return an unmodifiable {@link Collection} of the species.
    */
   public Collection<Worker> workers() {
     return Collections.unmodifiableCollection(_workers.values());
   }
 
   /**
-   * Returns an unmodifiable view of the collection of habitats.
+   * Retrieves all the habitats in the hotel.
    * 
    * <p>
    * This method provides a way to access the collection of {@link Habitat} without allowing
    * modifications to the underlying collection. The returned collection is a read-only view, and
    * any attempts to modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable view of the collection of habitats.
+   * @return an unmodifiable {@link Collection} of the habitats.
    */
   public Collection<Habitat> habitats() {
     return Collections.unmodifiableCollection(_habitats.values());
   }
 
   /**
-   * Returns an unmodifiable view of the collection of vaccines.
+   * Retrieves all the vaccines in the hotel.
    * 
    * <p>
    * This method provides a way to access the collection of {@link Vaccine} without allowing
    * modifications to the underlying collection. The returned collection is a read-only view, and
    * any attempts to modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable view of the collection of vaccines.
+   * @return an unmodifiable {@link Collection} of the vaccines.
    */
   public Collection<Vaccine> vaccines() {
     return Collections.unmodifiableCollection(_vaccines.values());
   }
 
   /**
-   * Returns an unmodifiable view of the collection of Vaccination Registries.
+   * Retrieves all the vaccine registries in the hotel.
    * 
    * <p>
    * This method provides a way to access the collection of {@link VaccineRegistry} without allowing
    * modifications to the underlying collection. The returned collection is a read-only view, and
    * any attempts to modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable view of the collection of Vaccination Registries.
+   * @return an unmodifiable {@link Collection} of the vaccine registries.
    */
   public List<VaccineRegistry> vaccineRegistry() {
     return Collections.unmodifiableList(_vaccineRegistry);
