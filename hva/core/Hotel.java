@@ -719,7 +719,7 @@ public class Hotel implements Serializable {
    * @throws HabitatNotFoundException If a habitat with the given identifier does not exist.
    * 
    * @see Animal
-   * @see Habitat // TODO 
+   * @see Habitat
    */
   public Collection<Animal> habitatAnimals(String idHabitat) throws HabitatNotFoundException {
     return habitatExistsWithException(idHabitat).animals();
