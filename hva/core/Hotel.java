@@ -34,6 +34,12 @@ import java.util.Map;
 
 /**
  * Class representing the zoo hotel of this application.
+ * 
+ * <p>
+ * The hotel knows the current season and keeps record of its {@link Species}, {@link Vaccine}s,
+ * {@link VaccineRegistry}, {@link Animal}s, {@link Habitat}s, {@link Tree}s and {@link Worker}s.
+ * <p>
+ * The hotel is responsible for adding, removing and managing all that it keeps record.
  */
 public class Hotel implements Serializable {
 
@@ -54,83 +60,101 @@ public class Hotel implements Serializable {
    */
 
   /**
-   * Retrieves all the animals in the hotel.
+   * Retrieves all the animals in this hotel.
    * 
    * <p>
-   * This method provides a way to access the collection of {@link Animals} without allowing
-   * modifications to the underlying collection. The returned collection is a read-only view, and
-   * any attempts to modify it will result in an {@code UnsupportedOperationException}.
+   * This method provides a way to access the collection of animals without allowing modifications
+   * to the underlying collection. The returned collection is a read-only view, and any attempts to
+   * modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable {@link Collection} of the animals.
+   * @return an unmodifiable collection of the animals
+   * 
+   * @see Collections#unmodifiableCollection(Collection)
+   * @see Animal
    */
   public Collection<Animal> animals() {
     return Collections.unmodifiableCollection(_animals.values());
   }
 
   /**
-   * Retrieves all the species in the hotel.
+   * Retrieves all the species in this hotel
    * 
    * <p>
-   * This method provides a way to access the collection of {@link Species} without allowing
-   * modifications to the underlying collection. The returned collection is a read-only view, and
-   * any attempts to modify it will result in an {@code UnsupportedOperationException}.
+   * This method provides a way to access the collection of species without allowing modifications
+   * to the underlying collection. The returned collection is a read-only view, and any attempts to
+   * modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable {@link Collection} of the species.
+   * @return an unmodifiable collection of the species
+   * 
+   * @see Collections#unmodifiableCollection(Collection)
+   * @see Worker
    */
   public Collection<Worker> workers() {
     return Collections.unmodifiableCollection(_workers.values());
   }
 
   /**
-   * Retrieves all the habitats in the hotel.
+   * Retrieves all the habitats in this hotel.
    * 
    * <p>
-   * This method provides a way to access the collection of {@link Habitat} without allowing
-   * modifications to the underlying collection. The returned collection is a read-only view, and
-   * any attempts to modify it will result in an {@code UnsupportedOperationException}.
+   * This method provides a way to access the collection of habitats without allowing modifications
+   * to the underlying collection. The returned collection is a read-only view, and any attempts to
+   * modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable {@link Collection} of the habitats.
+   * @return an unmodifiable collection of the habitats
+   * 
+   * @see Collections#unmodifiableCollection(Collection)
+   * @see Habitat
    */
   public Collection<Habitat> habitats() {
     return Collections.unmodifiableCollection(_habitats.values());
   }
 
   /**
-   * Retrieves all the vaccines in the hotel.
+   * Retrieves all the vaccines in this hotel.
    * 
    * <p>
-   * This method provides a way to access the collection of {@link Vaccine} without allowing
-   * modifications to the underlying collection. The returned collection is a read-only view, and
-   * any attempts to modify it will result in an {@code UnsupportedOperationException}.
+   * This method provides a way to access the collection of vaccines without allowing modifications
+   * to the underlying collection. The returned collection is a read-only view, and any attempts to
+   * modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable {@link Collection} of the vaccines.
+   * @return an unmodifiable collection of the vaccines
+   * 
+   * @see Collections#unmodifiableCollection(Collection)
+   * @see Vaccine
    */
   public Collection<Vaccine> vaccines() {
     return Collections.unmodifiableCollection(_vaccines.values());
   }
 
   /**
-   * Retrieves all the vaccine registries in the hotel.
+   * Retrieves all the vaccine registries in this hotel.
    * 
    * <p>
-   * This method provides a way to access the collection of {@link VaccineRegistry} without allowing
+   * This method provides a way to access the collection of vaccine registries without allowing
    * modifications to the underlying collection. The returned collection is a read-only view, and
    * any attempts to modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable {@link Collection} of the vaccine registries.
+   * @return an unmodifiable collection of the vaccine registries
+   * 
+   * @see Collections#unmodifiableCollection(Collection)
+   * @see VaccineRegistry
    */
   public List<VaccineRegistry> vaccineRegistry() {
     return Collections.unmodifiableList(_vaccineRegistry);
   }
 
   /**
-   * Returns the current season of the hotel.
+   * Returns the current season of this hotel.
    * 
    * <p>
-   * The season of the hotel is a value of the {@link SeasonType} enumeration. Used mainly for the
-   * growth of {@link Tree}.
+   * The season of the hotel is a value of the SeasonType <code>enumeration</code>. Used mainly for the
+   * growth of {@link Tree}. //FIXME
    * 
    * @return the current season of the hotel.
+   * 
+   * @see SeasonType
+   * @see Tree
    */
   public SeasonType season() {
     return _season;
@@ -144,8 +168,8 @@ public class Hotel implements Serializable {
    * Adds a new animal to the hotel.
    * 
    * <p>
-   * This method creates a new {@link Animal} with the given parameters and adds it to the hotel.
-   * The animal is also added to the corresponding {@link Species} and {@link Habitat}.
+   * This method creates a new animal with the given parameters and adds it to the hotel. The animal
+   * is also added to the corresponding species and habitat.
    * 
    * @param idAnimal the identifier of the animal.
    * @param name the name of the animal.
@@ -157,6 +181,10 @@ public class Hotel implements Serializable {
    * @throws DuplicateAnimalException if an animal with the same identifier already exists.
    * @throws SpeciesNotFoundException if the species with the given identifier does not exist.
    * @throws HabitatNotFoundException if the habitat with the given identifier does not exist.
+   * 
+   * @see Animal
+   * @see Species
+   * @see Habitat
    */
   public Animal addAnimal(String idAnimal, String name, String idSpecies, String idHabitat)
       throws DuplicateAnimalException, SpeciesNotFoundException, HabitatNotFoundException {
@@ -393,10 +421,13 @@ public class Hotel implements Serializable {
    * Progress the season of the hotel.
    * 
    * <p>
-   * This method progresses the {@link SeasonType} of the hotel to the next one. It also triggers
-   * the {@link Tree}'s in the hotel to grow if possible.
+   * This method progresses the season (SeasonType <code>enumeration</code>) of the hotel to the
+   * next one. It also triggers the trees in the hotel to grow if possible.
    * 
-   * @return the new season of the hotel.
+   * @return the new season of the hotel
+   * 
+   * @see SeasonType
+   * @see Tree
    */
   public SeasonType progressSeason() {
     _season = _season.next();
@@ -410,10 +441,15 @@ public class Hotel implements Serializable {
    * Calculates the satisfaction of the hotel.
    * 
    * <p>
-   * This method calculates the satisfaction of the hotel based on the satisfaction of all
-   * {@link Animal}'s and {@link Worker}'s in the hotel.
+   * This method calculates the satisfaction of the hotel based on the satisfaction of all animals
+   * and workers in the hotel.
    * 
-   * @return the satisfaction of the hotel.
+   * @return the satisfaction of the hotel
+   * 
+   * @see Animal#satisfaction()
+   * @see Worker#satisfaction()
+   * @see Animal
+   * @see Worker
    */
   public float satisfaction() {
     Collection<Animal> animals = _animals.values();
@@ -435,14 +471,18 @@ public class Hotel implements Serializable {
    * Transfers an animal to a different Habitat.
    * 
    * <p>
-   * This method transfers the {@link Animal} with the given identifier to the {@link Habitat} with
-   * the given identifier.
+   * This method transfers the animal with the given identifier to the habitat with the given
+   * identifier.
    * 
-   * @param idAnimal the identifier of the animal.
-   * @param idHabitat the identifier of the habitat.
+   * @param idAnimal the identifier of the animal
+   * @param idHabitat the identifier of the habitat
    * 
-   * @throws AnimalNotFoundException if an animal with the given identifier does not exist.
-   * @throws HabitatNotFoundException if a habitat with the given identifier does not exist.
+   * @throws AnimalNotFoundException If an animal with the given identifier does not exist.
+   * @throws HabitatNotFoundException If a habitat with the given identifier does not exist.
+   * 
+   * @see Animal#transferAnimal(Habitat)
+   * @see Animal
+   * @see Habitat
    */
   public void transferAnimal(String idAnimal, String idHabitat)
       throws AnimalNotFoundException, HabitatNotFoundException {
@@ -455,13 +495,16 @@ public class Hotel implements Serializable {
    * Calculates the satisfaction of an animal.
    * 
    * <p>
-   * This method calculates the satisfaction of the {@link Animal} with the given identifier.
+   * This method calculates the satisfaction of the animal with the given identifier.
    * 
-   * @param id the identifier of the animal.
+   * @param id the identifier of the animal
    * 
-   * @return the satisfaction of the animal.
+   * @return the satisfaction of the animal
    * 
-   * @throws AnimalNotFoundException if an animal with the given identifier does not exist.
+   * @throws AnimalNotFoundException If an animal with the given identifier does not exist.
+   * 
+   * @see Animal#satisfaction()
+   * @see Animal
    */
   public float animalSatisfaction(String id) throws AnimalNotFoundException {
     return animalExistsWithException(id).satisfaction();
@@ -471,15 +514,18 @@ public class Hotel implements Serializable {
    * Adds a responsibility to a worker.
    * 
    * <p>
-   * This method adds a responsibility with the given identifier to the {@link Worker} with the
-   * given identifier.
+   * This method adds a responsibility with the given identifier to the worker with the given
+   * identifier.
    * 
-   * @param idWorker the identifier of the worker.
-   * @param idResponsibility the identifier of the responsibility.
+   * @param idWorker the identifier of the worker
+   * @param idResponsibility the identifier of the responsibility
    * 
-   * @throws WorkerNotFoundException if a worker with the given identifier does not exist.
-   * @throws ResponsibilityNotFoundException if a responsibility with the given identifier matching
+   * @throws WorkerNotFoundException If a worker with the given identifier does not exist.
+   * @throws ResponsibilityNotFoundException If a responsibility with the given identifier matching
    *         the worker type does not exist.
+   * 
+   * @see Worker#addResponsibility(String)
+   * @see Worker
    */
   public void addResponsibilityToWorker(String idWorker, String idResponsibility)
       throws WorkerNotFoundException, ResponsibilityNotFoundException {
@@ -495,15 +541,18 @@ public class Hotel implements Serializable {
    * Removes a responsibility from a worker.
    * 
    * <p>
-   * This method removes a responsibility with the given identifier from the {@link Worker} with the
-   * given identifier.
+   * This method removes a responsibility with the given identifier from the worker with the given
+   * identifier.
    * 
-   * @param idWorker the identifier of the worker.
-   * @param idResponsibility the identifier of the responsibility.
+   * @param idWorker the identifier of the worker
+   * @param idResponsibility the identifier of the responsibility
    * 
-   * @throws WorkerNotFoundException if a worker with the given identifier does not exist.
-   * @throws ResponsibilityNotFoundException if a responsibility with the given identifier does not
+   * @throws WorkerNotFoundException If a worker with the given identifier does not exist.
+   * @throws ResponsibilityNotFoundException If a responsibility with the given identifier does not
    *         exist in the worker's current responsibilities.
+   * 
+   * @see Worker#removeResponsibility(String)
+   * @see Worker
    */
   public void removeResponsibilityFromWorker(String idWorker, String idResponsibility)
       throws WorkerNotFoundException, ResponsibilityNotFoundException {
@@ -519,13 +568,16 @@ public class Hotel implements Serializable {
    * Calculates the satisfaction of a worker.
    * 
    * <p>
-   * This method calculates the satisfaction of the {@link Worker} with the given identifier.
+   * This method calculates the satisfaction of the worker with the given identifier.
    * 
-   * @param id the identifier of the worker.
+   * @param id the identifier of the worker
    * 
-   * @return the satisfaction of the worker.
+   * @return the satisfaction of the worker
    * 
-   * @throws WorkerNotFoundException if a worker with the given identifier does not exist.
+   * @throws WorkerNotFoundException If a worker with the given identifier does not exist.
+   * 
+   * @see Worker#satisfaction()
+   * @see Worker
    */
   public float workerSatisfaction(String id) throws WorkerNotFoundException {
     return workerExistsWithException(id).satisfaction();
@@ -535,12 +587,15 @@ public class Hotel implements Serializable {
    * Changes the area of a habitat.
    * 
    * <p>
-   * This method changes the area of the {@link Habitat} with the given identifier.
+   * This method changes the area of the habitat with the given identifier.
    * 
    * @param idHabitat the identifier of the habitat.
    * @param area the new area of the habitat.
    * 
    * @throws HabitatNotFoundException if a habitat with the given identifier does not exist.
+   * 
+   * @see Habitat#changeArea(int)
+   * @see Habitat
    */
   public void changeHabitatArea(String idHabitat, int area) throws HabitatNotFoundException {
     habitatExistsWithException(idHabitat).changeArea(area);
@@ -607,7 +662,7 @@ public class Hotel implements Serializable {
    * @throws AnimalNotFoundException if an animal with the given identifier does not exist.
    * @throws VaccineNotFoundException if a vaccine with the given identifier does not exist.
    * @throws WorkerNotFoundException if a worker with the given identifier does not exist and isn't
-   *         a veterinarian.
+   *         a vet.
    * @throws WorkerNotAuthorizedException if the worker with the given identifier is not a
    *         {@link Vet}.
    */
@@ -664,18 +719,18 @@ public class Hotel implements Serializable {
   }
 
   /**
-   * Returns the Vaccination Registries of a veterinarian.
+   * Returns the Vaccination Registries of a vet.
    * 
    * <p>
    * This method returns an unmodifiable view of the collection of {@link VaccineRegistry}'s of the
    * {@link Vet} with the given identifier.
    * 
-   * @param idVet the identifier of the veterinarian.
+   * @param idVet the identifier of the vet.
    * 
-   * @return an unmodifiable view of the collection of vaccination registries of the veterinarian.
+   * @return an unmodifiable view of the collection of vaccination registries of the vet.
    * 
    * @throws WorkerNotFoundException if a worker with the given identifier does not exist and isnt a
-   *         veterinarian.
+   *         vet.
    */
   public List<VaccineRegistry> vetVaccinations(String idVet) throws WorkerNotFoundException {
     Worker worker = workerExistsWithException(idVet);

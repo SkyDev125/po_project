@@ -4,7 +4,6 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,7 +14,10 @@ import java.util.stream.Collectors;
  * 
  * <p>
  * An animal is defined by its id, name, {@link Species}, {@link Habitat} and keeps record of its
- * {@link VaccineRegistry}. The animal can be transfered to another habitat through
+ * {@link VaccineRegistry}.
+ * 
+ * <p>
+ * The animal can be transfered to another habitat through
  * {@link #transferAnimal(Habitat)}, and it can calculate its {@link #satisfaction()}.
  */
 public class Animal implements Serializable, Comparable<Animal> {
@@ -103,7 +105,6 @@ public class Animal implements Serializable, Comparable<Animal> {
    * 
    * @see VaccineRegistry
    */
-
   List<VaccineRegistry> vaccineRegistry() {
     return Collections.unmodifiableList(_vaccineRegistry);
   }
@@ -166,11 +167,11 @@ public class Animal implements Serializable, Comparable<Animal> {
    * Returns a String representation of this animal.
    * 
    * <p>
-   * This method returns:
+   * This method follows the format:
    * <p>
    * ANIMAL|idAnimal|nomeAnimal|idEspecie|historialDeSaude|idHabitat
    * <p>
-   * If the <code>animal</code> was never vaccinated, it returns:
+   * If the animal was never vaccinated, the format is:
    * <p>
    * ANIMAL|idAnimal|nomeAnimal|idEspecie|VOID|idHabitat
    * 
@@ -202,9 +203,9 @@ public class Animal implements Serializable, Comparable<Animal> {
    * negative integer, zero, or a positive integer as this object is less than, equal to, or greater
    * than the specified object.
    * 
-   * @param animal the animal to be compared
+   * @param animal The animal to be compared.
    * 
-   * @return An integer value representing the comparison between the two animals
+   * @return An integer value representing the comparison between the two animals.
    * 
    * @see String#compareToIgnoreCase(String)
    * @see Comparable#compareTo(Object)

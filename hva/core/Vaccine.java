@@ -8,6 +8,13 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.List;
 
+/**
+ * Class representing a vaccine in the zoo hotel.
+ * 
+ * <p>
+ * A vaccine is defined by its id, name, count of applications, and keeps record of the species to 
+ * which it can be safely apllied.
+ */
 public class Vaccine implements Serializable, Comparable<Vaccine> {
 
   @Serial
@@ -22,6 +29,15 @@ public class Vaccine implements Serializable, Comparable<Vaccine> {
    * <------------------------ Constructor ------------------------>
    */
 
+  /**
+   * The constructor of this vaccine.
+   * 
+   * @param id the identifier of the vaccine
+   * @param name the name of the vaccine
+   * @param species the species to which the vaccine can be safely applied
+   * 
+   * @see Vaccine
+   */
   Vaccine(String id, String name, List<Species> species) {
     _id = id;
     _name = name;
@@ -34,18 +50,29 @@ public class Vaccine implements Serializable, Comparable<Vaccine> {
    */
 
   /**
-   * Returns the id of the vaccine in this instance.
+   * Retrieves the identifier of this vaccine.
    * 
-   * @return the id of the vaccine
+   * <p>
+   * The identifier of this vaccine is an unique String by which this vaccine is identified.
+   *
+   * @return the identifier of this vaccine
    */
   String id() {
     return _id;
   }
 
   /**
-   * Returns the collection of species to which the vaccine in this instance works.
+   * Retrieves all the species to which this vaccine can be safely applied to.
    * 
-   * @return the collection of species
+   * <p>
+   * This method provides a way to access the collection of species without allowing modifications
+   * to the underlying collection. The returned collection is a read-only view, and any attempts to
+   * modify it will result in an {@code UnsupportedOperationException}.
+   * 
+   * @return an unmodifiable collection of the species
+   * 
+   * @see Collections#unmodifiableCollection(Collection)
+   * @see Species
    */
   Collection<Species> species() {
     return Collections.unmodifiableCollection(_species.values());
@@ -56,16 +83,24 @@ public class Vaccine implements Serializable, Comparable<Vaccine> {
    */
 
   /**
-   * Increases the count of applications of the vaccine in this instance.
+   * Increases the count of applications of this vaccine.
    */
   void apply() {
     _applyCount++;
   }
 
   /**
-   * Returns the vaccine in the format: VACINA|idVacina|nomeVacina|numeroAplicacoes|especies
+   * Returns a String representation of this vaccine.
    * 
-   * @return the vaccines in format
+   * <p>
+   * This method follows the format:
+   * <p>
+   * VACINA|idVacina|nomeVacina|numeroAplicacoes|especies
+   * 
+   * @return the String representation of this vaccine
+   * 
+   * @see Object#toString()
+   * @see Species
    */
   @Override
   public String toString() {
@@ -83,12 +118,14 @@ public class Vaccine implements Serializable, Comparable<Vaccine> {
    * Default method of comparison between two vaccines.
    * 
    * <p>
-   * This method compares two {@link Vaccine}s by their identifier in a case-insensitive manner.
-   * returning a negative integer, zero, or a positive integer as this object is less than, equal
-   * to, or greater than the specified object.
+   * This method compares two vaccines by their identifier in a case-insensitive manner. Returns a
+   * negative integer, zero, or a positive integer as this object is less than, equal to, or greater
+   * than the specified object.
    * 
-   * @param vaccine the vaccine to be compared.
-   * @return an integer value representing the comparison between the two vaccines.
+   * @param vaccine The vaccine to be compared.
+   * 
+   * @return An integer value representing the comparison between the two vaccines.
+   * 
    * @see String#compareToIgnoreCase(String)
    * @see Comparable#compareTo(Object)
    */

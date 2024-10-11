@@ -103,6 +103,7 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
 
   abstract LeafState leafState();
 
+// ARVORE|idArvore|nomeArvore|idadeArvore|dificuldadeBaseLimpeza|tipoArvore|cicloBiologico
   @Override
   public abstract String toString();
 

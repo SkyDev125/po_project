@@ -10,6 +10,8 @@ import java.util.Map;
  * 
  * <p>
  * A species is defined by its id, name, and keeps record of its {@link Animal}s and {@link Vet}s.
+ * 
+ * <p>
  * The species can return its {@link #animalCount()} and {@link #vetCount()}.
  */
 public class Species implements Serializable, Comparable<Species> {
@@ -57,7 +59,7 @@ public class Species implements Serializable, Comparable<Species> {
    * Retrieves the name of this species.
    * 
    * <p>
-   * The name of this species is a non unique String.
+   * The name of this species is an unique String.
    *
    * @return the name of this species
    */
@@ -82,9 +84,9 @@ public class Species implements Serializable, Comparable<Species> {
   }
 
   /**
-   * Adds a veterinarian to this species, becoming his responsibility.
+   * Adds a vet to this species, becoming his responsibility.
    * 
-   * @param vet The veterinarian to be added.
+   * @param vet The vet to be added.
    * 
    * @see Vet#addResponsibility(String)
    * @see Vet
@@ -94,9 +96,9 @@ public class Species implements Serializable, Comparable<Species> {
   }
 
   /**
-   * Removes a veterinarian from this species, it will no longer be his responsibility.
+   * Removes a vet from this species, it will no longer be his responsibility.
    * 
-   * @param vet The veterinarian to be removed.
+   * @param vet The vet to be removed.
    * 
    * @see Vet#removeResponsibility(String)
    * @see Vet
@@ -121,9 +123,9 @@ public class Species implements Serializable, Comparable<Species> {
   }
 
   /**
-   * Counts the number of veterinarians responsible for this species.
+   * Counts the number of vets responsible for this species.
    * 
-   * @return the number of veterinarians of this species
+   * @return the number of vets of this species
    * 
    * @see Vet
    */
@@ -139,8 +141,10 @@ public class Species implements Serializable, Comparable<Species> {
    * negative integer, zero, or a positive integer as this object is less than, equal to, or greater
    * than the specified object.
    * 
-   * @param species the species to be compared.
-   * @return an integer value representing the comparison between the two species.
+   * @param species The species to be compared.
+   * 
+   * @return An integer value representing the comparison between the two species.
+   * 
    * @see String#compareToIgnoreCase(String)
    * @see Comparable#compareTo(Object)
    */

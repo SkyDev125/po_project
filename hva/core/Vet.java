@@ -9,10 +9,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import hva.core.enumerator.VaccineDamage;
-
 import hva.core.exception.SpeciesNotFoundException;
 import hva.core.exception.WorkerNotAuthorizedException;
 
+/**
+ * Class representing a vet in the zoo hotel.
+ * 
+ * <p>
+ * A vet, or simply vet, is a type of worker and therefore defined by its id, name and 
+ * hotel. On top of that, he keeps record of its responsabilities, which are species to care for, 
+ * and vaccine registries of the vaccines he has applied.
+ * 
+ * <p>
+ * The vet, as a worker, can calculate its {@link #satisfaction()}. He can also
+ * {@link #vaccinate(Animal, Vaccine)} and {@link #calculateVaccineDamage(Animal, Vaccine)}.
+ * 
+ * @see Worker
+ */
 public class Vet extends Worker {
 
   @Serial
@@ -25,6 +38,16 @@ public class Vet extends Worker {
    * <------------------------ Constructor ------------------------>
    */
 
+  /**
+   * The constructor of this vet.
+   * 
+   * @param id the identifier of this vet
+   * @param name the name of this vet
+   * @param hotel the hotel of this vet
+   * 
+   * @see Worker#Worker(String, String, Hotel)
+   * @see Hotel
+   */
   Vet(String id, String name, Hotel hotel) {
     super(id, name, hotel);
   }
@@ -34,22 +57,34 @@ public class Vet extends Worker {
    */
 
   /**
-   * Returns the collection of vaccine registries that the vet in this instance has apllied.
+   * Retrieves all the vaccine registries of this vet.
    * 
-   * @return the collection of vaccine registries
+   * <p>
+   * This method provides a way to access the collection of vaccine registries without allowing
+   * modifications to the underlying collection. The returned collection is a read-only view, and
+   * any attempts to modify it will result in an {@code UnsupportedOperationException}.
+   * 
+   * @return an unmodifiable collecion of the vaccine registries of this vet
+   * 
+   * @see VaccineRegistry
    */
   List<VaccineRegistry> vaccineRegistry() {
     return Collections.unmodifiableList(_vaccineRegistry);
   }
 
   /*
-   * <------------------------ Others ------------------------>
+   * <------------------------ Sets ------------------------>
    */
 
   /**
-   * Adds a species as a responsability for the vet in this instance to care.
+   * This method adds a species responsibility to this vet.
    * 
-   * @param id of the species
+   * @param id the identifier of the species
+   * 
+   * @throws SpeciesNotFoundException If the given species does not exist.
+   * 
+   * @see Worker#addResponsibility(String)
+   * @see Species
    */
   void addResponsibility(String id) throws SpeciesNotFoundException {
     // No need to check if it's already there, as the species object is always the
@@ -58,9 +93,14 @@ public class Vet extends Worker {
   }
 
   /**
-   * Removes a species as a responsability for the vet in this instance to care.
+   * This method removes a species as a responsibility to this vet.
    * 
-   * @param id of the species
+   * @param id the identifier of the species
+   * 
+   * @throws SpeciesNotFoundException If the given species does not exist.
+   * 
+   * @see Worker#removeResponsibility(String)
+   * @see Species
    */
   void removeResponsibility(String id) throws SpeciesNotFoundException {
     if (_responsibilities.remove(id) == null) {
@@ -69,9 +109,34 @@ public class Vet extends Worker {
   }
 
   /**
-   * Calculates the satisfaction of the vet in this instance.
+   * This method adds a vaccine register to this vet.
    * 
-   * @return the satisfaction
+   * @param vaccineReg The vaccine registry to be added.
+   * 
+   * @see #vaccinate(Animal, Vaccine)
+   * @see VaccineRegistry
+   */
+  private void addVaccineRegistry(VaccineRegistry vaccineRegistry) {
+    _vaccineRegistry.add(vaccineRegistry);
+    vaccineRegistry.animal().addVaccineRegistration(vaccineRegistry);
+  }
+
+  /*
+   * <------------------------ Others ------------------------>
+   */
+
+  /**
+   * Calculates the satisfaction of this vet.
+   * 
+   * <p>
+   * This method calculates the satisfaction of this vet based on the species he is responsible for.
+   * It follows the formula:
+   * <p>
+   * satisfaction = 20 - SUMbySpecies(population/numberOfVets)
+   * 
+   * @return the satisfaction of this vet
+   * 
+   * @see Worker#satisfaction()
    */
   float satisfaction() {
     int satisfactionPerSpecies = 0;
@@ -86,12 +151,21 @@ public class Vet extends Worker {
   }
 
   /**
-   * Registers the vaccination of an animal with a vaccine by the vet in this instance.
+   * Registers the vaccination of a given animal with a given vaccine by this vet.
    * 
-   * @param animal that was vaccinated
-   * @param vaccine that was applied
+   * @param animal The animal that was vaccinated.
+   * @param vaccine The vaccine that was applied.
+   * 
    * @return the vaccine registry
-   * @throws WorkerNotAuthorizedException
+   * 
+   * @throws WorkerNotAuthorizedException If the worker does not have the species of the animal as a
+   *         responsibility
+   * 
+   * @see #calculateVaccineDamage(Animal, Vaccine)
+   * @see #addVaccineRegistry(VaccineRegistry)
+   * @see Animal
+   * @see Vaccine
+   * @see VaccineRegistry
    */
   VaccineRegistry vaccinate(Animal animal, Vaccine vaccine) throws WorkerNotAuthorizedException {
     if (!_responsibilities.containsValue(animal.species())) {
@@ -104,6 +178,21 @@ public class Vet extends Worker {
     return vaccineRegistry;
   }
 
+  /**
+   * Counts the number of characters in common.
+   * 
+   * <p>
+   * This method counts the number of characters in common between the name of the species and the
+   * name of the species to which the vaccine is safe to be applied.
+   * 
+   * @param animalSpeciesName A hashmap of the name of a species to which it is safe to apply the
+   *        vaccine
+   * @param speciesName An array of the name of the animal to which the vaccine was applied.
+   * 
+   * @return the count of characters in common
+   * 
+   * @see #vaccinate(Animal, Vaccine)
+   */
   private int countSameChars(HashMap<Character, Integer> animalSpeciesName, char[] speciesName) {
     int count = 0;
 
@@ -118,12 +207,17 @@ public class Vet extends Worker {
   }
 
   /**
-   * Returns the vaccine damage dealt by the vet in this instance to an animal by a vaccine
-   * application.
+   * Calculates the vaccine damage dealt by this vet to the given animal by the given vaccine.
    * 
-   * @param animal that was vaccinated
-   * @param vaccine that was applied
+   * @param animal The animal that was vaccinated.
+   * @param vaccine The vaccine that was applied.
+   * 
    * @return the vaccine damage dealt
+   * 
+   * @see #vaccinate(Animal, Vaccine)
+   * @see Animal
+   * @see Vaccine
+   * @see VaccineDamage
    */
   private VaccineDamage calculateVaccineDamage(Animal animal, Vaccine vaccine) {
 
@@ -165,21 +259,22 @@ public class Vet extends Worker {
   }
 
   /**
-   * Adds the vaccine registry to the lists and maps of the vet in the instance, the animal and the
-   * hotel.
+   * Returns a String representation of this vet.
    * 
-   * @param vaccineRegistry to be added
-   */
-  private void addVaccineRegistry(VaccineRegistry vaccineRegistry) {
-    _vaccineRegistry.add(vaccineRegistry);
-    vaccineRegistry.animal().addVaccineRegistration(vaccineRegistry);
-  }
-
-  /**
-   * Returns the vet in the format: tipo|id|nome|idResponsabilidades If the vet doesn't have
-   * responsibilities, it's in this format: tipo|id|nome
+   * <p>
+   * This method follows the format:
+   * <p>
+   * VET|id|nome|idSpecies
+   * <p>
+   * If the vet does not have any species as a responsibility, the format is:
+   * <p>
+   * VET|id|nome
    * 
-   * @return the vaccine registry in format
+   * @return the String representation of this vet
+   * 
+   * @see Object#toString()
+   * @see Worker#toString()
+   * @see Species
    */
   @Override
   public String toString() {
