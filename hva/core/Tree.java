@@ -69,7 +69,7 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
    *
    * @return the identifier of this tree
    */
-  String id() {
+  protected String id() {
     return _id;
   }
 

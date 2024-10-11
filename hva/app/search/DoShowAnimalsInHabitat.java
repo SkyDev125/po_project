@@ -22,7 +22,8 @@ class DoShowAnimalsInHabitat extends Command<Hotel> {
   @Override
   protected void execute() throws CommandException {
     try {
-      _display.addAll(_receiver.habitatAnimals(stringField("habitatKey")));
+      _display
+          .addAll(_receiver.habitatAnimals(stringField("habitatKey")).stream().sorted().toList());
       _display.display();
     } catch (HabitatNotFoundException e) {
       throw new UnknownHabitatKeyException(e.id());

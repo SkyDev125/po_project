@@ -137,8 +137,8 @@ public class Habitat implements Serializable, Comparable<Habitat> {
    * Retrieves all the trees in this habitat.
    * 
    * <p>
-   * This method provides a way to access the collection of trees without allowing modifications
-   * to the underlying collection. The returned collection is a read-only view, and any attempts to
+   * This method provides a way to access the collection of trees without allowing modifications to
+   * the underlying collection. The returned collection is a read-only view, and any attempts to
    * modify it will result in an {@code UnsupportedOperationException}.
    * 
    * @return an unmodifiable collection of the trees
@@ -149,10 +149,10 @@ public class Habitat implements Serializable, Comparable<Habitat> {
   Collection<Tree> trees() {
     return Collections.unmodifiableCollection(_trees.values());
   }
-  
+
   /*
-  * <------------------------ Sets ------------------------>
-  */
+   * <------------------------ Sets ------------------------>
+   */
 
   /**
    * Changes the area of this habitat to the given value.
@@ -162,14 +162,14 @@ public class Habitat implements Serializable, Comparable<Habitat> {
   void changeArea(int area) {
     _area = area;
   }
-  
+
   /**
    * Changes the suitability of a given species to this habitat.
    * 
    * <p>
    * The suitability of the species is a result of the influence (<code>enumeration</code>) of this
    * habitat in the species.
-   *  
+   * 
    * @param species The species whose suitability is to be changed
    * @param influence the new influence of this habitat in the species
    * 
@@ -179,7 +179,7 @@ public class Habitat implements Serializable, Comparable<Habitat> {
   void changeSuitability(Species species, Influence influence) {
     _suitability.put(species, influence);
   }
-  
+
   /**
    * Adds an animal to this habitat.
    * 
@@ -191,7 +191,7 @@ public class Habitat implements Serializable, Comparable<Habitat> {
   void addAnimal(Animal animal) {
     _animals.computeIfAbsent(animal.species(), k -> new ArrayList<Animal>()).add(animal);
   }
-  
+
   /**
    * Removes an animal from this habitat.
    * 
@@ -219,10 +219,10 @@ public class Habitat implements Serializable, Comparable<Habitat> {
   void addTree(Tree tree) {
     _trees.put(tree.id(), tree);
   }
-  
+
   /*
-  * <------------------------ Others ------------------------>
-  */
+   * <------------------------ Others ------------------------>
+   */
 
   /**
    * Counts the number of animals of a given species in this habitat.
@@ -254,7 +254,7 @@ public class Habitat implements Serializable, Comparable<Habitat> {
   public String toString() {
     return String.format("HABITAT|%s|%s|%d|%d", _id, _name, _area, _trees.size());
   }
-  
+
   /**
    * Default method of comparison between two habitats.
    * 

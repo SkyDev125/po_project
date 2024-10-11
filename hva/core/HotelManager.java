@@ -87,7 +87,6 @@ public class HotelManager {
     return _hotel.satisfaction();
   }
 
-
   /**
    * Creates a new hotel.
    *
@@ -171,8 +170,6 @@ public class HotelManager {
     }
   }
 
-
-
   /**
    * Serialize an hotel to a byte array.
    *
@@ -203,5 +200,4 @@ public class HotelManager {
     }
     return !Arrays.equals(_originalSerializedHotel, serializeHotel(_hotel));
   }
-
 }

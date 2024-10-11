@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
  * {@link VaccineRegistry}.
  * 
  * <p>
- * The animal can be transfered to another habitat through
- * {@link #transferAnimal(Habitat)}, and it can calculate its {@link #satisfaction()}.
+ * The animal can be transfered to another habitat through {@link #transferAnimal(Habitat)}, and it
+ * can calculate its {@link #satisfaction()}.
  */
 public class Animal implements Serializable, Comparable<Animal> {
 
@@ -35,17 +35,17 @@ public class Animal implements Serializable, Comparable<Animal> {
    * <------------------------ Constructor ------------------------>
    */
 
-   /**
-    * Constructor which creates this animal.
-    *
-    * @param id the String identifier of this animal
-    * @param name the String name of this animal
-    * @param species the Species of this animal
-    * @param habitat the Habitat of this animal
-    *
-    * @see Species
-    * @see Habitat
-    */
+  /**
+   * Constructor which creates this animal.
+   *
+   * @param id the String identifier of this animal
+   * @param name the String name of this animal
+   * @param species the Species of this animal
+   * @param habitat the Habitat of this animal
+   *
+   * @see Species
+   * @see Habitat
+   */
   Animal(String id, String name, Species species, Habitat habitat) {
     _id = id;
     _name = name;
@@ -112,7 +112,7 @@ public class Animal implements Serializable, Comparable<Animal> {
   /*
    * <------------------------ Sets ------------------------>
    */
-  
+
   /**
    * This method adds a vaccine register to this animal.
    * 
@@ -130,8 +130,8 @@ public class Animal implements Serializable, Comparable<Animal> {
    */
 
   /**
-   * Transfers this animal from the current <code>habitat</code> to a given one. 
-   *  
+   * Transfers this animal from the current <code>habitat</code> to a given one.
+   * 
    * @param habitat The habitat to tranfer the animal to.
    * 
    * @see Habitat
@@ -194,12 +194,11 @@ public class Animal implements Serializable, Comparable<Animal> {
     return String.format("ANIMAL|%s|%s|%s|%s|%s", _id, _name, _species.id(), health, _habitat.id());
   }
 
-
   /**
    * Default method of comparison between two animals.
    * 
    * <p>
-   * This method compares two animals by their identifier in a case-insensitive manner. Returns a 
+   * This method compares two animals by their identifier in a case-insensitive manner. Returns a
    * negative integer, zero, or a positive integer as this object is less than, equal to, or greater
    * than the specified object.
    * 

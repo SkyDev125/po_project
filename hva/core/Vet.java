@@ -16,9 +16,9 @@ import hva.core.exception.WorkerNotAuthorizedException;
  * Class representing a vet in the zoo hotel.
  * 
  * <p>
- * A vet, or simply vet, is a type of worker and therefore defined by its id, name and 
- * hotel. On top of that, he keeps record of its responsabilities, which are species to care for, 
- * and vaccine registries of the vaccines he has applied.
+ * A vet, or simply vet, is a type of worker and therefore defined by its id, name and hotel. On top
+ * of that, he keeps record of its responsabilities, which are species to care for, and vaccine
+ * registries of the vaccines he has applied.
  * 
  * <p>
  * The vet, as a worker, can calculate its {@link #satisfaction()}. He can also

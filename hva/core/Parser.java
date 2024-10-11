@@ -20,7 +20,6 @@ import hva.core.exception.WorkerNotFoundException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-
 /**
  * Esta solução assume que a classe Hotel já tem a seguinte funcionalidade
  * 
@@ -53,7 +52,6 @@ public class Parser {
 
       while ((line = reader.readLine()) != null)
         parseLine(line);
-
     }
   }
 
@@ -132,7 +130,6 @@ public class Parser {
     } catch (DuplicateVaccineException | SpeciesNotFoundException e) {
       throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
     }
-
   }
 
   // Parse a line with format ÁRVORE|id|nome|idade|dificuldade|tipo

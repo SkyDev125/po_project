@@ -32,7 +32,7 @@ public class Species implements Serializable, Comparable<Species> {
    * Constructor which creates this species.
    * 
    * @param id the identifier of this species
-   * @param name the identifier of this species
+   * @param name the name of this species
    */
   Species(String id, String name) {
     _id = id;
@@ -137,7 +137,7 @@ public class Species implements Serializable, Comparable<Species> {
    * Default method of comparison between two species.
    * 
    * <p>
-   * This method compares two species by their identifier in a case-insensitive manner. Returns a 
+   * This method compares two species by their identifier in a case-insensitive manner. Returns a
    * negative integer, zero, or a positive integer as this object is less than, equal to, or greater
    * than the specified object.
    * 
@@ -151,17 +151,5 @@ public class Species implements Serializable, Comparable<Species> {
   @Override
   public int compareTo(Species species) {
     return _id.compareToIgnoreCase(species.id()) + _name.compareToIgnoreCase(species.name());
-  }
-
-  /**
-   * Returns a hash code value for this species, used for hash maps and case insensitive hash maps.
-   * 
-   * @return the hash code for this species
-   * 
-   * @see Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return _id.hashCode();
   }
 }

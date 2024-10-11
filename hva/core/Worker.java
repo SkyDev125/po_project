@@ -10,8 +10,9 @@ import hva.core.exception.SpeciesNotFoundException;
  * Abstract class representing a worker in the zoo hotel.
  * 
  * <p>
- * A worker is defined by its id, name and hotel. On top of that, he keeps record of its responsabilities, which are species to care for, 
- * and vaccine registries of the vaccines he has applied.
+ * A worker is defined by its id, name and hotel. On top of that, he keeps record of its
+ * responsabilities, which are species to care for, and vaccine registries of the vaccines he has
+ * applied.
  * 
  * <p>
  * The worker can calculate its {@link #satisfaction()}.
@@ -61,7 +62,7 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
    *
    * @return the identifier of this worker
    */
-  String id() {
+  protected String id() {
     return _id;
   }
 
@@ -73,7 +74,7 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
    *
    * @return the name of this worker
    */
-  String name() {
+  protected String name() {
     return _name;
   }
 
@@ -82,7 +83,7 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
    *
    * @return the hotel of this worker
    */
-  Hotel hotel() {
+  protected Hotel hotel() {
     return _hotel;
   }
 
@@ -128,7 +129,7 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
 
   /**
    * Calculates the satisfaction of this worker, the formula depends on the type of worker.
-
+   * 
    * @return the satisfaction of this worker
    * 
    * @see Vet#satisfaction()
@@ -163,7 +164,7 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
    * Default method of comparison between two workers.
    * 
    * <p>
-   * This method compares two workers by their identifier in a case-insensitive manner. Returns a 
+   * This method compares two workers by their identifier in a case-insensitive manner. Returns a
    * negative integer, zero, or a positive integer as this object is less than, equal to, or greater
    * than the specified object.
    * 

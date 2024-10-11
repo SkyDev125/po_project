@@ -12,7 +12,7 @@ import java.util.List;
  * Class representing a vaccine in the zoo hotel.
  * 
  * <p>
- * A vaccine is defined by its id, name, count of applications, and keeps record of the species to 
+ * A vaccine is defined by its id, name, count of applications, and keeps record of the species to
  * which it can be safely apllied.
  */
 public class Vaccine implements Serializable, Comparable<Vaccine> {

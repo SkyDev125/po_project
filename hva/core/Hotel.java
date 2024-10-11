@@ -497,7 +497,7 @@ public class Hotel implements Serializable {
    * @throws AnimalNotFoundException If an animal with the given identifier does not exist.
    * @throws HabitatNotFoundException If a habitat with the given identifier does not exist.
    * 
-   * @see Animal#transferAnimal(Habitat) //FIXME
+   * @see Animal#transferAnimal(Habitat)
    * @see Animal
    * @see Habitat
    */
@@ -613,7 +613,6 @@ public class Hotel implements Serializable {
     habitatExistsWithException(idHabitat).changeArea(area);
   }
 
-
   /**
    * Changes the suitability of a species for a habitat.
    * 
@@ -648,7 +647,7 @@ public class Hotel implements Serializable {
    * Returns the trees of a habitat.
    * 
    * <p>
-   * This method returns an unmodifiable view of the collection of trees of the habitat with the 
+   * This method returns an unmodifiable view of the collection of trees of the habitat with the
    * given identifier.
    * 
    * @param idHabitat the identifier of the habitat
@@ -709,7 +708,7 @@ public class Hotel implements Serializable {
    * Returns the animals of a habitat.
    * 
    * <p>
-   * This method returns an unmodifiable view of the collection of animals of the habitat with the 
+   * This method returns an unmodifiable view of the collection of animals of the habitat with the
    * given identifier.
    * 
    * @param idHabitat the identifier of the habitat
@@ -749,7 +748,7 @@ public class Hotel implements Serializable {
    * Returns the Vaccination Registries of a vet.
    * 
    * <p>
-   * This method returns an unmodifiable view of the collection of vaccine registries of the vet 
+   * This method returns an unmodifiable view of the collection of vaccine registries of the vet
    * with the given identifier.
    * 
    * @param idVet the identifier of the vet
@@ -801,8 +800,7 @@ public class Hotel implements Serializable {
    * Finds an animal with the given identifier.
    * 
    * <p>
-   * This method returns the animal with the given identifier or {@code null} if it does not
-   * exist.
+   * This method returns the animal with the given identifier or {@code null} if it does not exist.
    * 
    * @param id the identifier of the animal
    * 
@@ -818,8 +816,8 @@ public class Hotel implements Serializable {
    * Finds an animal with the given identifier and throws an exception if it does not exist.
    * 
    * <p>
-   * This method returns the animal with the given identifier or throws an exception if it
-   * does not exist.
+   * This method returns the animal with the given identifier or throws an exception if it does not
+   * exist.
    * 
    * @param id the identifier of the animal
    * 
