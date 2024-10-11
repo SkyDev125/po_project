@@ -32,6 +32,18 @@ public class Animal implements Serializable, Comparable<Animal> {
   /*
    * <------------------------ Constructor ------------------------>
    */
+
+   /**
+    * Constructor which creates this animal.
+    *
+    * @param id the String identifier of this animal
+    * @param name the String name of this animal
+    * @param species the Species of this animal
+    * @param habitat the Habitat of this animal
+    *
+    * @see Species
+    * @see Habitat
+    */
   Animal(String id, String name, Species species, Habitat habitat) {
     _id = id;
     _name = name;
@@ -44,50 +56,52 @@ public class Animal implements Serializable, Comparable<Animal> {
    */
 
   /**
-   * Retrieves the identifier of the animal.
+   * Retrieves the identifier of this animal.
    * 
    * <p>
-   * The identifier of the animal is an unique String by which the animal is identified.
+   * The identifier of this animal is an unique String by which this animal is identified.
    *
-   * @return the identifier of the animal.
+   * @return the identifier of this animal
    */
   String id() {
     return _id;
   }
 
   /**
-   * Retrieves the name of the animal.
+   * Retrieves the name of this animal.
    * 
    * <p>
-   * The name of the animal is a non unique String.
+   * The name of this animal is a non unique String.
    *
-   * @return the name of the animal.
+   * @return the name of this animal
    */
   String name() {
     return _name;
   }
 
   /**
-   * Retrieves the species of the animal.
+   * Retrieves the species of this animal.
    * 
    * <p>
-   * This method provides a way to access the {@link Species} of the animal.
+   * This method provides a way to access the {@link Species} of this animal.
    *
-   * @return the species of the animal.
+   * @return the species of this animal
    */
   Species species() {
     return _species;
   }
 
   /**
-   * Retrieves all the vaccine registries in the hotel.
+   * Retrieves all the vaccine registries of this animal.
    * 
    * <p>
-   * This method provides a way to access the collection of {@link VaccineRegistry} without allowing
+   * This method provides a way to access the collection of vaccine registries without allowing
    * modifications to the underlying collection. The returned collection is a read-only view, and
    * any attempts to modify it will result in an {@code UnsupportedOperationException}.
    * 
-   * @return an unmodifiable {@link Collection} of the vaccine registries of the animal.
+   * @return an unmodifiable collecion of the vaccine registries of this animal
+   * 
+   * @see VaccineRegistry
    */
 
   List<VaccineRegistry> vaccineRegistry() {
@@ -99,9 +113,12 @@ public class Animal implements Serializable, Comparable<Animal> {
    */
   
   /**
-   * This method as a vaccine register to the animal.
+   * This method adds a vaccine register to this animal.
    * 
-   * @param vaccineReg the vaccine registry to be added.
+   * @param vaccineReg The vaccine registry to be added.
+   * 
+   * @see Vet#vaccinate(Animal, Vaccine)
+   * @see VaccineRegistry
    */
   void addVaccineRegistration(VaccineRegistry vaccineReg) {
     _vaccineRegistry.add(vaccineReg);
@@ -112,9 +129,11 @@ public class Animal implements Serializable, Comparable<Animal> {
    */
 
   /**
-   * Transfer the animal from the current habitat to a given one.
+   * Transfers this animal from the current <code>habitat</code> to a given one. 
    *  
-   * @param habitat to tranfer the animal to.
+   * @param habitat The habitat to tranfer the animal to.
+   * 
+   * @see Habitat
    */
   void transferAnimal(Habitat habitat) {
     _habitat.removeAnimal(this);
@@ -123,12 +142,17 @@ public class Animal implements Serializable, Comparable<Animal> {
   }
 
   /**
-   * Calculates the satisfaction of the animal.
+   * Calculates the satisfaction of this animal.
    * 
-   * This method calculates the satisfaction of the animal based on its habitat and the other
-   * animals present there.
+   * <p>
+   * This method calculates the satisfaction of this animal based on its <code>habitat</code> and
+   * the animals present there. It follows the formula:
+   * <p>
+   * satisfaction = 20 + 3*sameSpecies - 2*differentSpecies + area/population + suitability
    * 
-   * @return the satisfaction of the animal.
+   * @return the satisfaction of this animal
+   * 
+   * @see Habitat
    */
   float satisfaction() {
     int sameSpecies = _habitat.sameSpeciesCount(_species);
@@ -138,6 +162,25 @@ public class Animal implements Serializable, Comparable<Animal> {
         + (_habitat.area() / population) + _habitat.suitability(_species).getValue());
   }
 
+  /**
+   * Returns a String representation of this animal.
+   * 
+   * <p>
+   * This method returns:
+   * <p>
+   * ANIMAL|idAnimal|nomeAnimal|idEspecie|historialDeSaude|idHabitat
+   * <p>
+   * If the <code>animal</code> was never vaccinated, it returns:
+   * <p>
+   * ANIMAL|idAnimal|nomeAnimal|idEspecie|VOID|idHabitat
+   * 
+   * @return the String representation of this animal
+   * 
+   * @see Object#toString()
+   * @see Species
+   * @see VaccineRegistry
+   * @see Habitat
+   */
   @Override
   public String toString() {
     String health = "VOID";
@@ -155,12 +198,14 @@ public class Animal implements Serializable, Comparable<Animal> {
    * Default method of comparison between two animals.
    * 
    * <p>
-   * This method compares two {@link Animal} by their identifier in a case-insensitive manner.
-   * returning a negative integer, zero, or a positive integer as this object is less than, equal
-   * to, or greater than the specified object.
+   * This method compares two animals by their identifier in a case-insensitive manner. Returns a 
+   * negative integer, zero, or a positive integer as this object is less than, equal to, or greater
+   * than the specified object.
    * 
-   * @param animal the animal to be compared.
-   * @return an integer value representing the comparison between the two animals.
+   * @param animal the animal to be compared
+   * 
+   * @return An integer value representing the comparison between the two animals
+   * 
    * @see String#compareToIgnoreCase(String)
    * @see Comparable#compareTo(Object)
    */

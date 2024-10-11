@@ -600,14 +600,14 @@ public class Hotel implements Serializable {
    * 
    * @param idAnimal the identifier of the animal.
    * @param idVaccine the identifier of the vaccine.
-   * @param idVet the identifier of the vet.
+   * @param idVet the identifier of the veterinay.
    * 
    * @return the created vaccine registry.
    * 
    * @throws AnimalNotFoundException if an animal with the given identifier does not exist.
    * @throws VaccineNotFoundException if a vaccine with the given identifier does not exist.
    * @throws WorkerNotFoundException if a worker with the given identifier does not exist and isn't
-   *         a vet.
+   *         a veterinarian.
    * @throws WorkerNotAuthorizedException if the worker with the given identifier is not a
    *         {@link Vet}.
    */
@@ -664,18 +664,18 @@ public class Hotel implements Serializable {
   }
 
   /**
-   * Returns the Vaccination Registries of a vet.
+   * Returns the Vaccination Registries of a veterinarian.
    * 
    * <p>
    * This method returns an unmodifiable view of the collection of {@link VaccineRegistry}'s of the
    * {@link Vet} with the given identifier.
    * 
-   * @param idVet the identifier of the vet.
+   * @param idVet the identifier of the veterinarian.
    * 
-   * @return an unmodifiable view of the collection of vaccination registries of the vet.
+   * @return an unmodifiable view of the collection of vaccination registries of the veterinarian.
    * 
    * @throws WorkerNotFoundException if a worker with the given identifier does not exist and isnt a
-   *         vet.
+   *         veterinarian.
    */
   public List<VaccineRegistry> vetVaccinations(String idVet) throws WorkerNotFoundException {
     Worker worker = workerExistsWithException(idVet);
