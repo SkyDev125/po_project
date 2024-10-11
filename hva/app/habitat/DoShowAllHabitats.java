@@ -1,6 +1,9 @@
 package hva.app.habitat;
 
+import hva.core.Habitat;
 import hva.core.Hotel;
+
+import hva.core.exception.HabitatNotFoundException;
 
 import pt.tecnico.uilib.menus.Command;
 
@@ -15,7 +18,15 @@ class DoShowAllHabitats extends Command<Hotel> {
 
   @Override
   protected void execute() {
-    _display.addAll(_receiver.habitats().stream().sorted().toList());
+    for (Habitat habitat : _receiver.habitats().stream().sorted().toList()) {
+      _display.addLine(habitat.toString());
+      try {
+        _display.addAll(_receiver.habitatTrees(habitat.id()).stream().sorted().toList());
+      } catch (HabitatNotFoundException e) {
+        // Should never happen
+        e.printStackTrace();
+      }
+    }
     _display.display();
   }
 }

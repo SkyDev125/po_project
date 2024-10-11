@@ -33,7 +33,8 @@ class DoNewFile extends Command<HotelManager> {
 
       // Retry with a new file path
       try {
-        _receiver.saveAs(Form.requestString(Prompt.saveAs()));
+        _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
+        _receiver.create();
       } catch (MissingFileAssociationException | IOException e1) {
         e1.printStackTrace();
       }
