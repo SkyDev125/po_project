@@ -148,8 +148,8 @@ public class Hotel implements Serializable {
    * Returns the current season of this hotel.
    * 
    * <p>
-   * The season of the hotel is a value of the SeasonType <code>enumeration</code>. Used mainly for the
-   * growth of {@link Tree}. //FIXME
+   * The season of the hotel is a value of the SeasonType <code>enumeration</code> by which the
+   * state and age of the trees progresses.
    * 
    * @return the current season of the hotel.
    * 
@@ -171,16 +171,16 @@ public class Hotel implements Serializable {
    * This method creates a new animal with the given parameters and adds it to the hotel. The animal
    * is also added to the corresponding species and habitat.
    * 
-   * @param idAnimal the identifier of the animal.
-   * @param name the name of the animal.
-   * @param idSpecies the identifier of the species of the animal.
-   * @param idHabitat the identifier of the habitat of the animal.
+   * @param idAnimal the identifier of the animal
+   * @param name the name of the animal
+   * @param idSpecies the identifier of the species of the animal
+   * @param idHabitat the identifier of the habitat of the animal
    * 
-   * @return the created animal.
+   * @return the created animal
    * 
-   * @throws DuplicateAnimalException if an animal with the same identifier already exists.
-   * @throws SpeciesNotFoundException if the species with the given identifier does not exist.
-   * @throws HabitatNotFoundException if the habitat with the given identifier does not exist.
+   * @throws DuplicateAnimalException If an animal with the same identifier already exists.
+   * @throws SpeciesNotFoundException If the species with the given identifier does not exist.
+   * @throws HabitatNotFoundException If the habitat with the given identifier does not exist.
    * 
    * @see Animal
    * @see Species
@@ -208,14 +208,16 @@ public class Hotel implements Serializable {
    * Adds a new species to the hotel.
    * 
    * <p>
-   * This method creates a new {@link Species} with the given parameters and adds it to the hotel.
+   * This method creates a new species with the given parameters and adds it to the hotel.
    * 
-   * @param idSpecies the identifier of the species.
-   * @param name the name of the species.
+   * @param idSpecies the identifier of the species
+   * @param name the name of the species
    * 
-   * @return the created species.
+   * @return the created species
    * 
-   * @throws DuplicateSpeciesException if a species with the same identifier already exists.
+   * @throws DuplicateSpeciesException If a species with the same identifier already exists.
+   * 
+   * @see Species
    */
   public Species addSpecies(String idSpecies, String name) throws DuplicateSpeciesException {
 
@@ -235,16 +237,18 @@ public class Hotel implements Serializable {
    * Adds a new worker to the hotel.
    * 
    * <p>
-   * This method creates a new {@link Worker} with the given parameters and adds it to the hotel.
+   * This method creates a new worker with the given parameters and adds it to the hotel.
    * 
-   * @param idWorker the identifier of the worker.
-   * @param name the name of the worker.
-   * @param type the type of the worker.
+   * @param idWorker the identifier of the worker
+   * @param name the name of the worker
+   * @param type the type of the worker
    * 
-   * @return the created worker.
+   * @return the created worker
    * 
-   * @throws DuplicateWorkerException if a worker with the same identifier already exists.
-   * @throws UnrecognizedWorkerTypeException if the worker type is not recognized.
+   * @throws DuplicateWorkerException If a worker with the same identifier already exists.
+   * @throws UnrecognizedWorkerTypeException If the worker type is not recognized.
+   * 
+   * @see Worker
    */
   public Worker addWorker(String idWorker, String name, String type)
       throws DuplicateWorkerException, UnrecognizedWorkerTypeException {
@@ -274,15 +278,17 @@ public class Hotel implements Serializable {
    * Adds a new habitat to the hotel.
    * 
    * <p>
-   * This method creates a new {@link Habitat} with the given parameters and adds it to the hotel.
+   * This method creates a new habitat with the given parameters and adds it to the hotel.
    * 
-   * @param idHabitat the identifier of the habitat.
-   * @param name the name of the habitat.
-   * @param area the area of the habitat.
+   * @param idHabitat the identifier of the habitat
+   * @param name the name of the habitat
+   * @param area the area of the habitat
    * 
-   * @return the created habitat.
+   * @return the created habitat
    * 
-   * @throws DuplicateHabitatException if a habitat with the same identifier already exists.
+   * @throws DuplicateHabitatException If a habitat with the same identifier already exists.
+   * 
+   * @see Habitat
    */
   public Habitat addHabitat(String idHabitat, String name, int area)
       throws DuplicateHabitatException {
@@ -302,21 +308,26 @@ public class Hotel implements Serializable {
    * Adds a new tree to the habitat.
    * 
    * <p>
-   * This method creates a new {@link Tree} with the given parameters and adds it to the
-   * {@link Habitat} with the given identifier.
+   * This method creates a new tree with the given parameters and adds it to the habitat with the
+   * given identifier.
    * 
-   * @param idHabitat the identifier of the habitat.
-   * @param idTree the identifier of the tree.
-   * @param name the name of the tree.
-   * @param age the age of the tree.
-   * @param cleanDiff the cleaning difficulty of the tree.
-   * @param Type the type of the tree. "CADUCA" for {@link Deciduos} or "PERENE" {@link Evergreen}.
+   * @param idHabitat the identifier of the habitat
+   * @param idTree the identifier of the tree
+   * @param name the name of the tree
+   * @param age the age of the tree
+   * @param cleanDiff the cleaning difficulty of the tree
+   * @param Type the type of the tree. "CADUCA" for Deciduos or "PERENE" Evergreen
    * 
-   * @return the created tree.
+   * @return the created tree
    * 
-   * @throws HabitatNotFoundException if the habitat with the given identifier does not exist.
-   * @throws UnrecognizedTreeTypeException if the tree type is not recognized.
-   * @throws DuplicateTreeException if a tree with the same identifier already exists.
+   * @throws HabitatNotFoundException If the habitat with the given identifier does not exist.
+   * @throws UnrecognizedTreeTypeException If the tree type is not recognized.
+   * @throws DuplicateTreeException If a tree with the same identifier already exists.
+   * 
+   * @see Tree
+   * @see Deciduos
+   * @see Evergreen
+   * @see Worker
    */
   public Tree addTreeToHabitat(String idHabitat, String idTree, String name, int age, int cleanDiff,
       String Type)
@@ -334,19 +345,22 @@ public class Hotel implements Serializable {
    * Adds a new tree to the hotel.
    * 
    * <p>
-   * This method creates a new {@link Tree} with the given parameters and adds it to the hotel
-   * directly.
+   * This method creates a new tree with the given parameters and adds it to the hotel directly.
    * 
-   * @param idTree the identifier of the tree.
-   * @param name the name of the tree.
-   * @param age the age of the tree.
-   * @param cleanDiff the cleaning difficulty of the tree.
-   * @param Type the type of the tree. "CADUCA" for {@link Deciduos} or "PERENE" {@link Evergreen}.
+   * @param idTree the identifier of the tree
+   * @param name the name of the tree
+   * @param age the age of the tree
+   * @param cleanDiff the cleaning difficulty of the tree
+   * @param Type the type of the tree. "CADUCA" for Deciduos or "PERENE" Evergreen
    * 
-   * @return the created tree.
+   * @return the created tree
    * 
-   * @throws DuplicateTreeException if a tree with the same identifier already exists.
-   * @throws UnrecognizedTreeTypeException if the tree type is not recognized.
+   * @throws DuplicateTreeException If a tree with the same identifier already exists.
+   * @throws UnrecognizedTreeTypeException If the tree type is not recognized.
+   * 
+   * @see Tree
+   * @see Deciduos
+   * @see Evergreen
    */
   public Tree addTree(String idTree, String name, int age, int cleanDiff, String Type)
       throws DuplicateTreeException, UnrecognizedTreeTypeException {
@@ -376,17 +390,20 @@ public class Hotel implements Serializable {
    * Adds a new vaccine to the hotel.
    * 
    * <p>
-   * This method creates a new {@link Vaccine} with the given parameters and adds it to the hotel.
-   * This vaccine will support the {@link Species} with the given identifiers.
+   * This method creates a new vaccine with the given parameters and adds it to the hotel. This
+   * vaccine will support the species with the given identifiers.
    * 
-   * @param idVaccine the identifier of the vaccine.
-   * @param name the name of the vaccine.
-   * @param idSpecies the identifiers of the species supported by the vaccine.
+   * @param idVaccine the identifier of the vaccine
+   * @param name the name of the vaccine
+   * @param idSpecies the identifiers of the species supported by the vaccine
    * 
-   * @return the created vaccine.
+   * @return the created vaccine
    * 
-   * @throws DuplicateVaccineException if a vaccine with the same identifier already exists.
-   * @throws SpeciesNotFoundException if a species with the given identifier does not exist.
+   * @throws DuplicateVaccineException If a vaccine with the same identifier already exists.
+   * @throws SpeciesNotFoundException If a species with the given identifier does not exist.
+   * 
+   * @see Vaccine
+   * @see Species
    */
   public Vaccine addVaccine(String idVaccine, String name, String idSpecies)
       throws DuplicateVaccineException, SpeciesNotFoundException {
@@ -480,7 +497,7 @@ public class Hotel implements Serializable {
    * @throws AnimalNotFoundException If an animal with the given identifier does not exist.
    * @throws HabitatNotFoundException If a habitat with the given identifier does not exist.
    * 
-   * @see Animal#transferAnimal(Habitat)
+   * @see Animal#transferAnimal(Habitat) //FIXME
    * @see Animal
    * @see Habitat
    */
@@ -503,7 +520,6 @@ public class Hotel implements Serializable {
    * 
    * @throws AnimalNotFoundException If an animal with the given identifier does not exist.
    * 
-   * @see Animal#satisfaction()
    * @see Animal
    */
   public float animalSatisfaction(String id) throws AnimalNotFoundException {
@@ -524,7 +540,6 @@ public class Hotel implements Serializable {
    * @throws ResponsibilityNotFoundException If a responsibility with the given identifier matching
    *         the worker type does not exist.
    * 
-   * @see Worker#addResponsibility(String)
    * @see Worker
    */
   public void addResponsibilityToWorker(String idWorker, String idResponsibility)
@@ -551,7 +566,6 @@ public class Hotel implements Serializable {
    * @throws ResponsibilityNotFoundException If a responsibility with the given identifier does not
    *         exist in the worker's current responsibilities.
    * 
-   * @see Worker#removeResponsibility(String)
    * @see Worker
    */
   public void removeResponsibilityFromWorker(String idWorker, String idResponsibility)
@@ -576,7 +590,6 @@ public class Hotel implements Serializable {
    * 
    * @throws WorkerNotFoundException If a worker with the given identifier does not exist.
    * 
-   * @see Worker#satisfaction()
    * @see Worker
    */
   public float workerSatisfaction(String id) throws WorkerNotFoundException {
@@ -589,12 +602,11 @@ public class Hotel implements Serializable {
    * <p>
    * This method changes the area of the habitat with the given identifier.
    * 
-   * @param idHabitat the identifier of the habitat.
-   * @param area the new area of the habitat.
+   * @param idHabitat the identifier of the habitat
+   * @param area the new area of the habitat
    * 
-   * @throws HabitatNotFoundException if a habitat with the given identifier does not exist.
+   * @throws HabitatNotFoundException If a habitat with the given identifier does not exist.
    * 
-   * @see Habitat#changeArea(int)
    * @see Habitat
    */
   public void changeHabitatArea(String idHabitat, int area) throws HabitatNotFoundException {
@@ -606,15 +618,18 @@ public class Hotel implements Serializable {
    * Changes the suitability of a species for a habitat.
    * 
    * <p>
-   * This method changes the suitability of the {@link Species} with the given identifier for the
-   * {@link Habitat} with the given identifier.
+   * This method changes the suitability of the species with the given identifier for the habitat
+   * with the given identifier.
    * 
-   * @param idHabitat the identifier of the habitat.
-   * @param idSpecies the identifier of the species.
-   * @param influence the new suitability of the species for the habitat.
+   * @param idHabitat the identifier of the habitat
+   * @param idSpecies the identifier of the species
+   * @param influence the new suitability of the species for the habitat
    * 
-   * @throws HabitatNotFoundException if a habitat with the given identifier does not exist.
-   * @throws SpeciesNotFoundException if a species with the given identifier does not exist.
+   * @throws HabitatNotFoundException If a habitat with the given identifier does not exist.
+   * @throws SpeciesNotFoundException If a species with the given identifier does not exist.
+   * 
+   * @see Species
+   * @see Habitat
    */
   public void changeHabitatSuitability(String idHabitat, String idSpecies, Influence influence)
       throws HabitatNotFoundException, SpeciesNotFoundException {
@@ -633,14 +648,17 @@ public class Hotel implements Serializable {
    * Returns the trees of a habitat.
    * 
    * <p>
-   * This method returns an unmodifiable view of the collection of {@link Tree}'s of the
-   * {@link Habitat} with the given identifier.
+   * This method returns an unmodifiable view of the collection of trees of the habitat with the 
+   * given identifier.
    * 
-   * @param idHabitat the identifier of the habitat.
+   * @param idHabitat the identifier of the habitat
    * 
-   * @return an unmodifiable view of the collection of trees of the habitat.
+   * @return an unmodifiable view of the collection of trees of the habitat
    * 
-   * @throws HabitatNotFoundException if a habitat with the given identifier does not exist.
+   * @throws HabitatNotFoundException If a habitat with the given identifier does not exist.
+   * 
+   * @see Tree
+   * @see Habitat
    */
   public Collection<Tree> habitatTrees(String idHabitat) throws HabitatNotFoundException {
     return habitatExistsWithException(idHabitat).trees();
@@ -650,21 +668,24 @@ public class Hotel implements Serializable {
    * Vaccinates an animal.
    * 
    * <p>
-   * This method vaccinates the {@link Animal} with the given identifier with the {@link Vaccine}
-   * with the given identifier by the {@link Vet} with the given identifier.
+   * This method vaccinates the animal with the given identifier with the vaccine with the given
+   * identifier by the vet with the given identifier.
    * 
-   * @param idAnimal the identifier of the animal.
-   * @param idVaccine the identifier of the vaccine.
-   * @param idVet the identifier of the veterinay.
+   * @param idAnimal the identifier of the animal
+   * @param idVaccine the identifier of the vaccine
+   * @param idVet the identifier of the veterinay
    * 
-   * @return the created vaccine registry.
+   * @return the created vaccine registry
    * 
-   * @throws AnimalNotFoundException if an animal with the given identifier does not exist.
-   * @throws VaccineNotFoundException if a vaccine with the given identifier does not exist.
-   * @throws WorkerNotFoundException if a worker with the given identifier does not exist and isn't
+   * @throws AnimalNotFoundException If an animal with the given identifier does not exist.
+   * @throws VaccineNotFoundException If a vaccine with the given identifier does not exist.
+   * @throws WorkerNotFoundException If a worker with the given identifier does not exist and isn't
    *         a vet.
-   * @throws WorkerNotAuthorizedException if the worker with the given identifier is not a
-   *         {@link Vet}.
+   * @throws WorkerNotAuthorizedException If the worker with the given identifier is not a vet.
+   * 
+   * @see Animal
+   * @see Vaccine
+   * @see Vet
    */
   public VaccineRegistry vaccinateAnimal(String idAnimal, String idVaccine, String idVet)
       throws AnimalNotFoundException, VaccineNotFoundException, WorkerNotFoundException,
@@ -688,14 +709,17 @@ public class Hotel implements Serializable {
    * Returns the animals of a habitat.
    * 
    * <p>
-   * This method returns an unmodifiable view of the collection of {@link Animal}'s of the
-   * {@link Habitat} with the given identifier.
+   * This method returns an unmodifiable view of the collection of animals of the habitat with the 
+   * given identifier.
    * 
-   * @param idHabitat the identifier of the habitat.
+   * @param idHabitat the identifier of the habitat
    * 
-   * @return an unmodifiable view of the collection of animals of the habitat.
+   * @return An unmodifiable view of the collection of animals of the habitat.
    * 
-   * @throws HabitatNotFoundException if a habitat with the given identifier does not exist.
+   * @throws HabitatNotFoundException If a habitat with the given identifier does not exist.
+   * 
+   * @see Animal
+   * @see Habitat // TODO 
    */
   public Collection<Animal> habitatAnimals(String idHabitat) throws HabitatNotFoundException {
     return habitatExistsWithException(idHabitat).animals();
@@ -705,14 +729,17 @@ public class Hotel implements Serializable {
    * Returns the Vaccination Registries of an animal.
    * 
    * <p>
-   * This method returns an unmodifiable view of the collection of {@link VaccineRegistry}'s of the
-   * {@link Animal} with the given identifier.
+   * This method returns an unmodifiable view of the collection of vaccine registries of the animal
+   * with the given identifier.
    * 
-   * @param idAnimal the identifier of the animal.
+   * @param idAnimal the identifier of the animal
    * 
-   * @return an unmodifiable view of the collection of vaccination registries of the animal.
+   * @return An unmodifiable view of the collection of vaccination registries of the animal.
    * 
-   * @throws AnimalNotFoundException if an animal with the given identifier does not exist.
+   * @throws AnimalNotFoundException If an animal with the given identifier does not exist.
+   * 
+   * @see VaccineRegistry
+   * @see Animal
    */
   public List<VaccineRegistry> animalVaccinations(String idAnimal) throws AnimalNotFoundException {
     return animalExistsWithException(idAnimal).vaccineRegistry();
@@ -722,15 +749,18 @@ public class Hotel implements Serializable {
    * Returns the Vaccination Registries of a vet.
    * 
    * <p>
-   * This method returns an unmodifiable view of the collection of {@link VaccineRegistry}'s of the
-   * {@link Vet} with the given identifier.
+   * This method returns an unmodifiable view of the collection of vaccine registries of the vet 
+   * with the given identifier.
    * 
-   * @param idVet the identifier of the vet.
+   * @param idVet the identifier of the vet
    * 
-   * @return an unmodifiable view of the collection of vaccination registries of the vet.
+   * @return An unmodifiable view of the collection of vaccination registries of the vet.
    * 
-   * @throws WorkerNotFoundException if a worker with the given identifier does not exist and isnt a
+   * @throws WorkerNotFoundException If a worker with the given identifier does not exist and isnt a
    *         vet.
+   * 
+   * @see VaccineRegistry
+   * @see Vet
    */
   public List<VaccineRegistry> vetVaccinations(String idVet) throws WorkerNotFoundException {
     Worker worker = workerExistsWithException(idVet);
@@ -744,10 +774,12 @@ public class Hotel implements Serializable {
    * Filters the wrong vaccinations.
    * 
    * <p>
-   * This method filters the {@link VaccineRegistry}'s of the hotel and returns an unmodifiable view
-   * of the collection of wrong vaccinations.
+   * This method filters the vaccine registries of the hotel and returns an unmodifiable view of the
+   * collection of wrong vaccinations.
    * 
-   * @return an unmodifiable view of the collection of wrong vaccinations.
+   * @return an unmodifiable view of the collection of wrong vaccinations
+   * 
+   * @see VaccineRegistry
    */
   public List<VaccineRegistry> filterWrongVaccinations() {
     ArrayList<VaccineRegistry> wrongVaccinations = new ArrayList<VaccineRegistry>();
@@ -769,12 +801,14 @@ public class Hotel implements Serializable {
    * Finds an animal with the given identifier.
    * 
    * <p>
-   * This method returns the {@link Animal} with the given identifier or {@code null} if it does not
+   * This method returns the animal with the given identifier or {@code null} if it does not
    * exist.
    * 
-   * @param id the identifier of the animal.
+   * @param id the identifier of the animal
    * 
-   * @return the animal with the given identifier or {@code null} if it does not exist.
+   * @return The animal with the given identifier or {@code null} if it does not exist.
+   * 
+   * @see Animal
    */
   Animal animalExists(String id) {
     return _animals.get(id);
@@ -784,14 +818,16 @@ public class Hotel implements Serializable {
    * Finds an animal with the given identifier and throws an exception if it does not exist.
    * 
    * <p>
-   * This method returns the {@link Animal} with the given identifier or throws an exception if it
+   * This method returns the animal with the given identifier or throws an exception if it
    * does not exist.
    * 
-   * @param id the identifier of the animal.
+   * @param id the identifier of the animal
    * 
-   * @return the animal with the given identifier.
+   * @return the animal with the given identifier
    * 
-   * @throws AnimalNotFoundException if an animal with the given identifier does not exist.
+   * @throws AnimalNotFoundException If an animal with the given identifier does not exist.
+   * 
+   * @see Animal
    */
   Animal animalExistsWithException(String id) throws AnimalNotFoundException {
     Animal animal = animalExists(id);
@@ -805,12 +841,13 @@ public class Hotel implements Serializable {
    * Finds a species with the given identifier.
    * 
    * <p>
-   * This method returns the {@link Species} with the given identifier or {@code null} if it does
-   * not exist.
+   * This method returns the species with the given identifier or {@code null} if it does not exist.
    * 
-   * @param id the identifier of the species.
+   * @param id the identifier of the species
    * 
-   * @return the species with the given identifier or {@code null} if it does not exist.
+   * @return The species with the given identifier or {@code null} if it does not exist.
+   * 
+   * @see Species
    */
   Species speciesExists(String id) {
     return _species.get(id);
@@ -820,14 +857,16 @@ public class Hotel implements Serializable {
    * Finds a species with the given identifier and throws an exception if it does not exist.
    * 
    * <p>
-   * This method returns the {@link Species} with the given identifier or throws an exception if it
-   * does not exist.
+   * This method returns the species with the given identifier or throws an exception if it does not
+   * exist.
    * 
-   * @param id the identifier of the species.
+   * @param id the identifier of the species
    * 
-   * @return the species with the given identifier.
+   * @return the species with the given identifier
    * 
-   * @throws SpeciesNotFoundException if a species with the given identifier does not exist.
+   * @throws SpeciesNotFoundException If a species with the given identifier does not exist.
+   * 
+   * @see Species
    */
   Species speciesExistsWithException(String id) throws SpeciesNotFoundException {
     Species species = speciesExists(id);
@@ -841,14 +880,15 @@ public class Hotel implements Serializable {
    * Finds a worker with the given identifier.
    * 
    * <p>
-   * This method returns the {@link Worker} with the given identifier or {@code null} if it does not
-   * exist.
+   * This method returns the worker with the given identifier or {@code null} if it does not exist.
    * 
-   * @param id the identifier of the worker.
+   * @param id the identifier of the worker
    * 
-   * @return the worker with the given identifier or {@code null} if it does not exist.
+   * @return The worker with the given identifier or {@code null} if it does not exist.
    * 
-   * @throws WorkerNotFoundException if a worker with the given identifier does not exist.
+   * @throws WorkerNotFoundException If a worker with the given identifier does not exist.
+   * 
+   * @see Worker
    */
   Worker workerExists(String id) {
     return _workers.get(id);
@@ -858,14 +898,16 @@ public class Hotel implements Serializable {
    * Finds a worker with the given identifier and throws an exception if it does not exist.
    * 
    * <p>
-   * This method returns the {@link Worker} with the given identifier or throws an exception if it
-   * does not exist.
+   * This method returns the worker with the given identifier or throws an exception if it does not
+   * exist.
    * 
-   * @param id the identifier of the worker.
+   * @param id the identifier of the worker
    * 
-   * @return the worker with the given identifier.
+   * @return the worker with the given identifier
    * 
-   * @throws WorkerNotFoundException if a worker with the given identifier does not exist.
+   * @throws WorkerNotFoundException If a worker with the given identifier does not exist.
+   * 
+   * @see Worker
    */
   Worker workerExistsWithException(String id) throws WorkerNotFoundException {
     Worker worker = workerExists(id);
@@ -879,12 +921,13 @@ public class Hotel implements Serializable {
    * Finds a habitat with the given identifier.
    * 
    * <p>
-   * This method returns the {@link Habitat} with the given identifier or {@code null} if it does
-   * not exist.
+   * This method returns the habitat with the given identifier or {@code null} if it does not exist.
    * 
-   * @param id the identifier of the habitat.
+   * @param id the identifier of the habitat
    * 
-   * @return the habitat with the given identifier or {@code null} if it does not exist.
+   * @return The habitat with the given identifier or {@code null} if it does not exist.
+   * 
+   * @see Habitat
    */
   Habitat habitatExists(String id) {
     return _habitats.get(id);
@@ -894,14 +937,16 @@ public class Hotel implements Serializable {
    * Finds a habitat with the given identifier and throws an exception if it does not exist.
    * 
    * <p>
-   * This method returns the {@link Habitat} with the given identifier or throws an exception if it
-   * does not exist.
+   * This method returns the habitat with the given identifier or throws an exception if it does not
+   * exist.
    * 
-   * @param id the identifier of the habitat.
+   * @param id the identifier of the habitat
    * 
-   * @return the habitat with the given identifier.
+   * @return the habitat with the given identifier
    * 
-   * @throws HabitatNotFoundException if a habitat with the given identifier does not exist.
+   * @throws HabitatNotFoundException If a habitat with the given identifier does not exist.
+   * 
+   * @see Habitat
    */
   Habitat habitatExistsWithException(String id) throws HabitatNotFoundException {
     Habitat habitat = habitatExists(id);
@@ -915,12 +960,13 @@ public class Hotel implements Serializable {
    * Finds a tree with the given identifier.
    * 
    * <p>
-   * This method returns the {@link Tree} with the given identifier or {@code null} if it does not
-   * exist.
+   * This method returns the tree with the given identifier or {@code null} if it does not exist.
    * 
-   * @param id the identifier of the tree.
+   * @param id the identifier of the tree
    * 
-   * @return the tree with the given identifier or {@code null} if it does not exist.
+   * @return The tree with the given identifier or {@code null} if it does not exist.
+   * 
+   * @see Tree
    */
   Tree treeExists(String id) {
     return _trees.get(id);
@@ -930,14 +976,16 @@ public class Hotel implements Serializable {
    * Finds a tree with the given identifier and throws an exception if it does not exist.
    * 
    * <p>
-   * This method returns the {@link Tree} with the given identifier or throws an exception if it
-   * does not exist.
+   * This method returns the tree with the given identifier or throws an exception if it does not
+   * exist.
    * 
-   * @param id the identifier of the tree.
+   * @param id the identifier of the tree
    * 
-   * @return the tree with the given identifier.
+   * @return the tree with the given identifier
    * 
-   * @throws TreeNotFoundException if a tree with the given identifier does not exist.
+   * @throws TreeNotFoundException If a tree with the given identifier does not exist.
+   * 
+   * @see Tree
    */
   Tree treeExistsWithException(String id) throws TreeNotFoundException {
     Tree tree = treeExists(id);
@@ -951,12 +999,13 @@ public class Hotel implements Serializable {
    * Finds a vaccine with the given identifier.
    * 
    * <p>
-   * This method returns the {@link Vaccine} with the given identifier or {@code null} if it does
-   * not exist.
+   * This method returns the vaccine with the given identifier or {@code null} if it does not exist.
    * 
-   * @param id the identifier of the vaccine.
+   * @param id the identifier of the vaccine
    * 
-   * @return the vaccine with the given identifier or {@code null} if it does not exist.
+   * @return The vaccine with the given identifier or {@code null} if it does not exist.
+   * 
+   * @see Vaccine
    */
   Vaccine vaccineExists(String id) {
     return _vaccines.get(id);
@@ -966,14 +1015,16 @@ public class Hotel implements Serializable {
    * Finds a vaccine with the given identifier and throws an exception if it does not exist.
    * 
    * <p>
-   * This method returns the {@link Vaccine} with the given identifier or throws an exception if it
-   * does not exist.
+   * This method returns the vaccine with the given identifier or throws an exception if it does not
+   * exist.
    * 
-   * @param id the identifier of the vaccine.
+   * @param id the identifier of the vaccine
    * 
-   * @return the vaccine with the given identifier.
+   * @return the vaccine with the given identifier
    * 
    * @throws VaccineNotFoundException if a vaccine with the given identifier does not exist.
+   * 
+   * @see Vaccine
    */
   Vaccine vaccineExistsWithException(String id) throws VaccineNotFoundException {
     Vaccine vaccine = vaccineExists(id);
@@ -988,8 +1039,8 @@ public class Hotel implements Serializable {
    * 
    * @param filename name of the text input file
    * 
-   * @throws UnrecognizedEntryException if some entry is not correct
-   * @throws IOException if there is an IO erro while processing the text file
+   * @throws UnrecognizedEntryException If some entry is not correct.
+   * @throws IOException If there is an IO erro while processing the text file.
    **/
   void importFile(String filename) throws UnrecognizedEntryException, IOException {
     Parser parser = new Parser(this);
