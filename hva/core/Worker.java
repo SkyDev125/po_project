@@ -7,7 +7,7 @@ import hva.core.exception.HabitatNotFoundException;
 import hva.core.exception.SpeciesNotFoundException;
 
 /**
- * Class representing a worker in the zoo hotel.
+ * Abstract class representing a worker in the zoo hotel.
  * 
  * <p>
  * A worker is defined by its id, name and hotel. On top of that, he keeps record of its responsabilities, which are species to care for, 
@@ -39,6 +39,8 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
    * @param name the name of this worker
    * @param hotel the hotel of this worker
    * 
+   * @see Vet#Vet(String, String, Hotel)
+   * @see CareTaker#CareTaker(String, String, Hotel)
    * @see Hotel
    */
   Worker(String id, String name, Hotel hotel) {
@@ -161,12 +163,14 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
    * Default method of comparison between two workers.
    * 
    * <p>
-   * This method compares two {@link Worker}s by their identifier in a case-insensitive manner.
-   * returning a negative integer, zero, or a positive integer as this object is less than, equal
-   * to, or greater than the specified object.
+   * This method compares two workers by their identifier in a case-insensitive manner. Returns a 
+   * negative integer, zero, or a positive integer as this object is less than, equal to, or greater
+   * than the specified object.
    * 
-   * @param worker the worker to be compared.
-   * @return an integer value representing the comparison between the two workers.
+   * @param worker The worker to be compared.
+   * 
+   * @return An integer value representing the comparison between the two workers.
+   * 
    * @see String#compareToIgnoreCase(String)
    * @see Comparable#compareTo(Object)
    */

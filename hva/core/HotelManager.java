@@ -44,6 +44,8 @@ public class HotelManager {
    * Returns the zoo hotel managed by this instance.
    *
    * @return the current zoo hotel
+   * 
+   * @see Hotel
    **/
   public final Hotel getHotel() {
     return _hotel;
@@ -66,6 +68,9 @@ public class HotelManager {
    * Progress the season of the hotel.
    * 
    * @return the season type that was progressed to
+   * 
+   * @see Hotel
+   * @see SeasonType
    */
   public SeasonType progressSeason() {
     return _hotel.progressSeason();
@@ -74,7 +79,9 @@ public class HotelManager {
   /**
    * Returns the satisfaction of the hotel.
    * 
-   * @return
+   * @return the satisfaction of the hotel
+   * 
+   * @see Hotel
    */
   public float satisfaction() {
     return _hotel.satisfaction();
@@ -85,6 +92,8 @@ public class HotelManager {
    * Creates a new hotel.
    *
    * @throws IOException if there is some error while serializing the state of the network to disk.
+   * 
+   * @see Hotel
    **/
   public void create() throws IOException {
     _hotel = new Hotel();
