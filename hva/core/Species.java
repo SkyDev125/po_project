@@ -9,8 +9,8 @@ import java.util.Map;
  * Class representing an species of animals in the zoo hotel.
  * 
  * <p>
- * A species is defined by its id, name, and keeps record of its {@link Animal}s and 
- * {@link Vet}s. The species can return its {@link #animalCount()} and {@link #vetCount()}.
+ * A species is defined by its id, name, and keeps record of its {@link Animal}s and {@link Vet}s.
+ * The species can return its {@link #animalCount()} and {@link #vetCount()}.
  */
 public class Species implements Serializable, Comparable<Species> {
 
@@ -87,10 +87,5 @@ public class Species implements Serializable, Comparable<Species> {
   @Override
   public int compareTo(Species species) {
     return _id.compareToIgnoreCase(species.id()) + _name.compareToIgnoreCase(species.name());
-  }
-
-  @Override
-  public int hashCode() {
-    return _id.hashCode();
   }
 }

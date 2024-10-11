@@ -80,8 +80,8 @@ public class CareTaker extends Worker {
     String responsibilities = "";
 
     if (!_responsibilities.isEmpty()) {
-      responsibilities =
-          "|" + String.join(",", _responsibilities.values().stream().map(Habitat::id).toList());
+      responsibilities = "|" + String.join(",",
+          _responsibilities.values().stream().map(Habitat::id).sorted().toList());
     }
 
     return String.format("TRT|%s|%s%s", id(), name(), responsibilities.toString());

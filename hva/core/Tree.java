@@ -49,7 +49,7 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
    * 
    * @return the name of the tree
    */
-  String name() {
+  protected String name() {
     return _name;
   }
 
@@ -58,7 +58,7 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
    * 
    * @return the age of the tree
    */
-  int age() {
+  protected int age() {
     return _age;
   }
 
@@ -67,7 +67,7 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
    * 
    * @return the cleaning difficulty of the tree
    */
-  int cleaningDifficulty() {
+  protected int cleaningDifficulty() {
     return _cleaningDifficulty;
   }
 
@@ -76,7 +76,7 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
    * 
    * @return the hotel of the tree
    */
-  Hotel hotel() {
+  protected Hotel hotel() {
     return _hotel;
   }
 

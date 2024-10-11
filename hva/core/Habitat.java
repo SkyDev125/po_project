@@ -40,7 +40,7 @@ public class Habitat implements Serializable, Comparable<Habitat> {
    * <------------------------ Gets ------------------------>
    */
 
-  String id() {
+  public String id() {
     return _id;
   }
 

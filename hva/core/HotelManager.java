@@ -120,6 +120,8 @@ public class HotelManager {
       throw new MissingFileAssociationException();
     }
 
+    _originalSerializedHotel = serializeHotel(_hotel);
+    _filePath = filePath;
     try (FileOutputStream fileOut = new FileOutputStream(filePath);
         ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
       out.writeObject(_hotel);

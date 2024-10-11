@@ -47,7 +47,7 @@ public class Animal implements Serializable, Comparable<Animal> {
    * Retrieves the identifier of the animal.
    * 
    * <p>
-   * The identifier of the animal is an unique String by which the animal is identified.
+   * The identifier of the animal is a unique String by which the animal is identified.
    *
    * @return the identifier of the animal.
    */

@@ -37,8 +37,9 @@ class DoOpenFile extends Command<HotelManager> {
 
       // Retry with a new file path
       try {
-        _receiver.saveAs(Form.requestString(Prompt.saveBeforeExit()));
-      } catch (MissingFileAssociationException | IOException e1) {
+        _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
+        _receiver.load(stringField("filePath"));
+      } catch (MissingFileAssociationException | IOException | UnavailableFileException e1) {
         throw new FileOpenFailedException(e1);
       }
 
