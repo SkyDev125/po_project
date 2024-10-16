@@ -50,9 +50,9 @@ public class Vet extends Worker {
    * @see Worker#Worker(String, String, Hotel)
    * @see Hotel
    */
-  Vet(String id, String name, Hotel hotel, VetSatisfactionFormula satisfactionFormula) {
+  Vet(String id, String name, Hotel hotel) {
     super(id, name, hotel);
-    _vetSatisfactionFormula = satisfactionFormula;
+    _vetSatisfactionFormula = new VetSatisfactionDefaultFormula();
   }
 
   /*

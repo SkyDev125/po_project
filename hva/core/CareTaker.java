@@ -41,9 +41,9 @@ public class CareTaker extends Worker {
    * @see Worker#Worker(String, String, Hotel)
    * @see Hotel
    */
-  CareTaker(String id, String name, Hotel hotel, CareTakerSatisfactionFormula satisfactionFormula) {
+  CareTaker(String id, String name, Hotel hotel) {
     super(id, name, hotel);
-    _careTakerSatisfactionFormula = satisfactionFormula;
+    _careTakerSatisfactionFormula = new CareTakerSatisfactionDefaultFormula();
   }
 
   /*
