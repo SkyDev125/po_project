@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 import hva.core.enumerator.VaccineDamage;
@@ -31,6 +32,7 @@ public class Vet extends Worker {
   @Serial
   private static final long serialVersionUID = 1L;
 
+  private VetSatisfactionFormula _vetSatisfactionFormula;
   private final Map<String, Species> _responsibilities = new CaseInsensitiveHashMap<Species>();
   private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
@@ -48,8 +50,9 @@ public class Vet extends Worker {
    * @see Worker#Worker(String, String, Hotel)
    * @see Hotel
    */
-  Vet(String id, String name, Hotel hotel) {
+  Vet(String id, String name, Hotel hotel, VetSatisfactionFormula satisfactionFormula) {
     super(id, name, hotel);
+    _vetSatisfactionFormula = satisfactionFormula;
   }
 
   /*
@@ -70,6 +73,22 @@ public class Vet extends Worker {
    */
   List<VaccineRegistry> vaccineRegistry() {
     return Collections.unmodifiableList(_vaccineRegistry);
+  }
+
+    /**
+   * Retrieves all the species this vet has as a responsibity.
+   * 
+   * <p>
+   * This method provides a way to access the collection of species without allowing  modifications
+   * to the underlying collection. The returned collection is a read-only view, and any attempts to
+   * modify it will result in an {@code UnsupportedOperationException}.
+   * 
+   * @return An unmodifiable collecion of the species this vet has as a responsibility.
+   * 
+   * @see Species
+   */
+  Collection<Species> responsibilities() {
+    return Collections.unmodifiableCollection(_responsibilities.values());
   }
 
   /*
@@ -126,28 +145,14 @@ public class Vet extends Worker {
    */
 
   /**
-   * Calculates the satisfaction of this vet.
-   * 
-   * <p>
-   * This method calculates the satisfaction of this vet based on the species he is responsible for.
-   * It follows the formula:
-   * <p>
-   * satisfaction = 20 - SUMbySpecies(population/numberOfVets)
+   * Calculates the satisfaction of this vet using its formula.
    * 
    * @return the satisfaction of this vet
    * 
    * @see Worker#satisfaction()
    */
   float satisfaction() {
-    int satisfactionPerSpecies = 0;
-
-    for (HashMap.Entry<String, Species> entry : _responsibilities.entrySet()) {
-      Species currentSpecies = entry.getValue();
-
-      satisfactionPerSpecies += (currentSpecies.animalCount() / currentSpecies.vetCount());
-    }
-
-    return (20 - satisfactionPerSpecies);
+    return _vetSatisfactionFormula.satisfaction(this);
   }
 
   /**

@@ -250,7 +250,7 @@ public class Hotel implements Serializable {
    * 
    * @see Worker
    */
-  public Worker addWorker(String idWorker, String name, String type)
+  public Worker addWorker(String idWorker, String name, String type, String formula)
       throws DuplicateWorkerException, UnrecognizedWorkerTypeException {
 
     // Exception Checks
@@ -262,10 +262,22 @@ public class Hotel implements Serializable {
     Worker worker;
     switch (type) {
       case "VET":
-        worker = new Vet(idWorker, name, this);
+        // Create vet satisfaction formula
+        VetSatisfactionFormula vetSatisfactionFormula;
+        switch (formula) {
+          default:
+            vetSatisfactionFormula = new VetSatisfactionDefaultFormula();
+        }
+        worker = new Vet(idWorker, name, this, vetSatisfactionFormula);
         break;
       case "TRT":
-        worker = new CareTaker(idWorker, name, this);
+        // Create caretaker satisfaction formula
+        CareTakerSatisfactionFormula careTakerSatisfactionFormula;
+        switch (formula) {
+          default:
+            careTakerSatisfactionFormula = new CareTakerSatisfactionDefaultFormula();
+        }
+        worker = new CareTaker(idWorker, name, this, careTakerSatisfactionFormula);
         break;
       default:
         throw new UnrecognizedWorkerTypeException(type);

@@ -103,7 +103,7 @@ public class Parser {
       String id = components[1];
       String name = components[2];
 
-      _hotel.addWorker(id, name, empType);
+      _hotel.addWorker(id, name, empType, "default");
 
       if (components.length == 4) {
         for (String responsibility : components[3].split(","))

@@ -26,7 +26,7 @@ class DoRegisterEmployee extends Command<Hotel> {
   protected void execute() throws CommandException {
     try {
       _receiver.addWorker(stringField("workerKey"), stringField("workerName"),
-          optionField("workerType"));
+          optionField("workerType"), "default");
     } catch (DuplicateWorkerException e) {
       throw new DuplicateEmployeeKeyException(e.id());
     } catch (UnrecognizedWorkerTypeException e) {
