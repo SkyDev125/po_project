@@ -20,7 +20,6 @@ import pt.tecnico.uilib.menus.CommandException;
 class DoOpenFile extends Command<HotelManager> {
   DoOpenFile(HotelManager receiver) {
     super(Label.OPEN_FILE, receiver);
-    addStringField("filePath", Prompt.openFile());
   }
 
   @Override
@@ -31,14 +30,14 @@ class DoOpenFile extends Command<HotelManager> {
       if (_receiver.hotelModified() && Form.confirm(Prompt.saveBeforeExit())) {
         _receiver.save();
       }
-      _receiver.load(stringField("filePath"));
+      _receiver.load(Form.requestString(Prompt.openFile()));
 
     } catch (MissingFileAssociationException e) {
 
       // Retry with a new file path
       try {
         _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
-        _receiver.load(stringField("filePath"));
+        _receiver.load(Form.requestString(Prompt.openFile()));
       } catch (MissingFileAssociationException | IOException | UnavailableFileException e1) {
         throw new FileOpenFailedException(e1);
       }
