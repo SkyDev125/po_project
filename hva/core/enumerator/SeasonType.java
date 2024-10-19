@@ -1,28 +1,44 @@
 package hva.core.enumerator;
 
 public enum SeasonType {
-  SPRING(0), SUMMER(1), FALL(2), WINTER(3);
+  SPRING(0) {
+    @Override
+    public SeasonType next() {
+      return SUMMER;
+    }
+  },
+  SUMMER(1) {
+    @Override
+    public SeasonType next() {
+      return FALL;
+    }
+  },
+  FALL(2) {
+    @Override
+    public SeasonType next() {
+      return WINTER;
+    }
+  },
+  WINTER(3) {
+    @Override
+    public SeasonType next() {
+      return SPRING;
+    }
+  };
 
-  private final int value;
+  private final int _value;
 
   SeasonType(int value) {
-    this.value = value;
+    _value = value;
   }
 
   public int getValue() {
-    return value;
+    return _value;
   }
 
-  public SeasonType next() {
-    return switch (this) {
-      case SPRING -> SUMMER;
-      case SUMMER -> FALL;
-      case FALL -> WINTER;
-      case WINTER -> SPRING;
-    };
-  }
+  public abstract SeasonType next();
 
-
+  @Override
   public String toString() {
     return Integer.toString(getValue());
   }
