@@ -330,13 +330,13 @@ public class Hotel implements Serializable {
    * @see Worker
    */
   public Tree addTreeToHabitat(String idHabitat, String idTree, String name, int age, int cleanDiff,
-      String Type)
+      String type)
       throws HabitatNotFoundException, UnrecognizedTreeTypeException, DuplicateTreeException {
 
     // Exception Checks
     Habitat habitat = habitatExistsWithException(idHabitat);
 
-    Tree tree = addTree(idTree, name, age, cleanDiff, Type);
+    Tree tree = addTree(idTree, name, age, cleanDiff, type);
     habitat.addTree(tree);
     return tree;
   }
@@ -362,7 +362,7 @@ public class Hotel implements Serializable {
    * @see Deciduos
    * @see Evergreen
    */
-  public Tree addTree(String idTree, String name, int age, int cleanDiff, String Type)
+  public Tree addTree(String idTree, String name, int age, int cleanDiff, String type)
       throws DuplicateTreeException, UnrecognizedTreeTypeException {
 
     // Exception Checks
@@ -371,7 +371,7 @@ public class Hotel implements Serializable {
     }
 
     Tree tree;
-    switch (Type) {
+    switch (type) {
       case "PERENE":
         tree = new Deciduos(idTree, name, age, cleanDiff, this);
         break;
@@ -379,7 +379,7 @@ public class Hotel implements Serializable {
         tree = new Evergreen(idTree, name, age, cleanDiff, this);
         break;
       default:
-        throw new UnrecognizedTreeTypeException(Type);
+        throw new UnrecognizedTreeTypeException(type);
     }
 
     _trees.put(idTree, tree);

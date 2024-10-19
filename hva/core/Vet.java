@@ -141,10 +141,8 @@ public class Vet extends Worker {
   float satisfaction() {
     int satisfactionPerSpecies = 0;
 
-    for (HashMap.Entry<String, Species> entry : _responsibilities.entrySet()) {
-      Species currentSpecies = entry.getValue();
-
-      satisfactionPerSpecies += (currentSpecies.animalCount() / currentSpecies.vetCount());
+    for (Species species : _responsibilities.values()) {
+      satisfactionPerSpecies += (species.animalCount() / species.vetCount());
     }
 
     return (20 - satisfactionPerSpecies);
@@ -285,6 +283,6 @@ public class Vet extends Worker {
           _responsibilities.values().stream().map(Species::id).sorted().toList());
     }
 
-    return String.format("VET|%s|%s%s", super.id(), super.name(), responsibilities.toString());
+    return String.format("VET|%s|%s%s", id(), name(), responsibilities.toString());
   }
 }
