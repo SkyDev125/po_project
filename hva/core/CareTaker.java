@@ -1,7 +1,8 @@
 package hva.core;
 
 import java.io.Serial;
-
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 import hva.core.exception.HabitatNotFoundException;
@@ -23,6 +24,7 @@ public class CareTaker extends Worker {
   @Serial
   private static final long serialVersionUID = 1L;
 
+  private CareTakerSatisfactionFormula _careTakerSatisfactionFormula;
   private final Map<String, Habitat> _responsibilities = new CaseInsensitiveHashMap<Habitat>();
 
   /*
@@ -41,6 +43,27 @@ public class CareTaker extends Worker {
    */
   CareTaker(String id, String name, Hotel hotel) {
     super(id, name, hotel);
+    _careTakerSatisfactionFormula = new CareTakerSatisfactionDefaultFormula();
+  }
+
+  /*
+   * <------------------------ Gets ------------------------>
+   */
+
+  /**
+   * Retrieves all the habitats this caretaker has as a responsibity.
+   * 
+   * <p>
+   * This method provides a way to access the collection of habitats without allowing  modifications
+   * to the underlying collection. The returned collection is a read-only view, and any attempts to
+   * modify it will result in an {@code UnsupportedOperationException}.
+   * 
+   * @return An unmodifiable collecion of the habitats this caretaker has as a responsibility.
+   * 
+   * @see Habitat
+   */
+  Collection<Habitat> responsibilities() {
+    return Collections.unmodifiableCollection(_responsibilities.values());
   }
 
   /*
@@ -82,37 +105,15 @@ public class CareTaker extends Worker {
    */
 
   /**
-   * Calculates the satisfaction of this caretaker.
-   * 
-   * <p>
-   * This method calculates the satisfaction of this caretaker based on the habitats he is
-   * responsible for. It follows the formula:
-   * <p>
-   * satisfaction = 300 - SUMbyHabitat(workInHabitat/numberOfCareTakers)
-   * <p>
-   * workInHabitat = area + 3*population + SUMbyTree(cleaningEffort)
+   * Calculates the satisfaction of this caretaker using its formula.
    * 
    * @return the satisfaction of this caretaker
    * 
    * @see Worker#satisfaction()
+   * @see CareTakerSatisfactionFormula
    */
   float satisfaction() {
-    int satisfactionPerHabitat = 0;
-    int workInHabitat;
-
-    for (Map.Entry<String, Habitat> entry : _responsibilities.entrySet()) {
-      Habitat currentHabitat = entry.getValue();
-
-      workInHabitat = currentHabitat.area() + 3 * currentHabitat.animals().size();
-
-      for (Tree currentTree : currentHabitat.trees()) {
-        workInHabitat += currentTree.totalCleaningEffort();
-      }
-
-      satisfactionPerHabitat += (workInHabitat / currentHabitat.careTakers().size());
-    }
-
-    return (300 - satisfactionPerHabitat);
+    return _careTakerSatisfactionFormula.satisfaction(this);
   }
 
   /**
