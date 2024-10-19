@@ -1,6 +1,13 @@
 package hva.core;
 
-public class CareTakerSatisfactionDefaultFormula implements CareTakerSatisfactionFormula {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class CareTakerSatisfactionDefaultFormula
+    implements CareTakerSatisfactionFormula, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
 
   /**
    * Calculates the satisfaction of the caretaker using a formula.
