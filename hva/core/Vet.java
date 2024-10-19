@@ -75,11 +75,11 @@ public class Vet extends Worker {
     return Collections.unmodifiableList(_vaccineRegistry);
   }
 
-    /**
+  /**
    * Retrieves all the species this vet has as a responsibity.
    * 
    * <p>
-   * This method provides a way to access the collection of species without allowing  modifications
+   * This method provides a way to access the collection of species without allowing modifications
    * to the underlying collection. The returned collection is a read-only view, and any attempts to
    * modify it will result in an {@code UnsupportedOperationException}.
    * 

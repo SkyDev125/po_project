@@ -1,7 +1,7 @@
 package hva.core;
 
 public interface CareTakerSatisfactionFormula {
-  
+
   /**
    * Calculates the satisfaction of the caretaker using a formula.
    * 

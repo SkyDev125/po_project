@@ -1,7 +1,7 @@
 package hva.core;
 
 public interface VetSatisfactionFormula {
-  
+
   /**
    * Calculates the satisfaction of the vet using a formula.
    * 

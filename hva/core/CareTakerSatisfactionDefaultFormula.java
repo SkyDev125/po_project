@@ -1,7 +1,7 @@
 package hva.core;
 
 public class CareTakerSatisfactionDefaultFormula implements CareTakerSatisfactionFormula {
-    
+
   /**
    * Calculates the satisfaction of the caretaker using a formula.
    * 
@@ -19,7 +19,7 @@ public class CareTakerSatisfactionDefaultFormula implements CareTakerSatisfactio
    * @see CareTakerFormula
    */
   public int satisfaction(CareTaker careTaker) {
-    
+
     int satisfactionPerHabitat = 0;
     int workInHabitat;
 

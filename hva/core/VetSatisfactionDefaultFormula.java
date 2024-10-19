@@ -1,7 +1,7 @@
 package hva.core;
 
-public class VetSatisfactionDefaultFormula implements VetSatisfactionFormula {   
-  
+public class VetSatisfactionDefaultFormula implements VetSatisfactionFormula {
+
   /**
    * Calculates the satisfaction of the vet using a formula.
    * 
@@ -17,7 +17,7 @@ public class VetSatisfactionDefaultFormula implements VetSatisfactionFormula {
    * @see VetSatisfactionFormula
    */
   public int satisfaction(Vet vet) {
-   int satisfactionPerSpecies = 0;
+    int satisfactionPerSpecies = 0;
 
     for (Species currentSpecies : vet.responsibilities()) {
       satisfactionPerSpecies += (currentSpecies.animalCount() / currentSpecies.vetCount());

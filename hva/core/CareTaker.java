@@ -54,7 +54,7 @@ public class CareTaker extends Worker {
    * Retrieves all the habitats this caretaker has as a responsibity.
    * 
    * <p>
-   * This method provides a way to access the collection of habitats without allowing  modifications
+   * This method provides a way to access the collection of habitats without allowing modifications
    * to the underlying collection. The returned collection is a read-only view, and any attempts to
    * modify it will result in an {@code UnsupportedOperationException}.
    * 
