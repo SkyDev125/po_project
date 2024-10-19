@@ -9,7 +9,7 @@ public enum Influence {
     _value = value;
   }
 
-  public int getValue() {
+  public int value() {
     return _value;
   }
 }

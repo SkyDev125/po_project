@@ -32,7 +32,7 @@ public enum SeasonType {
     _value = value;
   }
 
-  public int getValue() {
+  public int value() {
     return _value;
   }
 
@@ -40,6 +40,6 @@ public enum SeasonType {
 
   @Override
   public String toString() {
-    return Integer.toString(getValue());
+    return Integer.toString(value());
   }
 }

@@ -373,10 +373,10 @@ public class Hotel implements Serializable {
     Tree tree;
     switch (type) {
       case "PERENE":
-        tree = new Deciduos(idTree, name, age, cleanDiff, this);
+        tree = new Evergreen(idTree, name, age, cleanDiff, this);
         break;
       case "CADUCA":
-        tree = new Evergreen(idTree, name, age, cleanDiff, this);
+        tree = new Deciduos(idTree, name, age, cleanDiff, this);
         break;
       default:
         throw new UnrecognizedTreeTypeException(type);
