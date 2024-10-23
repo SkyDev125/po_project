@@ -84,7 +84,7 @@ public class Deciduos extends Tree {
    */
   @Override
   public String toString() {
-    return String.format("ARVORE|%s|%s|%d|%d|CADUCA|%s", id(), name(), age(), cleaningDifficulty(),
+    return String.format("ÁRVORE|%s|%s|%d|%d|CADUCA|%s", id(), name(), age(), cleaningDifficulty(),
         leafState());
   }
 }

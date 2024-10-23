@@ -84,7 +84,7 @@ public class Evergreen extends Tree {
    */
   @Override
   public String toString() {
-    return String.format("ARVORE|%s|%s|%d|%d|PERENE|%s", id(), name(), age(), cleaningDifficulty(),
+    return String.format("ÁRVORE|%s|%s|%d|%d|PERENE|%s", id(), name(), age(), cleaningDifficulty(),
         leafState());
   }
 }

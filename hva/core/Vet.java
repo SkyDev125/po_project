@@ -75,11 +75,11 @@ public class Vet extends Worker {
     return Collections.unmodifiableList(_vaccineRegistry);
   }
 
-    /**
+  /**
    * Retrieves all the species this vet has as a responsibity.
    * 
    * <p>
-   * This method provides a way to access the collection of species without allowing  modifications
+   * This method provides a way to access the collection of species without allowing modifications
    * to the underlying collection. The returned collection is a read-only view, and any attempts to
    * modify it will result in an {@code UnsupportedOperationException}.
    * 
@@ -290,6 +290,6 @@ public class Vet extends Worker {
           _responsibilities.values().stream().map(Species::id).sorted().toList());
     }
 
-    return String.format("VET|%s|%s%s", super.id(), super.name(), responsibilities.toString());
+    return String.format("VET|%s|%s%s", id(), name(), responsibilities.toString());
   }
 }

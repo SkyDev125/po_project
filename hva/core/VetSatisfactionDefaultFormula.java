@@ -1,7 +1,13 @@
 package hva.core;
 
-public class VetSatisfactionDefaultFormula implements VetSatisfactionFormula {   
-  
+import java.io.Serial;
+import java.io.Serializable;
+
+public class VetSatisfactionDefaultFormula implements VetSatisfactionFormula, Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 1L;
+
   /**
    * Calculates the satisfaction of the vet using a formula.
    * 
@@ -17,7 +23,7 @@ public class VetSatisfactionDefaultFormula implements VetSatisfactionFormula {
    * @see VetSatisfactionFormula
    */
   public int satisfaction(Vet vet) {
-   int satisfactionPerSpecies = 0;
+    int satisfactionPerSpecies = 0;
 
     for (Species currentSpecies : vet.responsibilities()) {
       satisfactionPerSpecies += (currentSpecies.animalCount() / currentSpecies.vetCount());
