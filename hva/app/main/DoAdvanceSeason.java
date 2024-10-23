@@ -14,7 +14,7 @@ class DoAdvanceSeason extends Command<HotelManager> {
 
   @Override
   protected final void execute() {
-    _display.add(_receiver.progressSeason());
+    _display.add(_receiver.progressSeason().getSeasonType());
     _display.display();
   }
 }

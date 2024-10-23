@@ -1,7 +1,5 @@
 package hva.core;
 
-import hva.core.enumerator.SeasonType;
-
 import hva.core.exception.ImportFileException;
 import hva.core.exception.MissingFileAssociationException;
 import hva.core.exception.UnavailableFileException;
@@ -67,12 +65,12 @@ public class HotelManager {
   /**
    * Progress the season of the hotel.
    * 
-   * @return the season type that was progressed to
+   * @return the season state that was progressed to
    * 
    * @see Hotel
-   * @see SeasonType
+   * @see SeasonState
    */
-  public SeasonType progressSeason() {
+  public SeasonState progressSeason() {
     return _hotel.progressSeason();
   }
 
