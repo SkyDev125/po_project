@@ -10,5 +10,5 @@ public interface CareTakerSatisfactionFormula {
    * @see CareTaker#satisfaction()
    * @see CareTakerSatisfactionDefaultFormula
    */
-  public int satisfaction(CareTaker careTaker);
+  public float satisfaction(CareTaker careTaker);
 }

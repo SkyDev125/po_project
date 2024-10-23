@@ -10,5 +10,5 @@ public interface VetSatisfactionFormula {
    * @see Vet#satisfaction()
    * @see VetSatisfactionDefaultFormula
    */
-  public int satisfaction(Vet vet);
+  public float satisfaction(Vet vet);
 }

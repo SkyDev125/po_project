@@ -32,7 +32,7 @@ public class Vet extends Worker {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private VetSatisfactionFormula _vetSatisfactionFormula;
+  private VetSatisfactionFormula _vetSatisfactionFormula = new VetSatisfactionDefaultFormula();
   private final Map<String, Species> _responsibilities = new CaseInsensitiveHashMap<Species>();
   private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
@@ -52,7 +52,6 @@ public class Vet extends Worker {
    */
   Vet(String id, String name, Hotel hotel) {
     super(id, name, hotel);
-    _vetSatisfactionFormula = new VetSatisfactionDefaultFormula();
   }
 
   /*
@@ -106,9 +105,9 @@ public class Vet extends Worker {
    * @see Species
    */
   void addResponsibility(String id) throws SpeciesNotFoundException {
-    // No need to check if it's already there, as the species object is always the
-    // same.
-    _responsibilities.put(id, hotel().speciesExistsWithException(id));
+    Species species = hotel().speciesExistsWithException(id);
+    _responsibilities.put(id, species);
+    species.addVet(this);
   }
 
   /**
@@ -137,7 +136,7 @@ public class Vet extends Worker {
    */
   private void addVaccineRegistry(VaccineRegistry vaccineRegistry) {
     _vaccineRegistry.add(vaccineRegistry);
-    vaccineRegistry.animal().addVaccineRegistration(vaccineRegistry);
+    vaccineRegistry.animal().addVaccineRegistry(vaccineRegistry);
   }
 
   /*

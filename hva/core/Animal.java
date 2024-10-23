@@ -121,7 +121,7 @@ public class Animal implements Serializable, Comparable<Animal> {
    * @see Vet#vaccinate(Animal, Vaccine)
    * @see VaccineRegistry
    */
-  void addVaccineRegistration(VaccineRegistry vaccineReg) {
+  void addVaccineRegistry(VaccineRegistry vaccineReg) {
     _vaccineRegistry.add(vaccineReg);
   }
 
@@ -159,7 +159,7 @@ public class Animal implements Serializable, Comparable<Animal> {
     int sameSpecies = _habitat.sameSpeciesCount(_species);
     int population = _habitat.animals().size();
 
-    return (20 + (3 * sameSpecies) - (2 * (population - sameSpecies))
+    return (20 + (3 * (sameSpecies - 1)) - (2 * (population - sameSpecies))
         + (_habitat.area() / population) + _habitat.suitability(_species).value());
   }
 

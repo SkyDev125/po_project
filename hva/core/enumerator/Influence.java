@@ -12,4 +12,9 @@ public enum Influence {
   public int value() {
     return _value;
   }
+
+  @Override
+  public String toString() {
+    return Integer.toString(value());
+  }
 }

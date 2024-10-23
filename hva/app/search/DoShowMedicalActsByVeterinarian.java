@@ -16,13 +16,13 @@ class DoShowMedicalActsByVeterinarian extends Command<Hotel> {
 
   DoShowMedicalActsByVeterinarian(Hotel receiver) {
     super(Label.MEDICAL_ACTS_BY_VET, receiver);
-    addStringField("vetKey", hva.app.vaccine.Prompt.veterinarianKey());
+    addStringField("vetKey", hva.app.employee.Prompt.employeeKey());
   }
 
   @Override
   protected void execute() throws CommandException {
     try {
-      _receiver.vetVaccinations(stringField("vetKey"));
+      _display.addAll(_receiver.vetVaccinations(stringField("vetKey")));
     } catch (WorkerNotFoundException e) {
       throw new UnknownVeterinarianKeyException(e.id());
     }

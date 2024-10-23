@@ -25,9 +25,9 @@ public class CareTakerSatisfactionDefaultFormula
    * @see CareTaker#satisfaction()
    * @see CareTakerFormula
    */
-  public int satisfaction(CareTaker careTaker) {
+  public float satisfaction(CareTaker careTaker) {
 
-    int satisfactionPerHabitat = 0;
+    float satisfactionPerHabitat = 0;
     int workInHabitat;
 
     for (Habitat currentHabitat : careTaker.responsibilities()) {

@@ -2,7 +2,7 @@ package hva.app.vaccine;
 
 import hva.core.Hotel;
 import hva.core.VaccineRegistry;
-
+import hva.core.enumerator.VaccineDamage;
 import hva.core.exception.AnimalNotFoundException;
 import hva.core.exception.VaccineNotFoundException;
 import hva.core.exception.WorkerNotAuthorizedException;
@@ -36,14 +36,8 @@ class DoVaccinateAnimal extends Command<Hotel> {
       VaccineRegistry vaccineRegistry =
           _receiver.vaccinateAnimal(idAnimal, idVaccine, stringField("vetKey"));
 
-      switch (vaccineRegistry.vaccineDamage()) {
-        case ACCIDENT:
-        case CONFUSION:
-        case ERROR:
-          Message.wrongVaccine(idVaccine, idAnimal);
-          break;
-        default:
-          break;
+      if (vaccineRegistry.vaccineDamage() != VaccineDamage.NORMAL) {
+        _display.addLine(Message.wrongVaccine(idVaccine, idAnimal));
       }
     } catch (AnimalNotFoundException e) {
       throw new UnknownAnimalKeyException(e.id());

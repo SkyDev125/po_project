@@ -633,11 +633,6 @@ public class Hotel implements Serializable {
     Habitat habitat = habitatExistsWithException(idHabitat);
     Species species = speciesExistsWithException(idSpecies);
 
-    // Return early cause theres no need to save neutral influences
-    if (influence == Influence.NEU) {
-      return;
-    }
-
     habitat.changeSuitability(species, influence);
   }
 
@@ -698,6 +693,7 @@ public class Hotel implements Serializable {
 
     // Vaccinate Animal
     VaccineRegistry vaccineRegistry = ((Vet) worker).vaccinate(animal, vaccine);
+    vaccine.apply();
     _vaccineRegistry.add(vaccineRegistry);
     return vaccineRegistry;
   }

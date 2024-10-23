@@ -155,17 +155,17 @@ public class Species implements Serializable, Comparable<Species> {
 
   @Override
   public int hashCode() {
-    // if (_id == null) {
-    // return super.hashCode();
-    // }
+    if (_id == null) {
+    return super.hashCode();
+    }
     return _id.toLowerCase().hashCode();
   }
 
   @Override
   public boolean equals(Object obj) {
-    // if (_id == null) {
-    // super.equals(obj);
-    // }
+    if (_id == null) {
+    super.equals(obj);
+    }
     if (this == obj) {
       return true;
     }

@@ -24,7 +24,8 @@ public class CareTaker extends Worker {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private CareTakerSatisfactionFormula _careTakerSatisfactionFormula;
+  private CareTakerSatisfactionFormula _careTakerSatisfactionFormula =
+      new CareTakerSatisfactionDefaultFormula();
   private final Map<String, Habitat> _responsibilities = new CaseInsensitiveHashMap<Habitat>();
 
   /*
@@ -43,7 +44,6 @@ public class CareTaker extends Worker {
    */
   CareTaker(String id, String name, Hotel hotel) {
     super(id, name, hotel);
-    _careTakerSatisfactionFormula = new CareTakerSatisfactionDefaultFormula();
   }
 
   /*
@@ -81,7 +81,9 @@ public class CareTaker extends Worker {
    * @see Habitat
    */
   void addResponsibility(String id) throws HabitatNotFoundException {
-    _responsibilities.put(id, hotel().habitatExistsWithException(id));
+    Habitat habitat = hotel().habitatExistsWithException(id);
+    _responsibilities.put(id, habitat);
+    habitat.addCareTaker(this);
   }
 
   /**

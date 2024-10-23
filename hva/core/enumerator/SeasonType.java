@@ -9,8 +9,12 @@ public enum SeasonType {
     _value = value;
   }
 
+  public int value() {
+    return _value;
+  }
+
   @Override
   public String toString() {
-    return Integer.toString(_value);
+    return Integer.toString(value());
   }
 }

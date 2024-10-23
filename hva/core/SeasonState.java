@@ -3,7 +3,9 @@ package hva.core;
 import hva.core.enumerator.LeafState;
 import hva.core.enumerator.SeasonType;
 
-public interface SeasonState {
+import java.io.Serializable;
+
+public interface SeasonState extends Serializable {
 
   /*
    * <------------------------ State Related Functions ------------------------>

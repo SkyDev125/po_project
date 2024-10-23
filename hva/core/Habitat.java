@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import hva.core.enumerator.Influence;
-
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -109,11 +108,7 @@ public class Habitat implements Serializable, Comparable<Habitat> {
    * @see Animal
    */
   Collection<Animal> animals() {
-    Collection<Animal> animals = new ArrayList<Animal>();
-    for (List<Animal> speciesAnimals : _animals.values()) {
-      animals.addAll(speciesAnimals);
-    }
-    return Collections.unmodifiableCollection(animals);
+    return _animals.values().stream().flatMap(List::stream).toList();
   }
 
   /**
@@ -177,7 +172,11 @@ public class Habitat implements Serializable, Comparable<Habitat> {
    * @see Species
    */
   void changeSuitability(Species species, Influence influence) {
-    _suitability.put(species, influence);
+    if (influence == Influence.NEU) {
+      _suitability.remove(species);
+    } else {
+      _suitability.put(species, influence);
+    }
   }
 
   /**
@@ -218,6 +217,30 @@ public class Habitat implements Serializable, Comparable<Habitat> {
    */
   void addTree(Tree tree) {
     _trees.put(tree.id(), tree);
+  }
+
+  /**
+   * Adds a caretaker to this habitat.
+   * 
+   * @param careTaker The caretaker to be added.
+   * 
+   * @see CareTaker#addResponsibility(String)
+   * @see CareTaker
+   */
+  void addCareTaker(CareTaker careTaker) {
+    _careTakers.put(careTaker.id(), careTaker);
+  }
+
+  /**
+   * Removes a caretaker from this habitat.
+   * 
+   * @param careTaker The caretaker to be removed.
+   * 
+   * @see CareTaker#removeResponsibility(String)
+   * @see CareTaker
+   */
+  void removeCareTaker(CareTaker careTaker) {
+    _careTakers.remove(careTaker.id());
   }
 
   /*
