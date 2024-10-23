@@ -39,6 +39,7 @@ class DoRegisterAnimal extends Command<Hotel> {
       } catch (DuplicateSpeciesException e1) {
         // This should never happen given the context
         // (cause we check if the species exists before adding it)
+        // TODO: change this check with teacher
         assert false : "This should never happen";
       }
       execute();

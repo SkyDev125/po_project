@@ -152,4 +152,27 @@ public class Species implements Serializable, Comparable<Species> {
   public int compareTo(Species species) {
     return _id.compareToIgnoreCase(species.id()) + _name.compareToIgnoreCase(species.name());
   }
+
+  @Override
+  public int hashCode() {
+    // if (_id == null) {
+    // return super.hashCode();
+    // }
+    return _id.toLowerCase().hashCode();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    // if (_id == null) {
+    // super.equals(obj);
+    // }
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+    Species species = (Species) obj;
+    return _id.equalsIgnoreCase(species.id());
+  }
 }
