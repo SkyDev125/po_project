@@ -1,6 +1,7 @@
 package hva.app.search;
 
 import hva.core.Hotel;
+import hva.core.enumerator.VaccineDamage;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -16,7 +17,8 @@ class DoShowWrongVaccinations extends Command<Hotel> {
 
   @Override
   protected void execute() throws CommandException {
-    _display.addAll(_receiver.filterWrongVaccinations());
+    _display.addAll(_receiver.vaccineRegistry().stream()
+        .filter(reg -> reg.vaccineDamage() != VaccineDamage.NORMAL).toList());
     _display.display();
   }
 }

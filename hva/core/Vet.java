@@ -250,16 +250,12 @@ public class Vet extends Worker {
     }
 
     // Convert damage to Enum
-    switch (damage) {
-      case 0:
-        return VaccineDamage.CONFUSION;
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-        return VaccineDamage.ACCIDENT;
-      default:
-        return VaccineDamage.ERROR;
+    if (damage == 0) {
+      return VaccineDamage.CONFUSION;
+    } else if (damage < 5) {
+      return VaccineDamage.ACCIDENT;
+    } else {
+      return VaccineDamage.ERROR;
     }
   }
 

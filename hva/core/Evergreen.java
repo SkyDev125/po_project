@@ -54,7 +54,7 @@ public class Evergreen extends Tree {
    * @see SeasonState
    */
   int seasonalEffort() {
-    return hotel().season().evergreenSeasonalEffort();
+    return hotel().season().seasonalEffort(this);
   }
 
   /**
@@ -66,7 +66,7 @@ public class Evergreen extends Tree {
    * @see SeasonState
    */
   LeafState leafState() {
-    return hotel().season().evergreenLeafState();
+    return hotel().season().leafState(this);
   }
 
   /**

@@ -54,7 +54,7 @@ public class Deciduos extends Tree {
    * @see SeasonState
    */
   int seasonalEffort() {
-    return hotel().season().deciduosSeasonalEffort();
+    return hotel().season().seasonalEffort(this);
   }
 
   /**
@@ -66,7 +66,7 @@ public class Deciduos extends Tree {
    * @see SeasonState
    */
   LeafState leafState() {
-    return hotel().season().deciduosLeafState();
+    return hotel().season().leafState(this);
   }
 
   /**

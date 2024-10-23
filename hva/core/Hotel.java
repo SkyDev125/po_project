@@ -1,7 +1,6 @@
 package hva.core;
 
 import hva.core.enumerator.Influence;
-import hva.core.enumerator.VaccineDamage;
 
 import hva.core.exception.AnimalNotFoundException;
 import hva.core.exception.DuplicateAnimalException;
@@ -766,29 +765,6 @@ public class Hotel implements Serializable {
       throw new WorkerNotFoundException(idVet);
     }
     return ((Vet) worker).vaccineRegistry();
-  }
-
-  /**
-   * Filters the wrong vaccinations.
-   * 
-   * <p>
-   * This method filters the vaccine registries of the hotel and returns an unmodifiable view of the
-   * collection of wrong vaccinations.
-   * 
-   * @return an unmodifiable view of the collection of wrong vaccinations
-   * 
-   * @see VaccineRegistry
-   */
-  public List<VaccineRegistry> filterWrongVaccinations() {
-    ArrayList<VaccineRegistry> wrongVaccinations = new ArrayList<VaccineRegistry>();
-
-    for (VaccineRegistry vaccineRegistry : _vaccineRegistry) {
-      if (vaccineRegistry.vaccineDamage() != VaccineDamage.NORMAL) {
-        wrongVaccinations.add(vaccineRegistry);
-      }
-    }
-
-    return Collections.unmodifiableList(wrongVaccinations);
   }
 
   /*

@@ -4,33 +4,53 @@ import hva.core.enumerator.LeafState;
 import hva.core.enumerator.SeasonType;
 
 public class SeasonSummer implements SeasonState {
+  /*
+   * <------------------------ State Related Functions ------------------------>
+   */
+
   @Override
   public SeasonState next() {
     return new SeasonFall();
   }
 
   @Override
-  public int deciduosSeasonalEffort() {
+  public SeasonType seasonType() {
+    return SeasonType.SUMMER;
+  }
+
+  /*
+   * <------------------------ Seasonal Effort ------------------------>
+   */
+
+  @Override
+  public int seasonalEffort(Deciduos tree) {
     return 2;
   }
 
   @Override
-  public LeafState deciduosLeafState() {
-    return LeafState.WITHLEAVES;
-  }
-
-  @Override
-  public int evergreenSeasonalEffort() {
+  public int seasonalEffort(Evergreen tree) {
     return 1;
   }
 
+  /*
+   * <------------------------ Leaf State ------------------------>
+   */
+
   @Override
-  public LeafState evergreenLeafState() {
+  public LeafState leafState(Deciduos tree) {
     return LeafState.WITHLEAVES;
   }
 
   @Override
-  public SeasonType getSeasonType() {
-    return SeasonType.SUMMER;
+  public LeafState leafState(Evergreen tree) {
+    return LeafState.WITHLEAVES;
+  }
+
+  /*
+   * <------------------------ Other ------------------------>
+   */
+  @Override
+  public String toString() {
+    return seasonType().toString();
   }
 }

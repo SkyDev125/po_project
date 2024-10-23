@@ -37,10 +37,8 @@ class DoRegisterAnimal extends Command<Hotel> {
       try {
         _receiver.addSpecies(stringField("speciesKey"), Form.requestString(Prompt.speciesName()));
       } catch (DuplicateSpeciesException e1) {
-        // This should never happen given the context
-        // (cause we check if the species exists before adding it)
-        // TODO: change this check with teacher
-        assert false : "This should never happen";
+        // This shouldnt happen unless the species name is duplicate
+        throw new RuntimeException("Duplicate species name.");
       }
       execute();
     } catch (DuplicateAnimalException e) {

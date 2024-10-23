@@ -27,23 +27,14 @@ class DoChangeHabitatInfluence extends Command<Hotel> {
 
   @Override
   protected void execute() throws CommandException {
-    Influence influence = null;
-
     // Convert to Enum
-    switch (optionField("influence")) {
-      case "POS":
-        influence = Influence.POS;
-        break;
-      case "NEG":
-        influence = Influence.NEG;
-        break;
-      case "NEU":
-        influence = Influence.NEU;
-        break;
-      default:
-        // This should never happen unless the optionField method is badly configured.
-        throw new RuntimeException("Invalid influence: " + optionField("influence"));
-    }
+    Influence influence = switch (optionField("influence")) {
+      case "POS" -> Influence.POS;
+      case "NEG" -> Influence.NEG;
+      case "NEU" -> Influence.NEU;
+      // This should never happen unless the optionField method is badly configured.
+      default -> throw new RuntimeException("Invalid influence: " + optionField("influence"));
+    };
 
     try {
       _receiver.changeHabitatSuitability(stringField("habitatKey"), stringField("speciesKey"),

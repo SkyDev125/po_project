@@ -24,7 +24,7 @@ class DoShowAllHabitats extends Command<Hotel> {
         _display.addAll(_receiver.habitatTrees(habitat.id()).stream().sorted().toList());
       } catch (HabitatNotFoundException e) {
         // Should never happen
-        e.printStackTrace();
+        throw new RuntimeException(e.getMessage());
       }
     }
     _display.display();

@@ -54,7 +54,7 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
     _age = age;
     _cleaningDifficulty = cleaningDifficulty;
     _hotel = hotel;
-    _birthSeason = _hotel.season().getSeasonType();
+    _birthSeason = _hotel.season().seasonType();
   }
 
   /*
@@ -135,7 +135,7 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
    * @see SeasonType
    */
   void grow() {
-    if (_birthSeason == _hotel.season().getSeasonType()) {
+    if (_birthSeason == _hotel.season().seasonType()) {
       _age++;
     }
   }
