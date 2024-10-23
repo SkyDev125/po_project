@@ -3,7 +3,6 @@ package hva.core;
 import java.io.Serial;
 
 import hva.core.enumerator.LeafState;
-import hva.core.enumerator.SeasonType;
 
 /**
  * Class representing an evergreen tree in the zoo hotel.
@@ -52,21 +51,10 @@ public class Evergreen extends Tree {
    * @return the seasonal effort of this evergreen
    * 
    * @see Tree#seasonalEffort()
-   * @see SeasonType
+   * @see SeasonState
    */
   int seasonalEffort() {
-    SeasonType currentSeason = hotel().season();
-
-    switch (currentSeason) {
-      case SPRING:
-        return 1;
-      case SUMMER:
-        return 1;
-      case FALL:
-        return 1;
-      default:
-        return 2;
-    }
+    return hotel().season().evergreenSeasonalEffort();
   }
 
   /**
@@ -75,21 +63,10 @@ public class Evergreen extends Tree {
    * @return the leaf state of this evergreen
    * 
    * @see Tree#leafState()
-   * @see SeasonType
+   * @see SeasonState
    */
   LeafState leafState() {
-    SeasonType currentSeason = hotel().season();
-
-    switch (currentSeason) {
-      case SPRING:
-        return LeafState.GENERATELEAVES;
-      case SUMMER:
-        return LeafState.WITHLEAVES;
-      case FALL:
-        return LeafState.WITHLEAVES;
-      default:
-        return LeafState.WITHLEAVES;
-    }
+    return hotel().season().evergreenLeafState();
   }
 
   /**

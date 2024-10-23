@@ -1,7 +1,6 @@
 package hva.core;
 
 import hva.core.enumerator.Influence;
-import hva.core.enumerator.SeasonType;
 import hva.core.enumerator.VaccineDamage;
 
 import hva.core.exception.AnimalNotFoundException;
@@ -46,7 +45,7 @@ public class Hotel implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private SeasonType _season = SeasonType.SPRING;
+  private SeasonState _season = new SeasonSpring();
   private final Map<String, Species> _species = new CaseInsensitiveHashMap<Species>();
   private final Map<String, Vaccine> _vaccines = new CaseInsensitiveHashMap<Vaccine>();
   private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
@@ -148,15 +147,15 @@ public class Hotel implements Serializable {
    * Returns the current season of this hotel.
    * 
    * <p>
-   * The season of the hotel is a value of the SeasonType <code>enumeration</code> by which the
-   * state and age of the trees progresses.
+   * The season of the hotel is an instante of SeasonState by which the state and age of the trees
+   * progresses.
    * 
    * @return the current season of the hotel.
    * 
-   * @see SeasonType
+   * @see SeasonState
    * @see Tree
    */
-  public SeasonType season() {
+  public SeasonState season() {
     return _season;
   }
 
@@ -438,15 +437,15 @@ public class Hotel implements Serializable {
    * Progress the season of the hotel.
    * 
    * <p>
-   * This method progresses the season (SeasonType <code>enumeration</code>) of the hotel to the
-   * next one. It also triggers the trees in the hotel to grow if possible.
+   * This method progresses the season (an instance of SeasonState) of the hotel to the next one. It
+   * also triggers the trees in the hotel to grow if possible.
    * 
    * @return the new season of the hotel
    * 
-   * @see SeasonType
+   * @see SeasonState
    * @see Tree
    */
-  public SeasonType progressSeason() {
+  public SeasonState progressSeason() {
     _season = _season.next();
     for (Tree tree : _trees.values()) {
       tree.grow();

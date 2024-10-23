@@ -9,21 +9,7 @@ public enum SeasonType {
     this.value = value;
   }
 
-  public int getValue() {
-    return value;
-  }
-
-  public SeasonType next() {
-    return switch (this) {
-      case SPRING -> SUMMER;
-      case SUMMER -> FALL;
-      case FALL -> WINTER;
-      case WINTER -> SPRING;
-    };
-  }
-
-
   public String toString() {
-    return Integer.toString(getValue());
+    return Integer.toString(value);
   }
 }
