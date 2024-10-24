@@ -2,6 +2,9 @@ package hva.core;
 
 import java.util.HashMap;
 
+/**
+ * Our implementation of a HashMap that treats its keys as case insensitive.
+ */
 public class CaseInsensitiveHashMap<V> extends HashMap<String, V> {
 
   @Override

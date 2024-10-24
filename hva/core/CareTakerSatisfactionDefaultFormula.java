@@ -3,6 +3,14 @@ package hva.core;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Class representing a formula to calculate the {@link #satisfaction()} of a caretaker.
+ * 
+ * <p>
+ * A strategy of the strategy pattern design.
+ * 
+ * @see CareTakerSatisfactionFormula
+ */
 public class CareTakerSatisfactionDefaultFormula
     implements CareTakerSatisfactionFormula, Serializable {
 
