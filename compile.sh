@@ -6,7 +6,8 @@ find hva -name "*.java" -print | xargs javac -cp ./lib/po-uilib.jar:.
 # Check if the compilation was successful
 if [ $? -eq 0 ]; then
     # Run the Java application
-    java -cp ./lib/po-uilib.jar:. hva.app.App
+    # java -cp ./lib/po-uilib.jar:. hva.app.App
+    echo "Compilation successful."
 else
     echo "Compilation failed."
     exit 1

@@ -1,0 +1,1 @@
+java -jar checkstyle-10.18.2-all.jar -c google_checks.xml ../../hva -o report.out

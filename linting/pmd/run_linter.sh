@@ -1,0 +1,1 @@
+./pmd-bin-7.6.0/bin/pmd.sh check --progress -d ../../hva -R rulesets/java/quickstart.xml -r report.out -f text --cache=pmd_cache
