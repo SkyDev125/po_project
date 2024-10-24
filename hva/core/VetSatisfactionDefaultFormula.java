@@ -3,6 +3,14 @@ package hva.core;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Class representing a formula to calculate the {@link #satisfaction()} of a vet.
+ * 
+ * <p>
+ * A strategy of the strategy pattern design.
+ * 
+ * @see VetSatisfactionFormula
+ */
 public class VetSatisfactionDefaultFormula implements VetSatisfactionFormula, Serializable {
 
   @Serial

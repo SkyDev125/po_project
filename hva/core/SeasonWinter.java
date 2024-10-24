@@ -3,6 +3,16 @@ package hva.core;
 import hva.core.enumerator.LeafState;
 import hva.core.enumerator.SeasonType;
 
+/**
+ * Class representing the season winter as a state of season states.
+ * 
+ * <p>
+ * Implementation of the state pattern design.
+ * <p>
+ * Calculates its {@link #seasonalEffort()} and {@link #leafState()}.
+ * 
+ * @see SeasonState
+ */
 public class SeasonWinter implements SeasonState {
   /*
    * <------------------------ State Related Functions ------------------------>
