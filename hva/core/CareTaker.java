@@ -71,6 +71,17 @@ public class CareTaker extends Worker {
    */
 
   /**
+   * This method alters this vet's satisfaction formula to the given one.
+   * 
+   * @param formula the new satisfaction formula of this vet
+   * 
+   * @see VetSatisfactionFormula
+   */
+  void setSatisfactionFormula(CareTakerSatisfactionFormula formula) {
+    _careTakerSatisfactionFormula = formula;
+  } 
+
+  /**
    * This method adds a habitat as a responsibility to this caretaker.
    * 
    * @param id the identifier of the habitat
