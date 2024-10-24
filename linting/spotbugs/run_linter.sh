@@ -1,0 +1,1 @@
+./spot_bugs_bin/bin/spotbugs.sh -textui -auxclasspath ../../lib/po-uilib.jar -effort:max -high -output report.out ../../hva

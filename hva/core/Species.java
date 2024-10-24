@@ -156,7 +156,7 @@ public class Species implements Serializable, Comparable<Species> {
   @Override
   public int hashCode() {
     if (_id == null) {
-    return super.hashCode();
+      return super.hashCode();
     }
     return _id.toLowerCase().hashCode();
   }
@@ -164,7 +164,7 @@ public class Species implements Serializable, Comparable<Species> {
   @Override
   public boolean equals(Object obj) {
     if (_id == null) {
-    super.equals(obj);
+      super.equals(obj);
     }
     if (this == obj) {
       return true;
