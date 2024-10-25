@@ -208,7 +208,7 @@ public class Vet extends Worker {
    * 
    * @see #vaccinate(Animal, Vaccine)
    */
-  private int countSameChars(HashMap<Character, Integer> animalSpeciesName, char[] speciesName) {
+  private int countSameChars(Map<Character, Integer> animalSpeciesName, char[] speciesName) {
     int count = 0;
 
     for (char speciesChar : speciesName) {
@@ -243,18 +243,18 @@ public class Vet extends Worker {
 
     int damage = 0;
     char[] animalSpeciesName = animal.species().name().toCharArray();
-    HashMap<Character, Integer> animalSpeciesNameCharCount = new HashMap<Character, Integer>();
+    Map<Character, Integer> animalSpeciesNameCharCount = new HashMap<Character, Integer>();
 
     // Count the number of each character in the animal species name
     for (char speciesChar : animalSpeciesName) {
-      animalSpeciesNameCharCount.put(speciesChar,
-          animalSpeciesNameCharCount.getOrDefault(speciesChar, 0) + 1);
+      animalSpeciesNameCharCount.put(Character.toLowerCase(speciesChar),
+          animalSpeciesNameCharCount.getOrDefault(Character.toLowerCase(speciesChar), 0) + 1);
     }
 
     // Calculate the max damage
     for (Species species : vaccine.species()) {
-      char[] vaccineSpeciesName = species.name().toCharArray();
-      HashMap<Character, Integer> clonedCharCount = new HashMap<>(animalSpeciesNameCharCount);
+      char[] vaccineSpeciesName = species.name().toLowerCase().toCharArray();
+      Map<Character, Integer> clonedCharCount = new HashMap<>(animalSpeciesNameCharCount);
       int tempDamage = Math.max(vaccineSpeciesName.length, animalSpeciesName.length)
           - countSameChars(clonedCharCount, vaccineSpeciesName);
       damage = Math.max(tempDamage, damage);

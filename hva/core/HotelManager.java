@@ -193,9 +193,7 @@ public class HotelManager {
    * @throws IOException if an I/O error occurs during serialization.
    **/
   public boolean hotelModified() throws IOException {
-    if (_originalSerializedHotel == null) {
-      return true;
-    }
-    return !Arrays.equals(_originalSerializedHotel, serializeHotel(_hotel));
+    return _originalSerializedHotel == null
+        || !Arrays.equals(_originalSerializedHotel, serializeHotel(_hotel));
   }
 }

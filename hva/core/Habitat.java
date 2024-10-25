@@ -29,8 +29,7 @@ public class Habitat implements Serializable, Comparable<Habitat> {
   private final String _id;
   private final String _name;
   private int _area;
-  private final Map<Species, ArrayList<Animal>> _animals =
-      new HashMap<Species, ArrayList<Animal>>();
+  private final Map<Species, List<Animal>> _animals = new HashMap<Species, List<Animal>>();
   private final Map<Species, Influence> _suitability = new HashMap<Species, Influence>();
   private final Map<String, CareTaker> _careTakers = new CaseInsensitiveHashMap<CareTaker>();
   private final Map<String, Tree> _trees = new CaseInsensitiveHashMap<Tree>();

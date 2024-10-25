@@ -407,7 +407,7 @@ public class Hotel implements Serializable {
     }
 
     String[] idsSpecies = idSpecies.split("\\s*,\\s*");
-    ArrayList<Species> allSpecies = new ArrayList<Species>();
+    List<Species> allSpecies = new ArrayList<Species>();
 
     // Add Check due to parser allowing for vaccines with no species.
     if (!idSpecies.isBlank()) {
