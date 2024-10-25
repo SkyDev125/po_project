@@ -81,7 +81,7 @@ public class HotelManager {
    * 
    * @see Hotel
    */
-  public float satisfaction() {
+  public double satisfaction() {
     return _hotel.satisfaction();
   }
 

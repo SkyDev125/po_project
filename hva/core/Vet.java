@@ -161,7 +161,7 @@ public class Vet extends Worker {
    * 
    * @see Worker#satisfaction()
    */
-  float satisfaction() {
+  double satisfaction() {
     return _vetSatisfactionFormula.satisfaction(this);
   }
 

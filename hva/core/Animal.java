@@ -155,7 +155,7 @@ public class Animal implements Serializable, Comparable<Animal> {
    * 
    * @see Habitat
    */
-  float satisfaction() {
+  double satisfaction() {
     int sameSpecies = _habitat.sameSpeciesCount(_species);
     int population = _habitat.animals().size();
 

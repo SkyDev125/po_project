@@ -125,7 +125,7 @@ public class CareTaker extends Worker {
    * @see Worker#satisfaction()
    * @see CareTakerSatisfactionFormula
    */
-  float satisfaction() {
+  double satisfaction() {
     return _careTakerSatisfactionFormula.satisfaction(this);
   }
 

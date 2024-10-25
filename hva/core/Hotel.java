@@ -461,10 +461,10 @@ public class Hotel implements Serializable {
    * @see Animal
    * @see Worker
    */
-  public float satisfaction() {
+  public double satisfaction() {
     Collection<Animal> animals = _animals.values();
     Collection<Worker> workers = _workers.values();
-    float totalSatisfaction = 0;
+    double totalSatisfaction = 0;
 
     for (Animal animal : animals) {
       totalSatisfaction += animal.satisfaction();
@@ -515,7 +515,7 @@ public class Hotel implements Serializable {
    * 
    * @see Animal
    */
-  public float animalSatisfaction(String id) throws AnimalNotFoundException {
+  public double animalSatisfaction(String id) throws AnimalNotFoundException {
     return animalExistsWithException(id).satisfaction();
   }
 
@@ -585,7 +585,7 @@ public class Hotel implements Serializable {
    * 
    * @see Worker
    */
-  public float workerSatisfaction(String id) throws WorkerNotFoundException {
+  public double workerSatisfaction(String id) throws WorkerNotFoundException {
     return workerExistsWithException(id).satisfaction();
   }
 

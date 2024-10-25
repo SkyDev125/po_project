@@ -135,7 +135,7 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
    * @see Vet#satisfaction()
    * @see CareTaker#satisfaction()
    */
-  abstract float satisfaction();
+  abstract double satisfaction();
 
   /**
    * Returns a String representation of this worker, the "tipo" depends on the type of worker.

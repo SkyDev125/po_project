@@ -30,8 +30,8 @@ public class VetSatisfactionDefaultFormula implements VetSatisfactionFormula, Se
    * @see Vet#satisfaction()
    * @see VetSatisfactionFormula
    */
-  public float satisfaction(Vet vet) {
-    float satisfactionPerSpecies = 0;
+  public double satisfaction(Vet vet) {
+    double satisfactionPerSpecies = 0;
 
     for (Species currentSpecies : vet.responsibilities()) {
       satisfactionPerSpecies += (currentSpecies.animalCount() / currentSpecies.vetCount());
