@@ -29,6 +29,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Class representing the zoo hotel of this application.
@@ -47,11 +49,12 @@ public class Hotel implements Serializable {
   private SeasonState _season = new SeasonSpring();
   private final Map<String, Species> _species = new CaseInsensitiveHashMap<Species>();
   private final Map<String, Vaccine> _vaccines = new CaseInsensitiveHashMap<Vaccine>();
-  private final List<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
   private final Map<String, Animal> _animals = new CaseInsensitiveHashMap<Animal>();
   private final Map<String, Habitat> _habitats = new CaseInsensitiveHashMap<Habitat>();
   private final Map<String, Tree> _trees = new CaseInsensitiveHashMap<Tree>();
   private final Map<String, Worker> _workers = new CaseInsensitiveHashMap<Worker>();
+  private final List<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  private final Set<SeasonObservers> _observers = new HashSet<SeasonObservers>();
 
   /*
    * <------------------------ Gets ------------------------>
@@ -259,14 +262,9 @@ public class Hotel implements Serializable {
     // Create and Add Worker
     Worker worker;
     switch (type) {
-      case "VET":
-        worker = new Vet(idWorker, name, this);
-        break;
-      case "TRT":
-        worker = new CareTaker(idWorker, name, this);
-        break;
-      default:
-        throw new UnrecognizedWorkerTypeException(type);
+      case "VET" -> worker = new Vet(idWorker, name, this);
+      case "TRT" -> worker = new CareTaker(idWorker, name, this);
+      default -> throw new UnrecognizedWorkerTypeException(type);
     }
     _workers.put(idWorker, worker);
     return worker;
@@ -368,19 +366,16 @@ public class Hotel implements Serializable {
       throw new DuplicateTreeException(idTree);
     }
 
+    // Create and Add Tree
     Tree tree;
     switch (type) {
-      case "PERENE":
-        tree = new Evergreen(idTree, name, age, cleanDiff, this);
-        break;
-      case "CADUCA":
-        tree = new Deciduos(idTree, name, age, cleanDiff, this);
-        break;
-      default:
-        throw new UnrecognizedTreeTypeException(type);
+      case "PERENE" -> tree = new Evergreen(idTree, name, age, cleanDiff, this);
+      case "CADUCA" -> tree = new Deciduos(idTree, name, age, cleanDiff, this);
+      default -> throw new UnrecognizedTreeTypeException(type);
     }
 
     _trees.put(idTree, tree);
+    addObserver(tree);
     return tree;
   }
 
@@ -446,8 +441,8 @@ public class Hotel implements Serializable {
    */
   public SeasonState progressSeason() {
     _season = _season.next();
-    for (Tree tree : _trees.values()) {
-      tree.grow();
+    for (SeasonObservers observer : _observers) {
+      observer.update();
     }
     return _season;
   }
@@ -1001,6 +996,28 @@ public class Hotel implements Serializable {
       throw new VaccineNotFoundException(id);
     }
     return vaccine;
+  }
+
+  /**
+   * Add a subscriber to season changes.
+   * 
+   * @param observer the observer to be added.
+   * 
+   * @see SeasonObservers
+   */
+  void addObserver(SeasonObservers observer) {
+    _observers.add(observer);
+  }
+
+  /**
+   * Remove a subscriber to season changes.
+   *
+   * @param observer the observer to be removed.
+   *
+   * @see SeasonObservers
+   */
+  void removeObserver(SeasonObservers observer) {
+    _observers.remove(observer);
   }
 
   /**

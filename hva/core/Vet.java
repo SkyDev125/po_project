@@ -103,7 +103,7 @@ public class Vet extends Worker {
    */
   void setSatisfactionFormula(VetSatisfactionFormula formula) {
     _vetSatisfactionFormula = formula;
-  } 
+  }
 
   /**
    * This method adds a species responsibility to this vet.
@@ -254,8 +254,9 @@ public class Vet extends Worker {
     // Calculate the max damage
     for (Species species : vaccine.species()) {
       char[] vaccineSpeciesName = species.name().toCharArray();
+      HashMap<Character, Integer> clonedCharCount = new HashMap<>(animalSpeciesNameCharCount);
       int tempDamage = Math.max(vaccineSpeciesName.length, animalSpeciesName.length)
-          - countSameChars(animalSpeciesNameCharCount, vaccineSpeciesName);
+          - countSameChars(clonedCharCount, vaccineSpeciesName);
       damage = Math.max(tempDamage, damage);
     }
 

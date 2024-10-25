@@ -19,7 +19,7 @@ import hva.core.enumerator.SeasonType;
  * @see Evergreen
  * @see Deciduos
  */
-public abstract class Tree implements Serializable, Comparable<Tree> {
+public abstract class Tree implements Serializable, Comparable<Tree>, SeasonObservers {
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -138,6 +138,15 @@ public abstract class Tree implements Serializable, Comparable<Tree> {
     if (_birthSeason == _hotel.season().seasonType()) {
       _age++;
     }
+  }
+
+  /**
+   * Updates the state of this tree according to the current season.
+   * 
+   * @see SeasonType
+   */
+  public void update() {
+    grow();
   }
 
   /**
