@@ -155,7 +155,7 @@ public class Species implements Serializable, Comparable<Species> {
    */
   @Override
   public int compareTo(Species species) {
-    return _id.compareToIgnoreCase(species.id()) + _name.compareToIgnoreCase(species.name());
+    return _id.compareToIgnoreCase(species.id());
   }
 
   /**
@@ -256,5 +256,10 @@ public class Species implements Serializable, Comparable<Species> {
     out.writeObject(_name);
     out.writeObject(_animals);
     out.writeObject(_vets);
+  }
+
+  @Override
+  public String toString() {
+    return _id;
   }
 }

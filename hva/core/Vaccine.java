@@ -108,7 +108,7 @@ public class Vaccine implements Serializable, Comparable<Vaccine> {
 
     if (!_species.isEmpty()) {
       species =
-          "|" + String.join(",", _species.values().stream().map(Species::id).sorted().toList());
+          "|" + String.join(",", _species.values().stream().sorted().map(s -> s.id()).toList());
     }
 
     return String.format("VACINA|%s|%s|%d%s", _id, _name, _applyCount, species.toString());
