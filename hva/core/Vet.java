@@ -95,6 +95,17 @@ public class Vet extends Worker {
    */
 
   /**
+   * This method alters this vet's satisfaction formula to the given one.
+   * 
+   * @param formula the new satisfaction formula of this vet
+   * 
+   * @see VetSatisfactionFormula
+   */
+  void setSatisfactionFormula(VetSatisfactionFormula formula) {
+    _vetSatisfactionFormula = formula;
+  } 
+
+  /**
    * This method adds a species responsibility to this vet.
    * 
    * @param id the identifier of the species
