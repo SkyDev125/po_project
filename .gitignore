@@ -4,6 +4,7 @@
 # Log file
 *.log
 *.out
+*.cache
 
 # BlueJ files
 *.ctxt
