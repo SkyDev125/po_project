@@ -34,7 +34,7 @@ public class Vet extends Worker {
 
   private VetSatisfactionFormula _vetSatisfactionFormula = new VetSatisfactionDefaultFormula();
   private final Map<String, Species> _responsibilities = new CaseInsensitiveHashMap<Species>();
-  private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  private final List<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
   /*
    * <------------------------ Constructor ------------------------>

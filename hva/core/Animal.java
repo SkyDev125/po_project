@@ -29,7 +29,7 @@ public class Animal implements Serializable, Comparable<Animal> {
   private final String _name;
   private final Species _species;
   private Habitat _habitat;
-  private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  private final List<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
 
   /*
    * <------------------------ Constructor ------------------------>

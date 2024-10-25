@@ -47,7 +47,7 @@ public class Hotel implements Serializable {
   private SeasonState _season = new SeasonSpring();
   private final Map<String, Species> _species = new CaseInsensitiveHashMap<Species>();
   private final Map<String, Vaccine> _vaccines = new CaseInsensitiveHashMap<Vaccine>();
-  private final ArrayList<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
+  private final List<VaccineRegistry> _vaccineRegistry = new ArrayList<VaccineRegistry>();
   private final Map<String, Animal> _animals = new CaseInsensitiveHashMap<Animal>();
   private final Map<String, Habitat> _habitats = new CaseInsensitiveHashMap<Habitat>();
   private final Map<String, Tree> _trees = new CaseInsensitiveHashMap<Tree>();
