@@ -43,10 +43,4 @@ public interface SeasonState extends Serializable {
   public LeafState leafState(Deciduos tree);
 
   public LeafState leafState(Evergreen tree);
-
-  /*
-   * <------------------------ Other ------------------------>
-   */
-  @Override
-  public String toString();
 }

@@ -55,13 +55,4 @@ public class SeasonSpring implements SeasonState {
   public LeafState leafState(Evergreen tree) {
     return LeafState.GENERATELEAVES;
   }
-
-  /*
-   * <------------------------ Other ------------------------>
-   */
-
-  @Override
-  public String toString() {
-    return seasonType().toString();
-  }
 }

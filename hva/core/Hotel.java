@@ -1,7 +1,7 @@
 package hva.core;
 
 import hva.core.enumerator.Influence;
-
+import hva.core.enumerator.SeasonType;
 import hva.core.exception.AnimalNotFoundException;
 import hva.core.exception.DuplicateAnimalException;
 import hva.core.exception.DuplicateHabitatException;
@@ -157,7 +157,7 @@ public class Hotel implements Serializable {
    * @see SeasonState
    * @see Tree
    */
-  public SeasonState season() {
+  SeasonState season() {
     return _season;
   }
 
@@ -439,12 +439,12 @@ public class Hotel implements Serializable {
    * @see SeasonState
    * @see Tree
    */
-  public SeasonState progressSeason() {
+  public SeasonType progressSeason() {
     _season = _season.next();
     for (SeasonObservers observer : _observers) {
       observer.update();
     }
-    return _season;
+    return _season.seasonType();
   }
 
   /**

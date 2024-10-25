@@ -55,12 +55,4 @@ public class SeasonWinter implements SeasonState {
   public LeafState leafState(Evergreen tree) {
     return LeafState.FALLINGLEAVES;
   }
-
-  /*
-   * <------------------------ Other ------------------------>
-   */
-  @Override
-  public String toString() {
-    return seasonType().toString();
-  }
 }
