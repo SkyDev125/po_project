@@ -34,7 +34,7 @@ public class VetSatisfactionDefaultFormula implements VetSatisfactionFormula, Se
     double satisfactionPerSpecies = 0;
 
     for (Species currentSpecies : vet.responsibilities()) {
-      satisfactionPerSpecies += (currentSpecies.animalCount() / currentSpecies.vetCount());
+      satisfactionPerSpecies += ((double) currentSpecies.animalCount() / currentSpecies.vetCount());
     }
 
     return (20 - satisfactionPerSpecies);

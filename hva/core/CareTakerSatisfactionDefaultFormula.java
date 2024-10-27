@@ -36,7 +36,7 @@ public class CareTakerSatisfactionDefaultFormula
   public double satisfaction(CareTaker careTaker) {
 
     double satisfactionPerHabitat = 0;
-    int workInHabitat;
+    double workInHabitat;
 
     for (Habitat currentHabitat : careTaker.responsibilities()) {
       workInHabitat = currentHabitat.area() + 3 * currentHabitat.animals().size();
@@ -45,7 +45,7 @@ public class CareTakerSatisfactionDefaultFormula
         workInHabitat += currentTree.totalCleaningEffort();
       }
 
-      satisfactionPerHabitat += (workInHabitat / currentHabitat.careTakers().size());
+      satisfactionPerHabitat += ((double) workInHabitat / currentHabitat.careTakers().size());
     }
 
     return (300 - satisfactionPerHabitat);

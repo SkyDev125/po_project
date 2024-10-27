@@ -160,7 +160,7 @@ public class Animal implements Serializable, Comparable<Animal> {
     int population = _habitat.animals().size();
 
     return (20 + (3 * (sameSpecies - 1)) - (2 * (population - sameSpecies))
-        + (_habitat.area() / population) + _habitat.suitability(_species).value());
+        + ((double) _habitat.area() / population) + _habitat.suitability(_species).value());
   }
 
   /**
