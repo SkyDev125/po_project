@@ -294,7 +294,7 @@ public class Vet extends Worker {
 
     if (!_responsibilities.isEmpty()) {
       responsibilities = "|" + String.join(",",
-          _responsibilities.values().stream().map(Species::id).sorted().toList());
+          _responsibilities.values().stream().sorted().map(s -> s.id()).toList());
     }
 
     return String.format("VET|%s|%s%s", id(), name(), responsibilities.toString());

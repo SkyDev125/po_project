@@ -79,7 +79,7 @@ public class CareTaker extends Worker {
    */
   void setSatisfactionFormula(CareTakerSatisfactionFormula formula) {
     _careTakerSatisfactionFormula = formula;
-  } 
+  }
 
   /**
    * This method adds a habitat as a responsibility to this caretaker.
@@ -153,7 +153,7 @@ public class CareTaker extends Worker {
 
     if (!_responsibilities.isEmpty()) {
       responsibilities = "|" + String.join(",",
-          _responsibilities.values().stream().map(Habitat::id).sorted().toList());
+          _responsibilities.values().stream().sorted().map(h -> h.id()).toList());
     }
 
     return String.format("TRT|%s|%s%s", id(), name(), responsibilities.toString());
