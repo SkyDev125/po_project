@@ -270,6 +270,10 @@ public class Vet extends Worker {
     }
   }
 
+  public int totalResponsibilities(){
+    return _responsibilities.size();
+  }
+
   /**
    * Returns a String representation of this vet.
    * 

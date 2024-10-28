@@ -3,9 +3,9 @@ package hva.app.habitat;
 import hva.core.Hotel;
 
 import hva.core.exception.DuplicateHabitatException;
-
+import hva.core.exception.HabitatNotFoundException;
 import hva.app.exception.DuplicateHabitatKeyException;
-
+import hva.app.exception.UnknownHabitatKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
@@ -28,6 +28,8 @@ class DoRegisterHabitat extends Command<Hotel> {
           integerField("habitatArea"));
     } catch (DuplicateHabitatException e) {
       throw new DuplicateHabitatKeyException(e.id());
+    } catch (HabitatNotFoundException e) {
+      throw new UnknownHabitatKeyException(e.id());
     }
   }
 }

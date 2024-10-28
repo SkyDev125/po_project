@@ -129,6 +129,10 @@ public class CareTaker extends Worker {
     return _careTakerSatisfactionFormula.satisfaction(this);
   }
 
+  public int totalResponsibilities() {
+    return _responsibilities.size();
+  }
+
   /**
    * Returns a String representation of this caretaker.
    * 

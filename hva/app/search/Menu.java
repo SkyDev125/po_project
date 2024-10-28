@@ -7,7 +7,9 @@ public class Menu extends pt.tecnico.uilib.menus.Menu {
           new DoShowAnimalsInHabitat(receiver),
           new DoShowMedicalActsOnAnimal(receiver),
           new DoShowMedicalActsByVeterinarian(receiver),
-          new DoShowWrongVaccinations(receiver)
+          new DoShowWrongVaccinations(receiver),
+          new DoShowWorkersOverResponsibilities(receiver),
+          new DoShowMoreSatisfiedAnimal(receiver)
           );
   }
 }

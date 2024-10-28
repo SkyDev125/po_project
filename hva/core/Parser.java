@@ -1,7 +1,6 @@
 package hva.core;
 
 import java.io.IOException;
-
 import hva.core.exception.DuplicateAnimalException;
 import hva.core.exception.DuplicateHabitatException;
 import hva.core.exception.DuplicateSpeciesException;
@@ -161,7 +160,7 @@ public class Parser {
         for (String treeKey : listOfTree)
           hab.addTree(_hotel.treeExistsWithException(treeKey));
       }
-    } catch (TreeNotFoundException | DuplicateHabitatException e) {
+    } catch (TreeNotFoundException | DuplicateHabitatException | HabitatNotFoundException e) {
       throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
     }
   }

@@ -107,6 +107,8 @@ abstract public class Worker implements Serializable, Comparable<Worker> {
   abstract void addResponsibility(String id)
       throws SpeciesNotFoundException, HabitatNotFoundException;
 
+  public abstract int totalResponsibilities();
+
   /**
    * This abstract method removes a responsibility to this worker, depends on the type of worker.
    * 

@@ -1,5 +1,6 @@
 package hva.core;
 
+import hva.app.exception.UnknownHabitatKeyException;
 import hva.core.enumerator.Influence;
 import hva.core.enumerator.SeasonType;
 import hva.core.exception.AnimalNotFoundException;
@@ -283,15 +284,18 @@ public class Hotel implements Serializable {
    * @return the created habitat
    * 
    * @throws DuplicateHabitatException If a habitat with the same identifier already exists.
+   * @throws HabitatNotFoundException
    * 
    * @see Habitat
    */
   public Habitat addHabitat(String idHabitat, String name, int area)
-      throws DuplicateHabitatException {
+      throws DuplicateHabitatException, HabitatNotFoundException {
 
     // Exception Checks
     if (habitatExists(idHabitat) != null) {
       throw new DuplicateHabitatException(idHabitat);
+    } else if (name.length() < idHabitat.length()) {
+      throw new HabitatNotFoundException("número inválido de animais no habitat");
     }
 
     // Create and Add Habitat
@@ -1018,6 +1022,25 @@ public class Hotel implements Serializable {
    */
   void removeObserver(SeasonObservers observer) {
     _observers.remove(observer);
+  }
+
+  public Animal moreSatisfiedAnimal() {
+    Animal mostSatisfiedAnimal = null;
+    for (Animal animal : _animals.values()) {
+      if (mostSatisfiedAnimal == null) {
+        mostSatisfiedAnimal = animal;
+        continue;
+      }
+
+      double currentSatisfaction = animal.satisfaction();
+      double maxSatisfaction = mostSatisfiedAnimal.satisfaction();
+
+      if (currentSatisfaction > maxSatisfaction || (currentSatisfaction == maxSatisfaction
+          && animal.name().length() > mostSatisfiedAnimal.name().length())) {
+        mostSatisfiedAnimal = animal;
+      }
+    }
+    return mostSatisfiedAnimal;
   }
 
   /**
